@@ -1,0 +1,22 @@
+# Core data science
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+seaborn>=0.12
+
+# Interactive plotting
+plotly>=5.15
+kaleido>=0.2
+chart-studio>=1.1
+
+# API clients
+cfbd>=4.4
+pytrends>=4.9
+
+# Publishing workflow
+python-dotenv>=1.0
+requests>=2.31
+
+# Jupyter
+jupyter>=1.0
+notebook>=7.0
