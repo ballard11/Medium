@@ -2,16 +2,34 @@
 
 Analysis notebooks and articles for [medium.com/@ben.g.ballard](https://medium.com/@ben.g.ballard).
 
+**40 stories published** | **~43K views** | **$85.44 lifetime earnings** | See [STATS.md](STATS.md) for full analytics.
+
+## Docs
+
+| Doc | Purpose |
+|-----|---------|
+| [STRATEGY.md](STRATEGY.md) | Growth strategy — franchise model, publishing cadence, distribution plan |
+| [STATS.md](STATS.md) | Analytics dashboard — lifetime data, revenue by category, what works vs. doesn't. Updated monthly. |
+
 ## Projects
 
-| Folder | Topic | Status |
-|--------|-------|--------|
-| `cfb-data-analysis` | College football scoring distributions (CFBD API) | Draft |
-| `google-trends` | Data science keyword trends (pytrends) | Draft |
-| `maryland-car-crashes` | Maryland vehicle crash trends + COVID impact | Draft |
-| `whoop-health-data` | Whoop health/fitness wearable data exploration | Draft |
-| `zillow-home-values` | Zillow Home Value Index forecasting by state | Draft |
-| `oklahoma-football` | Oklahoma vs Notre Dame historical analysis (R) | Draft |
+| Folder | Topic | Published Stories | Earnings |
+|--------|-------|-------------------|----------|
+| `cfb-data-analysis` | College football scoring (CFBD API) | CFB Talent Trends, CFB Recap, Portal P1 & P2 | $1.01 |
+| `google-trends` | Keyword trends (pytrends) | Using Google Trends API, Mastering Google Trends | $9.23 |
+| `maryland-car-crashes` | MD vehicle crashes + COVID | Maryland Car Crash Trends, Maryland Car Crashes | $0.08 |
+| `whoop-health-data` | Whoop wearable health data | — (unpublished) | — |
+| `zillow-home-values` | Zillow ZHVI forecasting | — (unpublished) | — |
+| `oklahoma-football` | Oklahoma vs Notre Dame (R) | — (unpublished) | — |
+
+**Top earners not yet in repo** (franchise opportunities):
+
+| Story | Earnings | Views | Opportunity |
+|-------|----------|-------|-------------|
+| Unlocking Sports Betting with Python | $32.26 | 6,700 | Sequel series + 2026 refresh |
+| Analyzing NBA Data Using Python and APIs | $13.45 | 14,100 | Sequel / updated version |
+| How to Analyze NBA Stats with the NBA API | $12.47 | 3,800 | Part of NBA franchise |
+| Easy Live Sports Odds: A Guide to Google... | $2.86 | 1,990 | Betting franchise |
 
 ## Setup
 
@@ -70,7 +88,7 @@ Each project folder follows this layout:
 project-name/
 |-- analysis.ipynb    # Jupyter notebook (the analysis factory)
 |-- article.md        # Polished article for Medium
-|-- README.md         # Project description and status
+|-- README.md         # Project description, status, and performance stats
 |-- data/             # Data files (CSVs, etc.) - optional
 +-- images/           # Generated charts/figures - optional
 ```
