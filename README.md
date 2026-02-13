@@ -86,9 +86,9 @@ Each project folder follows this layout:
 
 ```
 project-name/
-|-- analysis.ipynb    # Jupyter notebook (the analysis factory)
-|-- article.md        # Polished article for Medium
-|-- README.md         # Project description, status, and performance stats
-|-- data/             # Data files (CSVs, etc.) - optional
-+-- images/           # Generated charts/figures - optional
+|-- <descriptive-name>.ipynb  # Jupyter notebook (e.g. odds-api-2026.ipynb)
+|-- article.md                # Polished article for Medium
+|-- README.md                 # Project description, status, and performance stats
+|-- data/                     # Data files (CSVs, etc.) - optional
++-- images/                   # Generated charts/figures - optional
 ```
