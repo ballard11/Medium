@@ -1,100 +1,79 @@
-# Quarto
-/.quarto/
-/_site/
-*.html
-/.luarc.json
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-.venv
-pip-log.txt
-pip-delete-this-directory.txt
-.pytest_cache/
-.coverage
-htmlcov/
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-notebooks/scratch/  # Keep messy exploratory work local
-
-# Data files (potentially sensitive or large)
+# --- DATA & SECRETS (Highest Priority) ---
+# Never upload raw datasets or API credentials
+data/
+raw_data/
+datasets/
+scraped_data/
 *.csv
 *.json
 *.xlsx
 *.parquet
 *.db
 *.sqlite
+.env
+.env.*
+!.env.example
+auth.yaml
+secrets.py
+config.ini
+credentials.json
+*.key
+*.pem
+
+# --- QUARTO & BUILD ARTIFACTS ---
+# These are generated files; no need to track them
+.quarto/
+_site/
+_freeze/
+_publish.yml
+*.html
+
+# --- PYTHON & JUPYTER ---
+# Ignore environment and temp files
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- PROPRIETARY CODE & MODELS ---
+# Keep your competitive edge local
+scratch/
+proprietary/
+private/
+models/
 *.pkl
 *.pickle
-data/
-datasets/
-raw_data/
-scraped_data/
-
-# Trained models (proprietary)
-models/
 *.h5
 *.pt
 *.pth
 *.ckpt
 
-# API keys and secrets (AT ANY LEVEL)
-.env
-.env.*
-!.env.example  # Allow example files
-secrets/
-config.ini
-credentials.json
-*.key
-*.pem
-api_keys.py
-
-# OS
+# --- OPERATING SYSTEM ---
+# Hide system-specific junk
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# IDE
+# --- IDE & EDITOR ---
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# Logs
+# --- LOGS & TEMP FILES ---
 *.log
 logs/
-
-# Temporary files
 tmp/
 temp/
 *.tmp
-
-# Build artifacts
-dist/
-build/
-
-# Proprietary analysis (keep local)
-proprietary/
-private/
-internal/
-
-# Large output files
-*.mp4
-*.avi
-*.mov
-*.zip
-*.tar.gz
-
-# Backup files
 *.bak
 *.backup
-*~
