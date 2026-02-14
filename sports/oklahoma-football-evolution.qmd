@@ -4,13 +4,11 @@ description: "Analyzing 6 seasons of Oklahoma football data (2020-2025) to see h
 author: "Ben Ballard"
 date: "2026-02-14"
 categories: [sports, cfb, python, data-analysis]
-image: oklahoma-chart.png  # You'll generate this from the code
 draft: false
 execute:
-  freeze: true
+  eval: false  # Show code without executing (no API key needed for deployment)
   echo: true
   warning: false
-jupyter: python3
 ---
 
 If you're an Oklahoma fan, the last few years have been a rollercoaster. New coaches, new conference, new everything. But how has the team *actually* performed on the field when you look at the numbers?
