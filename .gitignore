@@ -23,6 +23,7 @@ htmlcov/
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb_checkpoints
+notebooks/scratch/  # Keep messy exploratory work local
 
 # Data files (potentially sensitive or large)
 *.csv
@@ -31,15 +32,30 @@ htmlcov/
 *.parquet
 *.db
 *.sqlite
+*.pkl
+*.pickle
 data/
 datasets/
+raw_data/
+scraped_data/
 
-# API keys and secrets
+# Trained models (proprietary)
+models/
+*.h5
+*.pt
+*.pth
+*.ckpt
+
+# API keys and secrets (AT ANY LEVEL)
 .env
-.env.local
+.env.*
+!.env.example  # Allow example files
 secrets/
 config.ini
 credentials.json
+*.key
+*.pem
+api_keys.py
 
 # OS
 .DS_Store
@@ -65,3 +81,20 @@ temp/
 # Build artifacts
 dist/
 build/
+
+# Proprietary analysis (keep local)
+proprietary/
+private/
+internal/
+
+# Large output files
+*.mp4
+*.avi
+*.mov
+*.zip
+*.tar.gz
+
+# Backup files
+*.bak
+*.backup
+*~

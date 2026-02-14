@@ -8,10 +8,49 @@ image: image.png  # Path to featured image (create an 'images/' folder in your p
 draft: false  # Set to 'true' to hide from listings
 execute:
   freeze: true  # CRITICAL: Prevents re-running expensive notebooks in CI/CD
-  echo: true    # Show code in output
+  echo: true    # Show code in output (set to 'false' to hide ALL code)
   warning: false  # Hide warnings
 jupyter: python3
 ---
+
+<!--
+CODE HIDING STRATEGIES (Public Repo, Private Logic):
+
+1. HIDE ALL CODE (show results only):
+   In YAML above, set: execute.echo: false
+
+2. HIDE SPECIFIC BLOCKS (selective hiding):
+   ```{python}
+   #| echo: false
+   # This code runs but is hidden from readers
+   proprietary_model = train_my_secret_algorithm(data)
+   predictions = proprietary_model.predict(new_data)
+   ```
+
+3. COLLAPSIBLE CODE (available but hidden by default):
+   ```{python}
+   #| code-fold: true
+   #| code-summary: "Show the code"
+   # Code is hidden behind a clickable button
+   df = process_data(raw_data)
+   ```
+
+4. SHOW RESULTS ONLY (evaluation off):
+   ```{python}
+   #| eval: false
+   # This code is shown as example but not executed
+   api_key = "YOUR_API_KEY"  # Readers see this as a placeholder
+   ```
+
+5. FREEZE STRATEGY (run locally, publish results):
+   - Set execute.freeze: true in YAML
+   - Run `quarto render` locally before pushing
+   - GitHub Actions deploys frozen results without re-running code
+   - Your proprietary logic never leaves your laptop
+
+BEST PRACTICE: Show setup/simple code, hide proprietary algorithms
+-->
+
 
 ## The Hook
 
