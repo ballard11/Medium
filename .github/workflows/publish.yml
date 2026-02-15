@@ -27,7 +27,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f the-modeled-world/requirements.txt ]; then pip install -r the-modeled-world/requirements.txt; fi
+          if [ -f bendiagrams-site/requirements.txt ]; then pip install -r bendiagrams-site/requirements.txt; fi
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Set up Quarto
@@ -37,12 +37,12 @@ jobs:
 
       - name: Render Quarto site
         run: |
-          cd the-modeled-world
+          cd bendiagrams-site
           quarto render
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./the-modeled-world/_site
+          publish_dir: ./bendiagrams-site/_site
           cname: bendiagrams.com
