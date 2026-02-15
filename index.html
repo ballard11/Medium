@@ -39,14 +39,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-a1eb13cb8b2dc0359327ff8bebc60abe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-4569cf774011a745e57a5076f698dfdd.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-a1eb13cb8b2dc0359327ff8bebc60abe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-c9194bc14ae50690701688e543e640f1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-60562f6740198146d45435ef9f8b7137.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-56f1b8c63cfcd33e34b1875d213dac9f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-60562f6740198146d45435ef9f8b7137.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-16ebe9197407bae725f838976070c0c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,7 +84,7 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-reading-time','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-date','listing-title','listing-reading-time','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
@@ -137,10 +137,11 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 <link rel="alternate" type="application/rss+xml" title="BenDiagrams" href="index.xml" data-external="1"><meta property="og:title" content="The Lab – BenDiagrams">
 <meta property="og:description" content="A data science lab for sports analytics, economic trends, and code experiments">
+<meta property="og:image" content="https://bendiagrams.com/sports/oklahoma-chart.png">
 <meta property="og:site_name" content="BenDiagrams">
 </head>
 
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -364,7 +365,7 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">The Lab</h1>
@@ -383,9 +384,8 @@ window.Quarto = {
   
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -395,6 +395,10 @@ window.Quarto = {
   <li><a href="#about-this-site" id="toc-about-this-site" class="nav-link" data-scroll-target="#about-this-site">About This Site</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ballard11/Medium/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ballard11/Medium/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Y2Zi">cfb <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YS1hbmFseXNpcw==">data-analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3BvcnRz">sports <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -407,7 +411,7 @@ window.Quarto = {
 <section id="welcome-to-the-lab" class="level2">
 <h2 class="anchored" data-anchor-id="welcome-to-the-lab">Welcome to The Lab</h2>
 <p>This is where I break down sports betting algorithms, track economic trends with Python, and share code experiments that answer questions like “Can I predict NBA player props?” or “What does the data say about inflation?”</p>
-<p>Think of this as <strong>learning by doing</strong> - every post includes real code, real data, and real results.</p>
+<p>Think of this as learning by doing - every post includes real code, real data, and real results.</p>
 <hr>
 </section>
 <section id="latest-posts" class="level2">
@@ -459,7 +463,12 @@ window.Quarto = {
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1771176658284" data-listing-reading-time-sort="1" data-listing-word-count-sort="61">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1771193684987" data-listing-reading-time-sort="1" data-listing-word-count-sort="61">
+<div class="thumbnail"><a href="./sports/index.html" class="no-external">
+
+<p class="card-img-top"><img src="sports/oklahoma-chart.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+
+</a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="./sports/index.html" class="no-external">Sports &amp; Odds</a>
@@ -474,7 +483,12 @@ NBA player prop models, college football betting trends, and sports analytics ex
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1771176658284" data-listing-reading-time-sort="1" data-listing-word-count-sort="60">
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1771193684987" data-listing-reading-time-sort="1" data-listing-word-count-sort="60">
+<div class="thumbnail"><a href="./economics/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+
+</a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="./economics/index.html" class="no-external">Economics &amp; Trends</a>
@@ -489,7 +503,12 @@ CPI analysis, inflation tracking, economic indicator deep-dives, and macro trend
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1771176658284" data-listing-reading-time-sort="1" data-listing-word-count-sort="61">
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1771193684987" data-listing-reading-time-sort="1" data-listing-word-count-sort="61">
+<div class="thumbnail"><a href="./code/index.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+
+</a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="./code/index.html" class="no-external">Code &amp; Labs</a>
@@ -504,7 +523,12 @@ How-to guides, API tutorials, Quarto setups, Python tricks, and general code exp
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="c3BvcnRzJTJDY2ZiJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1771027200000" data-listing-file-modified-sort="1771176658284" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1366">
+<div class="quarto-post image-right" data-index="3" data-categories="c3BvcnRzJTJDY2ZiJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1771027200000" data-listing-file-modified-sort="1771193684987" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1366">
+<div class="thumbnail"><a href="./sports/oklahoma-football-evolution.html" class="no-external">
+
+<img loading="lazy" src="./sports/oklahoma-chart.png" class="thumbnail-image" style="height: 150px;">
+
+</a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
 <a href="./sports/oklahoma-football-evolution.html" class="no-external">Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition</a>
@@ -527,7 +551,7 @@ How-to guides, API tutorials, Quarto setups, Python tricks, and general code exp
 <div class="metadata">
 <a href="./sports/oklahoma-football-evolution.html" class="no-external">
 <div class="listing-date">
-Feb 14, 2026
+2026-02-14
 </div>
 <div class="listing-reading-time">7 min</div>
 </a>
