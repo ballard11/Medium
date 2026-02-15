@@ -1,6 +1,12 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*.qmd"
+    - "!GETTING-STARTED.md"
+    - "!MIGRATION.md"
+    - "!README.md"
+    - "!SETUP.md"
 
 website:
   title: "BenDiagrams"
