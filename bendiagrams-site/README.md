@@ -1,8 +1,8 @@
-# The Modeled World
+# BenDiagrams
 
 A data science lab for sports analytics, economic trends, and code experiments.
 
-🌐 **Live Site:** [modeledworld.com](https://modeledworld.com)
+🌐 **Live Site:** [ballard11.github.io/Medium](https://ballard11.github.io/Medium)
 📝 **Medium:** [@ben.g.ballard](https://medium.com/@ben.g.ballard)
 🔧 **Tech Stack:** Quarto + GitHub Pages + Python
 
@@ -10,7 +10,7 @@ A data science lab for sports analytics, economic trends, and code experiments.
 
 ## What Is This?
 
-**The Modeled World** is my learning lab where I apply the Feynman Technique to data science: learning by teaching, teaching by doing, doing by showing the code.
+**BenDiagrams** is my learning lab where I apply the Feynman Technique to data science: learning by teaching, teaching by doing, doing by showing the code.
 
 Every post includes:
 - Real code (Python, Pandas, Plotly)
@@ -60,7 +60,7 @@ Every post includes:
 ## Project Structure
 
 ```
-the-modeled-world/
+bendiagrams-site/
 ├── _quarto.yml              # Main site configuration
 ├── index.qmd                # Homepage
 ├── about.qmd                # About page
@@ -101,8 +101,8 @@ the-modeled-world/
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/the-modeled-world.git
-cd the-modeled-world
+git clone https://github.com/ballard11/bendiagrams-site.git
+cd bendiagrams-site
 
 # Install Python dependencies
 pip install -r requirements.txt
@@ -192,18 +192,18 @@ Every push to `main` triggers GitHub Actions:
 3. Deploys to `gh-pages` branch
 4. Updates live site
 
-**Check deployment status:** [Actions tab](https://github.com/YOUR_USERNAME/the-modeled-world/actions)
+**Check deployment status:** [Actions tab](https://github.com/ballard11/bendiagrams-site/actions)
 
 ### Custom Domain Setup
 
-**Domain:** `modeledworld.com` (configured in CNAME file)
+**Domain:** `ballard11.github.io/Medium` (configured in CNAME file)
 
 **DNS Records** (at domain registrar):
 - 4 A records pointing to GitHub IPs
 - 1 CNAME for www subdomain
 
 **GitHub Settings:**
-- Custom domain: `modeledworld.com`
+- Custom domain: `ballard11.github.io/Medium`
 - Enforce HTTPS: ✅ Enabled
 
 See [SETUP.md](SETUP.md) for detailed instructions.
@@ -292,9 +292,9 @@ See [workflow.md](../memory/workflow.md) for complete details.
 
 This is a personal blog, but if you find errors or have suggestions:
 
-1. **Typos/errors:** [Open an issue](https://github.com/YOUR_USERNAME/the-modeled-world/issues)
-2. **Code improvements:** [Submit a PR](https://github.com/YOUR_USERNAME/the-modeled-world/pulls)
-3. **Content suggestions:** [Drop a comment on the blog](https://modeledworld.com) or find me on [Medium](https://medium.com/@ben.g.ballard)
+1. **Typos/errors:** [Open an issue](https://github.com/ballard11/bendiagrams-site/issues)
+2. **Code improvements:** [Submit a PR](https://github.com/ballard11/bendiagrams-site/pulls)
+3. **Content suggestions:** [Drop a comment on the blog](https://ballard11.github.io/Medium) or find me on [Medium](https://medium.com/@ben.g.ballard)
 
 ---
 
@@ -309,8 +309,8 @@ This is a personal blog, but if you find errors or have suggestions:
 ## Contact
 
 - **Medium:** [@ben.g.ballard](https://medium.com/@ben.g.ballard)
-- **LinkedIn:** [Your LinkedIn]
-- **GitHub:** [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
+- **LinkedIn:** [Ben Ballard](https://www.linkedin.com/in/ben-ballard-44969313/)
+- **GitHub:** [@ballard11](https://github.com/ballard11)
 
 ---
 

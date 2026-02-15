@@ -13,6 +13,7 @@ website:
   description: "A data science lab for sports analytics, economic trends, and code experiments"
   site-url: "https://bendiagrams.com"
   repo-url: "https://github.com/ballard11/Medium"
+  google-analytics: "G-7SD1391XRV"
 
   navbar:
     background: primary

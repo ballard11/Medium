@@ -56,7 +56,7 @@ Based on your Medium stats (from STATS.md):
 2. Copy the full text (including code blocks)
 3. Create new `.qmd` file in appropriate bucket:
    ```bash
-   touch the-modeled-world/sports/unlocking-sports-betting-python.qmd
+   touch bendiagrams-site/sports/unlocking-sports-betting-python.qmd
    ```
 
 ### Step 2: Convert to Quarto Format
@@ -100,7 +100,7 @@ jupyter: python3
 
 **Option A: Download from Medium**
 1. Right-click images in your Medium post
-2. Save to `the-modeled-world/sports/images/`
+2. Save to `bendiagrams-site/sports/images/`
 3. Reference in markdown: `![Alt text](images/chart.png)`
 
 **Option B: Regenerate from Code**
@@ -126,7 +126,7 @@ Since you're migrating, make improvements:
 
 ### Step 5: Test Locally
 ```bash
-cd the-modeled-world
+cd bendiagrams-site
 quarto preview
 ```
 
@@ -146,7 +146,7 @@ git push origin main
 ### Step 7: Update Medium Post
 
 **Add a redirect notice at the top of the Medium version:**
-> **📌 Update (Feb 2026):** This article has been updated and expanded on [The Modeled World](https://modeledworld.com/sports/article-slug). The code examples now include 2024-2025 season data and interactive visualizations.
+> **📌 Update (Feb 2026):** This article has been updated and expanded on [BenDiagrams](https://ballard11.github.io/Medium/sports/article-slug). The code examples now include 2024-2025 season data and interactive visualizations.
 
 **Why not delete the Medium post?**
 - It's still earning you money ($32/article over time)
@@ -223,8 +223,8 @@ After migrating all 5 articles:
 
 ### Google Search Console
 1. Sign up at [search.google.com/search-console](https://search.google.com/search-console)
-2. Verify ownership of `modeledworld.com`
-3. Submit sitemap: `https://modeledworld.com/sitemap.xml`
+2. Verify ownership of `ballard11.github.io/Medium`
+3. Submit sitemap: `https://ballard11.github.io/Medium/sitemap.xml`
 4. Request indexing for each migrated article
 
 ### Internal Linking
