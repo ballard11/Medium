@@ -1,19 +1,22 @@
 ---
-title: "BenDiagrams"
+title: "The Lab"
 subtitle: "A data science lab for sports analytics, economic trends, and code experiments"
 listing:
   contents:
     - "sports/*.qmd"
     - "economics/*.qmd"
     - "code/*.qmd"
-  type: grid
-  max-items: 9
+  type: default
   sort: "date desc"
   categories: true
-  fields: [image, title, date, categories, description]
+  fields: [date, title, reading-time, description, categories]
   filter-ui: true
   sort-ui: true
-page-layout: full
+  feed:
+    items: 20
+    type: full
+    description-length: 500
+page-layout: article
 title-block-banner: true
 ---
 
@@ -47,3 +50,4 @@ Want these experiments delivered to your inbox? Sign up below.
 Built with [Quarto](https://quarto.org), published with GitHub Pages, written in Python. All code is reproducible. All data is cited. All experiments are transparent.
 
 If you find something useful, share it. If you find an error, [open an issue](https://github.com/ballard11/Medium/issues).
+<!-- Cache bust: 1771171921 -->

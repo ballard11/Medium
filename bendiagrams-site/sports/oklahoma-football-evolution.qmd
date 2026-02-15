@@ -3,7 +3,9 @@ title: "Tracking Oklahoma Football's Evolution: A Data-Driven Look at the Sooner
 description: "Analyzing 6 seasons of Oklahoma football data (2020-2025) to see how the offense and defense evolved during the SEC transition"
 author: "Ben Ballard"
 date: "2026-02-14"
+reading-time: "12 min"
 categories: [sports, cfb, python, data-analysis]
+image: oklahoma-chart.png  # You'll generate this from the code
 draft: false
 execute:
   eval: false  # Show code without executing (no API key needed for deployment)

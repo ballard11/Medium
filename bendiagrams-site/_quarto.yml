@@ -27,6 +27,8 @@ website:
         href: economics/index.qmd
       - text: "Code & Labs"
         href: code/index.qmd
+      - text: "The Toolbox"
+        href: toolbox/index.qmd
     right:
       - text: "About"
         href: about.qmd
@@ -46,12 +48,19 @@ website:
         href: "index.xml"
         text: "RSS"
 
+  comments:
+    utterances:
+      repo: ballard11/Medium
+      issue-term: pathname
+      theme: github-light
+
 format:
   html:
     theme:
       light: [cosmo, custom.scss]  # You can create custom.scss for brand colors
       dark: [cosmo, custom.scss]
     css: styles.css
+    highlight-style: github
     toc: true
     toc-depth: 3
     code-copy: true
@@ -67,9 +76,3 @@ format:
 execute:
   freeze: auto  # Only re-render changed files
   cache: false  # Disable cache to avoid jupyter-cache dependency in GitHub Actions
-
-# Enable RSS feeds
-feed:
-  items: 20
-  type: full
-  description-length: 500

@@ -3,6 +3,7 @@ title: "Your Post Title Here"
 description: "A short 1-2 sentence description that appears in previews and SEO"
 author: "Ben Ballard"
 date: today  # Use 'today' or 'YYYY-MM-DD' format
+reading-time: "8 min"  # Estimate: ~250 words/min, include code review time
 categories: [sports, python, data-analysis]  # Choose from: sports, economics, code, python, tutorial, nba, cfb, betting, apis
 image: image.png  # Path to featured image (create an 'images/' folder in your post directory)
 draft: false  # Set to 'true' to hide from listings

@@ -1,0 +1,50 @@
+---
+title: "Pandas"
+date: 2026-02-15
+categories: [tool, python, data-analysis]
+status: "Active Use"
+link: "https://pandas.pydata.org"
+description: "Essential Python library for data manipulation and analysis"
+---
+
+## What It Does
+
+Pandas is the foundational data analysis library for Python. It provides DataFrames (think Excel spreadsheets in code) and powerful tools for cleaning, transforming, and analyzing data.
+
+## Why I Bookmarked It
+
+Every single data analysis project I do starts with Pandas. It's the Swiss Army knife of data manipulation. Whether I'm cleaning API responses or calculating sports statistics, Pandas makes it simple.
+
+## Hello World Example
+
+```python
+import pandas as pd
+
+# Create a DataFrame from dict
+data = {
+    'team': ['Oklahoma', 'Texas', 'Alabama'],
+    'wins': [10, 12, 11],
+    'losses': [3, 2, 2]
+}
+
+df = pd.DataFrame(data)
+
+# Calculate win percentage
+df['win_pct'] = df['wins'] / (df['wins'] + df['losses'])
+
+print(df)
+```
+
+## Verdict
+
+**Status: Active Use** - Non-negotiable foundation of my data stack.
+
+- **Pros:** Industry standard, massive community, handles any data format
+- **Cons:** Memory-intensive for huge datasets (use Polars for that)
+- **Use Cases:** Every data analysis project, API response parsing, CSV manipulation
+
+## Resources
+
+- [Official Docs](https://pandas.pydata.org/docs/)
+- [10 Minutes to Pandas](https://pandas.pydata.org/docs/user_guide/10min.html)
+- [My Pandas Tutorials](../code/index.html)

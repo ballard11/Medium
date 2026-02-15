@@ -1,0 +1,40 @@
+---
+title: "Tool Name"
+date: 2026-02-15  # Use actual date when created
+categories: [tool, python]  # Options: python, r, javascript, api, database, visualization, scraper, agent, rag, etc.
+status: "Testing"  # Options: Testing, Archived, Active Use
+link: "https://example.com"
+description: "One-line description of what this tool does"
+---
+
+## What It Does
+
+Brief explanation of what this tool/package/resource is and what problem it solves.
+
+## Why I Bookmarked It
+
+What caught my attention? What use case does it solve for my workflow?
+
+## Hello World Example
+
+```python
+# Quick example showing basic usage
+import tool_name
+
+# Your minimal working example here
+result = tool_name.do_something()
+print(result)
+```
+
+## Verdict
+
+Current thoughts:
+- **Pros:** What works well
+- **Cons:** What doesn't
+- **Status:** Am I actively using this? Testing? Archived?
+
+## Resources
+
+- [Official Docs](https://...)
+- [GitHub Repo](https://...)
+- [Tutorial I Found Useful](https://...)
