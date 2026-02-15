@@ -47,3 +47,4 @@ Want these experiments delivered to your inbox? Sign up below.
 Built with [Quarto](https://quarto.org), published with GitHub Pages, written in Python. All code is reproducible. All data is cited. All experiments are transparent.
 
 If you find something useful, share it. If you find an error, [open an issue](https://github.com/ballard11/Medium/issues).
+<!-- Cache bust: 1771171921 -->
