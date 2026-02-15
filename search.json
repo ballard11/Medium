@@ -133,41 +133,6 @@
     "text": "What’s Next?\nI’m planning to expand this analysis to compare Oklahoma’s metrics against other SEC teams to see how they truly stack up in their new conference. Are they competitive? Or do they need more time to adjust?\nI’m also curious to break this down by opponent strength - did Oklahoma score more against weaker teams and struggle against ranked opponents?\nIf you want to run this analysis for your team, just grab your free API key and swap out “Oklahoma” for your school. The code is yours. Boomer Sooner!\n\nHave questions or want to see other teams analyzed? Drop a comment below. I love diving into sports data and I’m always looking for my next analysis project."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "The Lab",
-    "section": "",
-    "text": "This is where I break down sports betting algorithms, track economic trends with Python, and share code experiments that answer questions like “Can I predict NBA player props?” or “What does the data say about inflation?”\nThink of this as learning by doing - every post includes real code, real data, and real results."
-  },
-  {
-    "objectID": "index.html#welcome-to-the-lab",
-    "href": "index.html#welcome-to-the-lab",
-    "title": "The Lab",
-    "section": "",
-    "text": "This is where I break down sports betting algorithms, track economic trends with Python, and share code experiments that answer questions like “Can I predict NBA player props?” or “What does the data say about inflation?”\nThink of this as learning by doing - every post includes real code, real data, and real results."
-  },
-  {
-    "objectID": "index.html#latest-posts",
-    "href": "index.html#latest-posts",
-    "title": "The Lab",
-    "section": "Latest Posts",
-    "text": "Latest Posts"
-  },
-  {
-    "objectID": "index.html#newsletter",
-    "href": "index.html#newsletter",
-    "title": "The Lab",
-    "section": "Newsletter",
-    "text": "Newsletter\nWant these experiments delivered to your inbox? Sign up below.\n\n\n\nNewsletter signup form coming soon. For now, subscribe via RSS."
-  },
-  {
-    "objectID": "index.html#about-this-site",
-    "href": "index.html#about-this-site",
-    "title": "The Lab",
-    "section": "About This Site",
-    "text": "About This Site\nBuilt with Quarto, published with GitHub Pages, written in Python. All code is reproducible. All data is cited. All experiments are transparent.\nIf you find something useful, share it. If you find an error, open an issue."
-  },
-  {
     "objectID": "code/index.html",
     "href": "code/index.html",
     "title": "Code & Labs",
