@@ -14,13 +14,13 @@ First things first - you'll need an API key from [collegefootballdata.com](https
 
 Install the package if you haven't already:
 
-```python
+``` python
 pip install cfbd
 ```
 
 Now let's import what we need and set up the API:
 
-```python
+``` python
 import cfbd
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -40,7 +40,7 @@ Simple enough. Now we're ready to pull some data.
 
 Let's start by grabbing all 2025 games to see what we're working with:
 
-```python
+``` python
 # Get 2025 season games
 games_2025 = api_instance.get_games(year=2025)
 df_2025 = pd.DataFrame.from_records([g.to_dict() for g in games_2025])
@@ -51,7 +51,7 @@ df_2025.head()
 
 This pulls every single college football game from 2025 - we're talking thousands of games. But we only care about Oklahoma, so let's filter:
 
-```python
+``` python
 # Filter for just Oklahoma games (both home and away)
 oklahoma_games_2025 = df_2025[(df_2025['home_team'] == 'Oklahoma') | (df_2025['away_team'] == 'Oklahoma')]
 
@@ -61,7 +61,7 @@ oklahoma_games_2025[['week', 'home_team', 'away_team', 'home_points', 'away_poin
 
 You'll see something like:
 
-```
+```         
 Oklahoma played 13 games in 2025
 ```
 
@@ -71,7 +71,7 @@ Perfect. Now we've got all Oklahoma's games for one season.
 
 Here's where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.
 
-```python
+``` python
 # Figure out if Oklahoma was home or away
 oklahoma_games_2025['is_home'] = oklahoma_games_2025['home_team'] == 'Oklahoma'
 oklahoma_games_2025['points_scored'] = oklahoma_games_2025.apply(
@@ -91,7 +91,7 @@ So what data did we really get? Now for each game, we know exactly how many poin
 
 One season is interesting, but trends over time? That's where the magic happens. Let's grab 6 seasons (2020-2025) and process them all:
 
-```python
+``` python
 # Get data for 2020-2025 seasons
 years = [2020, 2021, 2022, 2023, 2024, 2025]
 all_seasons = {}
@@ -127,7 +127,7 @@ for year in years:
 
 You'll see output like:
 
-```
+```         
 2020: 11 games, 443 total points scored
 2021: 14 games, 569 total points scored
 2022: 13 games, 476 total points scored
@@ -142,7 +142,7 @@ Already you can see some trends - 2021 was a high-scoring year, while 2024 was r
 
 Let's create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):
 
-```python
+``` python
 # Visualize offensive and defensive trends
 fig, axs = plt.subplots(1, 2, figsize=(14, 5))
 
@@ -184,7 +184,7 @@ This gives you two beautiful charts showing how Oklahoma's offense and defense p
 
 Cumulative stats are cool, but let's normalize this by looking at points per game:
 
-```python
+``` python
 # Calculate average points per game for each season
 for year in years:
     data = all_seasons[year]
@@ -197,7 +197,7 @@ for year in years:
 
 Sample output:
 
-```
+```         
 2020 (11 games): 40.3 PPG scored, 26.5 PPG allowed, +13.8 point differential
 2021 (14 games): 40.6 PPG scored, 31.2 PPG allowed, +9.4 point differential
 2022 (13 games): 36.6 PPG scored, 27.8 PPG allowed, +8.8 point differential
@@ -212,7 +212,7 @@ Now we can clearly see the offensive decline - from 40+ PPG in 2020-2021 down to
 
 Let's make one more chart using Oklahoma's crimson and cream colors to show the year-over-year comparison:
 
-```python
+``` python
 # Create bar chart comparing PPG across seasons
 fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -241,11 +241,7 @@ This final chart makes it crystal clear - Oklahoma's offense has steadily declin
 
 ## What Did We Learn?
 
-The data tells a compelling story:
-- **Offense peaked in 2021** with 40.6 PPG, but has dropped nearly 9 points per game since then
-- **Defense has improved dramatically** - from allowing 31.2 PPG in 2021 to just 21.8 in 2025
-- **The program is transforming** from an offensive juggernaut to a more balanced, defense-first team
-- **SEC competition matters** - the 2024 and 2025 seasons (Oklahoma's first in the SEC) show the offensive struggles against tougher defenses
+The data tells a compelling story: - **Offense peaked in 2021** with 40.6 PPG, but has dropped nearly 9 points per game since then - **Defense has improved dramatically** - from allowing 31.2 PPG in 2021 to just 21.8 in 2025 - **The program is transforming** from an offensive juggernaut to a more balanced, defense-first team - **SEC competition matters** - the 2024 and 2025 seasons (Oklahoma's first in the SEC) show the offensive struggles against tougher defenses
 
 ## What's Next?
 
@@ -255,6 +251,6 @@ I'm also curious to break this down by opponent strength - did Oklahoma score mo
 
 If you want to run this analysis for your team, just grab your free API key and swap out "Oklahoma" for your school. The code is yours. Boomer Sooner!
 
----
+------------------------------------------------------------------------
 
 **Have questions or want to see other teams analyzed?** Drop a comment below. I love diving into sports data and I'm always looking for my next analysis project.
