@@ -61,10 +61,18 @@ format:
       dark: [cosmo, custom.scss]
     css: styles.css
     highlight-style: github
+    mainfont: "Lato"
+    monofont: "Fira Mono"
     toc: true
     toc-depth: 3
+    toc-location: left
     code-copy: true
     code-overflow: wrap
+    code-link: true
+    anchor-sections: true
+    fig-cap-location: margin
+    reference-location: margin
+    footnotes-hover: true
     link-external-newwindow: true
 
     # SEO and Social Sharing

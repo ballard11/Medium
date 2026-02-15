@@ -9,9 +9,12 @@ listing:
   type: default
   sort: "date desc"
   categories: true
-  fields: [date, title, reading-time, description, categories]
+  fields: [image, date, title, reading-time, description, categories]
   filter-ui: true
   sort-ui: true
+  image-height: 150px
+  page-size: 9
+  date-format: "YYYY-MM-DD"
   feed:
     items: 20
     type: full
@@ -23,7 +26,7 @@ title-block-banner: true
 
 This is where I break down sports betting algorithms, track economic trends with Python, and share code experiments that answer questions like "Can I predict NBA player props?" or "What does the data say about inflation?"
 
-Think of this as **learning by doing** - every post includes real code, real data, and real results.
+Think of this as learning by doing - every post includes real code, real data, and real results.
 
 ---
 
