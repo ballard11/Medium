@@ -1,0 +1,67 @@
+# Quarto
+/.quarto/
+/_site/
+*.html
+/.luarc.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files (potentially sensitive or large)
+*.csv
+*.json
+*.xlsx
+*.parquet
+*.db
+*.sqlite
+data/
+datasets/
+
+# API keys and secrets
+.env
+.env.local
+secrets/
+config.ini
+credentials.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build artifacts
+dist/
+build/

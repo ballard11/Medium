@@ -1,4 +1,17 @@
-# Tracking Oklahoma Football's Evolution: A Data-Driven Look at the Sooners' SEC Transition
+---
+title: "Tracking Oklahoma Football's Evolution: A Data-Driven Look at the Sooners' SEC Transition"
+description: "Analyzing 6 seasons of Oklahoma football data (2020-2025) to see how the offense and defense evolved during the SEC transition"
+author: "Ben Ballard"
+date: "2026-02-14"
+categories: [sports, cfb, python, data-analysis]
+image: oklahoma-chart.png  # You'll generate this from the code
+draft: false
+execute:
+  freeze: true
+  echo: true
+  warning: false
+jupyter: python3
+---
 
 If you're an Oklahoma fan, the last few years have been a rollercoaster. New coaches, new conference, new everything. But how has the team *actually* performed on the field when you look at the numbers?
 
@@ -14,20 +27,20 @@ First things first - you'll need an API key from [collegefootballdata.com](https
 
 Install the package if you haven't already:
 
-```python
+```bash
 pip install cfbd
 ```
 
 Now let's import what we need and set up the API:
 
-```python
+```{python}
 import cfbd
 import pandas as pd
 import matplotlib.pyplot as plt
 
 # Configure API key - Replace 'YOUR_API_KEY_HERE' with your actual key
 configuration = cfbd.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY_HERE'
+configuration.api_key['Authorization'] = 'YOUR_API_KEY_HERE'  # Get your free key at collegefootballdata.com
 configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # Create API instance
@@ -40,7 +53,9 @@ Simple enough. Now we're ready to pull some data.
 
 Let's start by grabbing all 2025 games to see what we're working with:
 
-```python
+```{python}
+#| eval: false
+
 # Get 2025 season games
 games_2025 = api_instance.get_games(year=2025)
 df_2025 = pd.DataFrame.from_records([g.to_dict() for g in games_2025])
@@ -51,7 +66,9 @@ df_2025.head()
 
 This pulls every single college football game from 2025 - we're talking thousands of games. But we only care about Oklahoma, so let's filter:
 
-```python
+```{python}
+#| eval: false
+
 # Filter for just Oklahoma games (both home and away)
 oklahoma_games_2025 = df_2025[(df_2025['home_team'] == 'Oklahoma') | (df_2025['away_team'] == 'Oklahoma')]
 
@@ -71,7 +88,9 @@ Perfect. Now we've got all Oklahoma's games for one season.
 
 Here's where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.
 
-```python
+```{python}
+#| eval: false
+
 # Figure out if Oklahoma was home or away
 oklahoma_games_2025['is_home'] = oklahoma_games_2025['home_team'] == 'Oklahoma'
 oklahoma_games_2025['points_scored'] = oklahoma_games_2025.apply(
@@ -91,7 +110,9 @@ So what data did we really get? Now for each game, we know exactly how many poin
 
 One season is interesting, but trends over time? That's where the magic happens. Let's grab 6 seasons (2020-2025) and process them all:
 
-```python
+```{python}
+#| eval: false
+
 # Get data for 2020-2025 seasons
 years = [2020, 2021, 2022, 2023, 2024, 2025]
 all_seasons = {}
@@ -142,7 +163,10 @@ Already you can see some trends - 2021 was a high-scoring year, while 2024 was r
 
 Let's create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):
 
-```python
+```{python}
+#| eval: false
+#| fig-cap: "Oklahoma offensive and defensive performance across 6 seasons"
+
 # Visualize offensive and defensive trends
 fig, axs = plt.subplots(1, 2, figsize=(14, 5))
 
@@ -184,7 +208,9 @@ This gives you two beautiful charts showing how Oklahoma's offense and defense p
 
 Cumulative stats are cool, but let's normalize this by looking at points per game:
 
-```python
+```{python}
+#| eval: false
+
 # Calculate average points per game for each season
 for year in years:
     data = all_seasons[year]
@@ -212,7 +238,10 @@ Now we can clearly see the offensive decline - from 40+ PPG in 2020-2021 down to
 
 Let's make one more chart using Oklahoma's crimson and cream colors to show the year-over-year comparison:
 
-```python
+```{python}
+#| eval: false
+#| fig-cap: "Points per game comparison across seasons"
+
 # Create bar chart comparing PPG across seasons
 fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -242,6 +271,7 @@ This final chart makes it crystal clear - Oklahoma's offense has steadily declin
 ## What Did We Learn?
 
 The data tells a compelling story:
+
 - **Offense peaked in 2021** with 40.6 PPG, but has dropped nearly 9 points per game since then
 - **Defense has improved dramatically** - from allowing 31.2 PPG in 2021 to just 21.8 in 2025
 - **The program is transforming** from an offensive juggernaut to a more balanced, defense-first team

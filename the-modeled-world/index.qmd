@@ -1,0 +1,49 @@
+---
+title: "BenDiagrams"
+subtitle: "A data science lab for sports analytics, economic trends, and code experiments"
+listing:
+  contents:
+    - "sports/*.qmd"
+    - "economics/*.qmd"
+    - "code/*.qmd"
+  type: grid
+  max-items: 9
+  sort: "date desc"
+  categories: true
+  fields: [image, title, date, categories, description]
+  filter-ui: true
+  sort-ui: true
+page-layout: full
+title-block-banner: true
+---
+
+## Welcome to The Lab
+
+This is where I break down sports betting algorithms, track economic trends with Python, and share code experiments that answer questions like "Can I predict NBA player props?" or "What does the data say about inflation?"
+
+Think of this as **learning by doing** - every post includes real code, real data, and real results.
+
+---
+
+## Latest Posts
+
+<!-- Listing automatically generates below -->
+
+---
+
+## Newsletter
+
+Want these experiments delivered to your inbox? Sign up below.
+
+<!-- Email capture form will go here - ConvertKit embed -->
+<div id="newsletter">
+  <p><em>Newsletter signup form coming soon. For now, subscribe via <a href="index.xml">RSS</a>.</em></p>
+</div>
+
+---
+
+## About This Site
+
+Built with [Quarto](https://quarto.org), published with GitHub Pages, written in Python. All code is reproducible. All data is cited. All experiments are transparent.
+
+If you find something useful, share it. If you find an error, [open an issue](https://github.com/ballard11/Medium/issues).

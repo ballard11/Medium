@@ -1,0 +1,30 @@
+---
+title: "Sports & Odds"
+subtitle: "Betting algorithms, player props, and sports analytics"
+listing:
+  contents: "*.qmd"
+  type: grid
+  sort: "date desc"
+  categories: true
+  fields: [image, title, date, categories, description]
+  exclude:
+    index.qmd: true
+page-layout: full
+title-block-banner: true
+---
+
+## What You'll Find Here
+
+NBA player prop models, college football betting trends, and sports analytics experiments. Every post includes:
+
+- **The Data**: Real APIs (ESPN, CFBD, odds providers)
+- **The Code**: Jupyter notebooks with Python, Pandas, Plotly
+- **The Results**: Interactive charts and model outputs
+
+If you're building your own sports models or just curious what the data says, start here.
+
+---
+
+## All Sports Posts
+
+<!-- Listing automatically generates below -->
