@@ -1,0 +1,30 @@
+---
+title: "Code & Labs"
+subtitle: "Tutorials, MLOps, API integrations, and technical experiments"
+listing:
+  contents: "*.qmd"
+  type: grid
+  sort: "date desc"
+  categories: true
+  fields: [image, title, date, categories, description]
+  exclude:
+    index.qmd: true
+page-layout: full
+title-block-banner: true
+---
+
+## What You'll Find Here
+
+How-to guides, API tutorials, Quarto setups, Python tricks, and general code experiments. Every post includes:
+
+- **The Problem**: What we're trying to solve
+- **The Solution**: Step-by-step code walkthrough
+- **The Result**: Working examples you can copy/paste
+
+If you're learning Python for data science or just want to see how things work under the hood, start here.
+
+---
+
+## All Code Posts
+
+<!-- Listing automatically generates below -->
