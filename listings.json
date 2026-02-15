@@ -1,5 +1,13 @@
 [
   {
+    "listing": "/toolbox/index.html",
+    "items": [
+      "/toolbox/cfbd-api.html",
+      "/toolbox/pandas.html",
+      "/toolbox/plotly.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/sports/index.html",

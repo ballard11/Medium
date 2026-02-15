@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sports &amp; Odds – BenDiagrams</title>
+<title>The Toolbox – BenDiagrams</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,9 +84,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-categories','listing-status','listing-link',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] },{ data: ['listing-word-count-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-project","listing-website","listing-format","listing-execute","listing-language","listing-comments","listing-categories","listing-freeze","listing-page-layout","listing-title","listing-date","listing-status","listing-link","listing-description","listing-path","listing-outputHref","listing-date-modified","listing-author","listing-filename","listing-file-modified","listing-reading-time","listing-word-count"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -135,9 +135,8 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Sports &amp; Odds – BenDiagrams">
-<meta property="og:description" content="Betting algorithms, player props, and sports analytics">
-<meta property="og:image" content="https://bendiagrams.com/sports/oklahoma-chart.png">
+<meta property="og:title" content="The Toolbox – BenDiagrams">
+<meta property="og:description" content="Tools, packages, and resources I use for data science">
 <meta property="og:site_name" content="BenDiagrams">
 </head>
 
@@ -306,7 +305,7 @@ window.Quarto = {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -325,7 +324,7 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../sports/index.html" aria-current="page"> 
+    <a class="nav-link" href="../sports/index.html"> 
 <span class="menu-text">Sports &amp; Odds</span></a>
   </li>  
   <li class="nav-item">
@@ -337,7 +336,7 @@ window.Quarto = {
 <span class="menu-text">Code &amp; Labs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../toolbox/index.html"> 
+    <a class="nav-link active" href="../toolbox/index.html" aria-current="page"> 
 <span class="menu-text">The Toolbox</span></a>
   </li>  
 </ul>
@@ -365,24 +364,7 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Sports &amp; Odds</h1>
-            <p class="subtitle lead">Betting algorithms, player props, and sports analytics</p>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page-left">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -390,74 +372,194 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-youll-find-here" id="toc-what-youll-find-here" class="nav-link active" data-scroll-target="#what-youll-find-here">What You’ll Find Here</a></li>
-  <li><a href="#all-sports-posts" id="toc-all-sports-posts" class="nav-link" data-scroll-target="#all-sports-posts">All Sports Posts</a></li>
+  <li><a href="#about-this-toolbox" id="toc-about-this-toolbox" class="nav-link active" data-scroll-target="#about-this-toolbox">About This Toolbox</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ballard11/Medium/edit/main/sports/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ballard11/Medium/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2Zi">cfb <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YS1hbmFseXNpcw==">data-analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3BvcnRz">sports <span class="quarto-category-count">(1)</span></div></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/ballard11/Medium/edit/main/toolbox/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ballard11/Medium/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="YXBp">api <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YS1hbmFseXNpcw==">data-analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="c3BvcnRz">sports <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dG9vbA==">tool <span class="quarto-category-count">(3)</span></div><div class="category" data-category="dmlzdWFsaXphdGlvbg==">visualization <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Toolbox</h1>
+<p class="subtitle lead">Tools, packages, and resources I use for data science</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">tool</div>
+  </div>
+  </div>
 
 
 
+<div class="quarto-title-meta column-page-left">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
-<section id="what-youll-find-here" class="level2">
-<h2 class="anchored" data-anchor-id="what-youll-find-here">What You’ll Find Here</h2>
-<p>NBA player prop models, college football betting trends, and sports analytics experiments. Every post includes:</p>
-<ul>
-<li><strong>The Data</strong>: Real APIs (ESPN, CFBD, odds providers)</li>
-<li><strong>The Code</strong>: Jupyter notebooks with Python, Pandas, Plotly</li>
-<li><strong>The Results</strong>: Interactive charts and model outputs</li>
-</ul>
-<p>If you’re building your own sports models or just curious what the data says, start here.</p>
-<hr>
-</section>
-<section id="all-sports-posts" class="level2">
-<h2 class="anchored" data-anchor-id="all-sports-posts">All Sports Posts</h2>
+
+<section id="about-this-toolbox" class="level2">
+<h2 class="anchored" data-anchor-id="about-this-toolbox">About This Toolbox</h2>
+<p>This is my running list of tools, packages, and resources I’ve tested for data science, sports analytics, and development. Think of it as a living document of what works, what doesn’t, and what I’m currently experimenting with.</p>
+<p><strong>Legend:</strong> - <strong>Active Use</strong> - Currently using in projects - <strong>Testing</strong> - Trying it out, jury’s still out - <strong>Archived</strong> - Tested but not actively using</p>
+<p>Browse by category or use the filters above to find what you need.</p>
 <!-- Listing automatically generates below -->
 
 
-
 </section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="c3BvcnRzJTJDY2ZiJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1771027200000" data-listing-file-modified-sort="1771176658284" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1366">
-<a href="../sports/oklahoma-football-evolution.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../sports/oklahoma-chart.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition
-</h5>
-<div class="listing-categories">
+<div class="quarto-listing quarto-listing-container-custom" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+      <option value="" disabled="" selected="" hidden="">Order By</option>
+      <option value="index" data-direction="asc">Default</option>
+      <option value="listing-categories" data-direction="asc">
+        Category
+      </option>
+      <option value="listing-title" data-direction="asc">
+        Tool Name
+      </option>
+      <option value="listing-status" data-direction="asc">
+        My Verdict
+      </option>
+      <option value="listing-link" data-direction="asc">
+        Link
+      </option>
+    </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+<table class="toolbox-table table table-striped">
+<thead>
+<tr>
+<th>
+Tool Name
+</th>
+<th>
+Category
+</th>
+<th>
+My Verdict
+</th>
+<th>
+Link
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<p><a href="../toolbox/cfbd-api.html"><strong>College Football Data API</strong></a></p>
+<p><br><small class="text-muted">Free API for college football statistics, play-by-play data, and betting lines</small></p>
+</td>
+<td>
+<pre><code>&lt;span class="badge bg-secondary"&gt;python&lt;/span&gt;
+      
+        &lt;span class="badge bg-secondary"&gt;api&lt;/span&gt;
+      
+        &lt;span class="badge bg-secondary"&gt;sports&lt;/span&gt;
+      
+    
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+    &lt;span class="badge bg-success"&gt;Active Use&lt;/span&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+      &lt;a href="https://collegefootballdata.com" target="_blank" class="btn btn-sm btn-outline-primary"&gt;
+        Visit →
+      &lt;/a&gt;
+    
+  &lt;/td&gt;
+&lt;/tr&gt;
 
-<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
+&lt;tr&gt;
+  &lt;td&gt;
+    &lt;a href="/toolbox/pandas.qmd"&gt;&lt;strong&gt;Pandas&lt;/strong&gt;&lt;/a&gt;
+    
+      &lt;br&gt;&lt;small class="text-muted"&gt;Essential Python library for data manipulation and analysis&lt;/small&gt;
+    
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+      
+        &lt;span class="badge bg-secondary"&gt;python&lt;/span&gt;
+      
+        &lt;span class="badge bg-secondary"&gt;data-analysis&lt;/span&gt;
+      
+    
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+    &lt;span class="badge bg-success"&gt;Active Use&lt;/span&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+      &lt;a href="https://pandas.pydata.org" target="_blank" class="btn btn-sm btn-outline-primary"&gt;
+        Visit →
+      &lt;/a&gt;
+    
+  &lt;/td&gt;
+&lt;/tr&gt;
 
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Zi'); return false;">cfb</div>
+&lt;tr&gt;
+  &lt;td&gt;
+    &lt;a href="/toolbox/plotly.qmd"&gt;&lt;strong&gt;Plotly&lt;/strong&gt;&lt;/a&gt;
+    
+      &lt;br&gt;&lt;small class="text-muted"&gt;Interactive charting library for Python with beautiful defaults&lt;/small&gt;
+    
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+      
+        &lt;span class="badge bg-secondary"&gt;python&lt;/span&gt;
+      
+        &lt;span class="badge bg-secondary"&gt;visualization&lt;/span&gt;
+      
+    
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+    &lt;span class="badge bg-success"&gt;Active Use&lt;/span&gt;
+  &lt;/td&gt;
+  &lt;td&gt;
+    
+      &lt;a href="https://plotly.com/python/" target="_blank" class="btn btn-sm btn-outline-primary"&gt;
+        Visit →
+      &lt;/a&gt;
+    
+  &lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+</td></tr></tbody>
+</table>
+<style>
+.toolbox-table {
+  margin-top: 2em;
+}
 
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
+.toolbox-table td {
+  vertical-align: middle;
+}
 
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YS1hbmFseXNpcw=='); return false;">data-analysis</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Analyzing 6 seasons of Oklahoma football data (2020-2025) to see how the offense and defense evolved during the SEC transition</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Feb 14, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
+.toolbox-table .badge {
+  margin-right: 0.3em;
+}
+</style>
 <div class="listing-no-matching d-none">No matching items</div>
+<p>:::</p>
+<p>:::</p>
+
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -887,7 +989,7 @@ Feb 14, 2026
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ballard11/Medium/edit/main/sports/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ballard11/Medium/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ballard11/Medium/edit/main/toolbox/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ballard11/Medium/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

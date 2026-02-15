@@ -75,14 +75,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cc1ec67003d998696e9d1544f3877213.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e9967048dc78cb47c62255f28bcb44c0.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cc1ec67003d998696e9d1544f3877213.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a1eb13cb8b2dc0359327ff8bebc60abe.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-4569cf774011a745e57a5076f698dfdd.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a1eb13cb8b2dc0359327ff8bebc60abe.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-7e875277df9b6575b69fd3c855787335.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-715d7f9fa029f6acf3618a5bf21fee01.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-7e875277df9b6575b69fd3c855787335.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-60562f6740198146d45435ef9f8b7137.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-56f1b8c63cfcd33e34b1875d213dac9f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-60562f6740198146d45435ef9f8b7137.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -314,6 +314,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../code/index.html"> 
 <span class="menu-text">Code &amp; Labs</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../toolbox/index.html"> 
+<span class="menu-text">The Toolbox</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -418,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Install the package if you haven’t already:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install cfbd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now let’s import what we need and set up the API:</p>
-<div id="663b7f94" class="cell" data-execution_count="1">
+<div id="71845a86" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cfbd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -436,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="pulling-game-data" class="level2">
 <h2 class="anchored" data-anchor-id="pulling-game-data">Pulling Game Data</h2>
 <p>Let’s start by grabbing all 2025 games to see what we’re working with:</p>
-<div id="a2337dd2" class="cell" data-execution_count="2">
+<div id="10e2b51b" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 2025 season games</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>games_2025 <span class="op">=</span> api_instance.get_games(year<span class="op">=</span><span class="dv">2025</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df_2025 <span class="op">=</span> pd.DataFrame.from_records([g.to_dict() <span class="cf">for</span> g <span class="kw">in</span> games_2025])</span>
@@ -445,7 +449,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df_2025.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This pulls every single college football game from 2025 - we’re talking thousands of games. But we only care about Oklahoma, so let’s filter:</p>
-<div id="256a3ce9" class="cell" data-execution_count="3">
+<div id="d5d081ca" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for just Oklahoma games (both home and away)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>oklahoma_games_2025 <span class="op">=</span> df_2025[(df_2025[<span class="st">'home_team'</span>] <span class="op">==</span> <span class="st">'Oklahoma'</span>) <span class="op">|</span> (df_2025[<span class="st">'away_team'</span>] <span class="op">==</span> <span class="st">'Oklahoma'</span>)]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -459,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="calculating-points-scored-vs-points-allowed" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-points-scored-vs-points-allowed">Calculating Points Scored vs Points Allowed</h2>
 <p>Here’s where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.</p>
-<div id="5770eb63" class="cell" data-execution_count="4">
+<div id="adc916b8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure out if Oklahoma was home or away</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>oklahoma_games_2025[<span class="st">'is_home'</span>] <span class="op">=</span> oklahoma_games_2025[<span class="st">'home_team'</span>] <span class="op">==</span> <span class="st">'Oklahoma'</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>oklahoma_games_2025[<span class="st">'points_scored'</span>] <span class="op">=</span> oklahoma_games_2025.<span class="bu">apply</span>(</span>
@@ -477,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="expanding-to-multiple-seasons" class="level2">
 <h2 class="anchored" data-anchor-id="expanding-to-multiple-seasons">Expanding to Multiple Seasons</h2>
 <p>One season is interesting, but trends over time? That’s where the magic happens. Let’s grab 6 seasons (2020-2025) and process them all:</p>
-<div id="ea7b60eb" class="cell" data-execution_count="5">
+<div id="ea67846a" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data for 2020-2025 seasons</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> [<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, <span class="dv">2023</span>, <span class="dv">2024</span>, <span class="dv">2025</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>all_seasons <span class="op">=</span> {}</span>
@@ -522,7 +526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="visualizing-the-trends" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-trends">Visualizing the Trends</h2>
 <p>Let’s create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):</p>
-<div id="5c922aef" class="cell" data-execution_count="6">
+<div id="0b301f41" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize offensive and defensive trends</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">5</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -562,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="breaking-down-points-per-game" class="level2">
 <h2 class="anchored" data-anchor-id="breaking-down-points-per-game">Breaking Down Points Per Game</h2>
 <p>Cumulative stats are cool, but let’s normalize this by looking at points per game:</p>
-<div id="0eec3eb4" class="cell" data-execution_count="7">
+<div id="659b7518" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average points per game for each season</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> years:</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> all_seasons[year]</span>
@@ -584,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="final-visualization-side-by-side-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="final-visualization-side-by-side-comparison">Final Visualization: Side-by-Side Comparison</h2>
 <p>Let’s make one more chart using Oklahoma’s crimson and cream colors to show the year-over-year comparison:</p>
-<div id="3069a56f" class="cell" data-execution_count="8">
+<div id="187a7170" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar chart comparing PPG across seasons</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1050,6 +1054,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
+<script src="https://utteranc.es/client.js" repo="ballard11/Medium" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

@@ -1,5 +1,61 @@
 [
   {
+    "objectID": "toolbox/plotly.html",
+    "href": "toolbox/plotly.html",
+    "title": "Plotly",
+    "section": "",
+    "text": "Plotly creates interactive, publication-quality graphs in Python. Unlike Matplotlib, Plotly charts are interactive by default - hover to see values, zoom, pan, and download as PNG."
+  },
+  {
+    "objectID": "toolbox/plotly.html#what-it-does",
+    "href": "toolbox/plotly.html#what-it-does",
+    "title": "Plotly",
+    "section": "",
+    "text": "Plotly creates interactive, publication-quality graphs in Python. Unlike Matplotlib, Plotly charts are interactive by default - hover to see values, zoom, pan, and download as PNG."
+  },
+  {
+    "objectID": "toolbox/plotly.html#why-i-bookmarked-it",
+    "href": "toolbox/plotly.html#why-i-bookmarked-it",
+    "title": "Plotly",
+    "section": "Why I Bookmarked It",
+    "text": "Why I Bookmarked It\nI switched from Matplotlib to Plotly for blog posts because readers can interact with the charts. The API is clean, the defaults look good, and it works seamlessly with Pandas DataFrames."
+  },
+  {
+    "objectID": "toolbox/plotly.html#hello-world-example",
+    "href": "toolbox/plotly.html#hello-world-example",
+    "title": "Plotly",
+    "section": "Hello World Example",
+    "text": "Hello World Example\nimport plotly.express as px\nimport pandas as pd\n\n# Sample data\ndf = pd.DataFrame({\n    'year': [2020, 2021, 2022, 2023, 2024],\n    'wins': [9, 11, 6, 10, 13]\n})\n\n# Create interactive line chart\nfig = px.line(df, x='year', y='wins',\n              title='Oklahoma Football Wins by Year')\n\nfig.show()"
+  },
+  {
+    "objectID": "toolbox/plotly.html#verdict",
+    "href": "toolbox/plotly.html#verdict",
+    "title": "Plotly",
+    "section": "Verdict",
+    "text": "Verdict\nStatus: Active Use - My default visualization library for blog posts.\n\nPros: Interactive by default, beautiful styling, great for web\nCons: Larger file sizes than static charts, overkill for simple plots\nUse Cases: Blog visualizations, dashboards, exploratory data analysis"
+  },
+  {
+    "objectID": "toolbox/plotly.html#resources",
+    "href": "toolbox/plotly.html#resources",
+    "title": "Plotly",
+    "section": "Resources",
+    "text": "Resources\n\nOfficial Docs\nPlotly Express\nMy Chart Examples"
+  },
+  {
+    "objectID": "toolbox/index.html",
+    "href": "toolbox/index.html",
+    "title": "The Toolbox",
+    "section": "",
+    "text": "This is my running list of tools, packages, and resources I’ve tested for data science, sports analytics, and development. Think of it as a living document of what works, what doesn’t, and what I’m currently experimenting with.\nLegend: - Active Use - Currently using in projects - Testing - Trying it out, jury’s still out - Archived - Tested but not actively using\nBrowse by category or use the filters above to find what you need."
+  },
+  {
+    "objectID": "toolbox/index.html#about-this-toolbox",
+    "href": "toolbox/index.html#about-this-toolbox",
+    "title": "The Toolbox",
+    "section": "",
+    "text": "This is my running list of tools, packages, and resources I’ve tested for data science, sports analytics, and development. Think of it as a living document of what works, what doesn’t, and what I’m currently experimenting with.\nLegend: - Active Use - Currently using in projects - Testing - Trying it out, jury’s still out - Archived - Tested but not actively using\nBrowse by category or use the filters above to find what you need."
+  },
+  {
     "objectID": "sports/oklahoma-football-evolution.html",
     "href": "sports/oklahoma-football-evolution.html",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
@@ -79,35 +135,35 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "BenDiagrams",
+    "title": "The Lab",
     "section": "",
     "text": "This is where I break down sports betting algorithms, track economic trends with Python, and share code experiments that answer questions like “Can I predict NBA player props?” or “What does the data say about inflation?”\nThink of this as learning by doing - every post includes real code, real data, and real results."
   },
   {
     "objectID": "index.html#welcome-to-the-lab",
     "href": "index.html#welcome-to-the-lab",
-    "title": "BenDiagrams",
+    "title": "The Lab",
     "section": "",
     "text": "This is where I break down sports betting algorithms, track economic trends with Python, and share code experiments that answer questions like “Can I predict NBA player props?” or “What does the data say about inflation?”\nThink of this as learning by doing - every post includes real code, real data, and real results."
   },
   {
     "objectID": "index.html#latest-posts",
     "href": "index.html#latest-posts",
-    "title": "BenDiagrams",
+    "title": "The Lab",
     "section": "Latest Posts",
     "text": "Latest Posts"
   },
   {
     "objectID": "index.html#newsletter",
     "href": "index.html#newsletter",
-    "title": "BenDiagrams",
+    "title": "The Lab",
     "section": "Newsletter",
     "text": "Newsletter\nWant these experiments delivered to your inbox? Sign up below.\n\n\n\nNewsletter signup form coming soon. For now, subscribe via RSS."
   },
   {
     "objectID": "index.html#about-this-site",
     "href": "index.html#about-this-site",
-    "title": "BenDiagrams",
+    "title": "The Lab",
     "section": "About This Site",
     "text": "About This Site\nBuilt with Quarto, published with GitHub Pages, written in Python. All code is reproducible. All data is cited. All experiments are transparent.\nIf you find something useful, share it. If you find an error, open an issue."
   },
@@ -222,5 +278,89 @@
     "title": "Sports & Odds",
     "section": "All Sports Posts",
     "text": "All Sports Posts"
+  },
+  {
+    "objectID": "toolbox/cfbd-api.html",
+    "href": "toolbox/cfbd-api.html",
+    "title": "College Football Data API",
+    "section": "",
+    "text": "The College Football Data API provides comprehensive college football data including team stats, player stats, game results, recruiting data, and betting lines. All for free with a simple API key."
+  },
+  {
+    "objectID": "toolbox/cfbd-api.html#what-it-does",
+    "href": "toolbox/cfbd-api.html#what-it-does",
+    "title": "College Football Data API",
+    "section": "",
+    "text": "The College Football Data API provides comprehensive college football data including team stats, player stats, game results, recruiting data, and betting lines. All for free with a simple API key."
+  },
+  {
+    "objectID": "toolbox/cfbd-api.html#why-i-bookmarked-it",
+    "href": "toolbox/cfbd-api.html#why-i-bookmarked-it",
+    "title": "College Football Data API",
+    "section": "Why I Bookmarked It",
+    "text": "Why I Bookmarked It\nThis is my go-to source for CFB analytics. The data quality is excellent, the Python client makes it easy to use, and it’s completely free. I’ve used this for analyzing Oklahoma’s SEC transition and betting line analysis."
+  },
+  {
+    "objectID": "toolbox/cfbd-api.html#hello-world-example",
+    "href": "toolbox/cfbd-api.html#hello-world-example",
+    "title": "College Football Data API",
+    "section": "Hello World Example",
+    "text": "Hello World Example\nimport cfbd\n\n# Configure API\nconfiguration = cfbd.Configuration()\nconfiguration.api_key['Authorization'] = 'YOUR_API_KEY'\nconfiguration.api_key_prefix['Authorization'] = 'Bearer'\n\n# Get 2025 games\napi_instance = cfbd.GamesApi(cfbd.ApiClient(configuration))\ngames = api_instance.get_games(year=2025, team='Oklahoma')\n\nprint(f\"Found {len(games)} Oklahoma games in 2025\")"
+  },
+  {
+    "objectID": "toolbox/cfbd-api.html#verdict",
+    "href": "toolbox/cfbd-api.html#verdict",
+    "title": "College Football Data API",
+    "section": "Verdict",
+    "text": "Verdict\nStatus: Active Use - This is my primary data source for CFB analysis.\n\nPros: Free, comprehensive data, great Python client, excellent documentation\nCons: Rate limits exist (but generous), some advanced metrics require premium\nUse Cases: Game analysis, trend tracking, betting research"
+  },
+  {
+    "objectID": "toolbox/cfbd-api.html#resources",
+    "href": "toolbox/cfbd-api.html#resources",
+    "title": "College Football Data API",
+    "section": "Resources",
+    "text": "Resources\n\nOfficial API Docs\nPython Client\nMy Analysis Using This API"
+  },
+  {
+    "objectID": "toolbox/pandas.html",
+    "href": "toolbox/pandas.html",
+    "title": "Pandas",
+    "section": "",
+    "text": "Pandas is the foundational data analysis library for Python. It provides DataFrames (think Excel spreadsheets in code) and powerful tools for cleaning, transforming, and analyzing data."
+  },
+  {
+    "objectID": "toolbox/pandas.html#what-it-does",
+    "href": "toolbox/pandas.html#what-it-does",
+    "title": "Pandas",
+    "section": "",
+    "text": "Pandas is the foundational data analysis library for Python. It provides DataFrames (think Excel spreadsheets in code) and powerful tools for cleaning, transforming, and analyzing data."
+  },
+  {
+    "objectID": "toolbox/pandas.html#why-i-bookmarked-it",
+    "href": "toolbox/pandas.html#why-i-bookmarked-it",
+    "title": "Pandas",
+    "section": "Why I Bookmarked It",
+    "text": "Why I Bookmarked It\nEvery single data analysis project I do starts with Pandas. It’s the Swiss Army knife of data manipulation. Whether I’m cleaning API responses or calculating sports statistics, Pandas makes it simple."
+  },
+  {
+    "objectID": "toolbox/pandas.html#hello-world-example",
+    "href": "toolbox/pandas.html#hello-world-example",
+    "title": "Pandas",
+    "section": "Hello World Example",
+    "text": "Hello World Example\nimport pandas as pd\n\n# Create a DataFrame from dict\ndata = {\n    'team': ['Oklahoma', 'Texas', 'Alabama'],\n    'wins': [10, 12, 11],\n    'losses': [3, 2, 2]\n}\n\ndf = pd.DataFrame(data)\n\n# Calculate win percentage\ndf['win_pct'] = df['wins'] / (df['wins'] + df['losses'])\n\nprint(df)"
+  },
+  {
+    "objectID": "toolbox/pandas.html#verdict",
+    "href": "toolbox/pandas.html#verdict",
+    "title": "Pandas",
+    "section": "Verdict",
+    "text": "Verdict\nStatus: Active Use - Non-negotiable foundation of my data stack.\n\nPros: Industry standard, massive community, handles any data format\nCons: Memory-intensive for huge datasets (use Polars for that)\nUse Cases: Every data analysis project, API response parsing, CSV manipulation"
+  },
+  {
+    "objectID": "toolbox/pandas.html#resources",
+    "href": "toolbox/pandas.html#resources",
+    "title": "Pandas",
+    "section": "Resources",
+    "text": "Resources\n\nOfficial Docs\n10 Minutes to Pandas\nMy Pandas Tutorials"
   }
 ]

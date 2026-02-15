@@ -1,17 +1,94 @@
 /* Custom styles for The Modeled World */
 
-/* Improve code block styling */
+/* ============================================
+   LANGUAGE-SPECIFIC CODE BLOCK BORDERS
+   MockUp-style inspired design
+   ============================================ */
+
+/* Default code block styling */
 pre.sourceCode {
   background-color: #f8f9fa;
-  border-left: 3px solid #007bff;
+  border-left: 4px solid #6c757d;  /* Default gray */
   padding: 1em;
   border-radius: 4px;
+  margin: 1.5em 0;
+}
+
+/* Python - Blue */
+div.sourceCode:has(pre > code.sourceCode.python) pre,
+pre.sourceCode:has(code.sourceCode.python) {
+  border-left-color: #007bff;
+}
+
+/* R - Red */
+div.sourceCode:has(pre > code.sourceCode.r) pre,
+pre.sourceCode:has(code.sourceCode.r) {
+  border-left-color: #e13238;
+}
+
+/* JavaScript / TypeScript - Yellow */
+div.sourceCode:has(pre > code.sourceCode.javascript) pre,
+div.sourceCode:has(pre > code.sourceCode.js) pre,
+div.sourceCode:has(pre > code.sourceCode.typescript) pre {
+  border-left-color: #f7df1e;
+}
+
+/* Bash/Shell - Green */
+div.sourceCode:has(pre > code.sourceCode.bash) pre,
+div.sourceCode:has(pre > code.sourceCode.shell) pre {
+  border-left-color: #28a745;
+}
+
+/* SQL - Purple */
+div.sourceCode:has(pre > code.sourceCode.sql) pre {
+  border-left-color: #8b5cf6;
+}
+
+/* CSS/SCSS - Pink */
+div.sourceCode:has(pre > code.sourceCode.css) pre,
+div.sourceCode:has(pre > code.sourceCode.scss) pre {
+  border-left-color: #e83e8c;
+}
+
+/* JSON/YAML - Teal */
+div.sourceCode:has(pre > code.sourceCode.json) pre,
+div.sourceCode:has(pre > code.sourceCode.yaml) pre {
+  border-left-color: #17a2b8;
 }
 
 /* Dark mode code blocks */
 body.quarto-dark pre.sourceCode {
   background-color: #1e1e1e;
-  border-left-color: #58a6ff;
+  border-left-color: #6c757d;  /* Default gray for dark mode */
+}
+
+body.quarto-dark div.sourceCode:has(pre > code.sourceCode.python) pre {
+  border-left-color: #58a6ff;  /* Lighter blue for dark mode */
+}
+
+body.quarto-dark div.sourceCode:has(pre > code.sourceCode.r) pre {
+  border-left-color: #ff6b6b;  /* Lighter red for dark mode */
+}
+
+body.quarto-dark div.sourceCode:has(pre > code.sourceCode.javascript) pre,
+body.quarto-dark div.sourceCode:has(pre > code.sourceCode.js) pre {
+  border-left-color: #ffd60a;  /* Brighter yellow for dark mode */
+}
+
+body.quarto-dark div.sourceCode:has(pre > code.sourceCode.bash) pre,
+body.quarto-dark div.sourceCode:has(pre > code.sourceCode.shell) pre {
+  border-left-color: #4ade80;  /* Lighter green for dark mode */
+}
+
+/* Ensure copy button remains visible and functional */
+.code-copy-button {
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+pre:hover .code-copy-button,
+.code-copy-button:focus {
+  opacity: 1;
 }
 
 /* Improve readability of output blocks */
@@ -59,6 +136,30 @@ body.quarto-dark #newsletter {
 /* Improve spacing for listings */
 .quarto-listing-default .listing-item {
   margin-bottom: 2em;
+}
+
+/* Fallback for grid cards without images */
+.quarto-grid .listing-item .listing-image {
+  min-height: 200px;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.quarto-grid .listing-item .listing-image:empty::before {
+  content: "BenDiagrams";
+  color: white;
+  font-size: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+body.quarto-dark .quarto-grid .listing-item .listing-image {
+  background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
 }
 
 /* Make category badges more visible */
