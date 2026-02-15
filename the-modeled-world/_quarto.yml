@@ -66,7 +66,7 @@ format:
 
 execute:
   freeze: auto  # Only re-render changed files
-  cache: true
+  cache: false  # Disable cache to avoid jupyter-cache dependency in GitHub Actions
 
 # Enable RSS feeds
 feed:
