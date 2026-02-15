@@ -15,7 +15,6 @@ listing:
   feed:
     items: 20
     type: full
-    description-length: 500
 page-layout: article
 title-block-banner: true
 ---
