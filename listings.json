@@ -1,0 +1,25 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/sports/index.html",
+      "/economics/index.html",
+      "/code/index.html",
+      "/sports/oklahoma-football-evolution.html"
+    ]
+  },
+  {
+    "listing": "/code/index.html",
+    "items": []
+  },
+  {
+    "listing": "/economics/index.html",
+    "items": []
+  },
+  {
+    "listing": "/sports/index.html",
+    "items": [
+      "/sports/oklahoma-football-evolution.html"
+    ]
+  }
+]
