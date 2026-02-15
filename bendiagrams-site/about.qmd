@@ -7,7 +7,7 @@ page-layout: article
 
 **The Modeled World** is where I apply the Feynman Technique to data science: learning by teaching, teaching by doing, doing by showing the code.
 
-This isn't a polished portfolio site. It's a lab notebook. You'll see experiments, failures, and thought processes - not just final results.
+This isn't a polished portfolio site. It's a lab notebook. You'll see experiments, failures, and thought processes.
 
 ## What I Write About
 
@@ -26,18 +26,18 @@ Every post includes reproducible code, real data sources, and interactive visual
 
 ## Why This Exists
 
-I'm a Senior Data Scientist who learns best by building in public. If these experiments help you learn Python, understand sports analytics, or track economic trends - that's the goal.
+I'm a Senior Data Scientist who learns by building in public. If these experiments help you learn Python, understand sports analytics, or track economic trends - that's the goal.
 
 ## Contact
 
 - **Medium**: [@ben.g.ballard](https://medium.com/@ben.g.ballard)
-- **LinkedIn**: [Your LinkedIn URL]
-- **GitHub**: [Your GitHub username]
+- **LinkedIn**: [https://www.linkedin.com/in/ben-ballard-44969313/](https://www.linkedin.com/in/ben-ballard-44969313/)
+- **GitHub**: [https://github.com/ballard11](https://github.com/ballard11)
 
 Or just drop a comment on any post.
 
 ---
-
+    
 ## Disclaimer
 
-Nothing here is financial advice. Sports betting analysis is for educational purposes. Economic analysis is personal opinion. Always do your own research.
+Nothing here is financial advice. All code and analysis is for educational purposes. 

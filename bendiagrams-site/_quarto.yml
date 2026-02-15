@@ -13,7 +13,6 @@ website:
   description: "A data science lab for sports analytics, economic trends, and code experiments"
   site-url: "https://bendiagrams.com"
   repo-url: "https://github.com/ballard11/Medium"
-  repo-actions: [edit, issue]
 
   navbar:
     background: primary
@@ -35,15 +34,12 @@ website:
       - icon: github
         href: "https://github.com/ballard11"
       - icon: linkedin
-        href: "https://www.linkedin.com/in/ben-ballard/"
+        href: "https://www.linkedin.com/in/ben-ballard-44969313/"
 
   page-footer:
     background: light
     left: "© 2026 BenDiagrams. All rights reserved."
     right:
-      - icon: envelope
-        href: "#newsletter"
-        text: "Newsletter"
       - icon: rss
         href: "index.xml"
         text: "RSS"
