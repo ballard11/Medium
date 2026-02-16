@@ -1,5 +1,4 @@
 ---
-title: "The Lab"
 subtitle: "A data science lab for sports analytics, economic trends, and code experiments"
 listing:
   contents:
