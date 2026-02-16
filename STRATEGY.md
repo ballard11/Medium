@@ -38,21 +38,50 @@ You found a winner. Instead of writing about random data science topics, build a
 
 ---
 
-## Strategy 2: The "Distribution" Upgrade (Stop Self-Publishing)
+## Strategy 2: Distribution — Syndication vs. Prestige
 
-Your big hit was published under "Ben Ballard" (self-published). This relies 100% on SEO.
+Every article falls into one of two distribution tracks.
 
-**The Fix:** Submit your next draft to a major publication.
+### Category A: Syndication (Automated Reposting)
 
-**Target Publications:**
-- Level Up Coding
-- Python in Plain English
-- Towards Data Science
-- PyCoder's Weekly
+These platforms support **canonical URLs**, so Google knows Medium is the original. Script these alongside your Medium publish.
 
-**Why:** They have 100k+ followers. If they accept your story, they push it to their newsletter. This generates "Member Read Time" immediately, rather than waiting for Google.
+| Platform | Handle | Why |
+|----------|--------|-----|
+| **Dev.to** | *(set up)* | Huge developer audience, very API-friendly |
+| **Hashnode** | [@BenBallard](https://hashnode.com/@BenBallard) | Slightly more senior vibe, supports canonical URLs |
+| **Mastodon** | [@benballrd11](https://mastodon.social/@benballrd11) | Share links + short summaries for each post |
 
-**The "Boost" Factor:** Editors of these pubs can nominate stories for a Medium Boost. A Boosted story often earns $100–$500 in a single week.
+**Routine:** Every Tuesday/Friday publish → cross-post to Dev.to + Hashnode with canonical URL → share on Mastodon.
+
+### Category B: Prestige Targets (Resume Builders)
+
+You cannot auto-post here. You **pitch** these. Reserve for quarterly "big" projects (NBA bot results, crime data analysis, etc.).
+
+| Target | Why | Pitch Style |
+|--------|-----|-------------|
+| **Towards Data Science** (Medium pub) | 600k+ followers, you're already on Medium — submit drafts here instead of self-publishing | Standard Medium draft submission |
+| **Level Up Coding** / **Python in Plain English** | 100k+ followers, newsletter push, editors can nominate for Medium Boost ($100–$500/week) | Medium draft submission |
+| **KDnuggets** | Gold standard for Data Science. "Senior Data Scientist" badge of honor | Guest post pitch |
+| **HackerNoon** | Love edgy tech stories ("How I beat the sportsbooks"). High acceptance rate if code is good | Guest post pitch |
+| **PyCoder's Weekly** | Newsletter with massive reach | Submit link after publishing |
+
+### Category C: Citizen Journalism (The "Naptown Crimebot" Hook)
+
+Local papers are starved for technical talent — they have writers but zero data engineers.
+
+**Your Pitch:** "I built a robot that reads the police blotter so you don't have to."
+
+| Target | Notes |
+|--------|-------|
+| **Eye On Annapolis** | Digital-first, hyper-local. Pitch a monthly "Crime Data Summary" column via their Contact/Submit News form |
+| **The Baltimore Banner** | Non-profit, data journalism focus. Pitch "Using RAG/LLMs to analyze Maryland crime data" |
+| **Capital Gazette** | Traditional paper. Submit Op-Ed on "Transparency in Annapolis Police Data" citing your project |
+| **Bellingcat** (reach goal) | World's top open-source investigation group. Article idea: "How to scrape and map local police data using Python (A Guide for Local Journalists)" — practically a guaranteed job interview for any Data Journalism role |
+
+### The "Boost" Factor
+
+Editors of Medium publications can nominate stories for a **Medium Boost**. A Boosted story often earns $100–$500 in a single week. This is why submitting to pubs (Category B) matters more than self-publishing.
 
 ---
 
@@ -125,9 +154,11 @@ You can build a 4-part "NBA Betting System" series in two weeks instead of one m
 
 1. **Refresh** the "Unlocking Sports Betting" story with a 2026 update
 2. **Draft 3 sequel outlines** based on the original post's code
-3. **Submit** the first sequel to Level Up Coding or Python in Plain English
-4. **Set the Tuesday/Friday cadence** and stick to it for 4 weeks
-5. **Review [STATS.md](STATS.md) monthly** to track what's working
+3. **Submit** the first sequel to **Towards Data Science** or **Level Up Coding** (prestige path)
+4. **Set up syndication accounts** — Dev.to profile, verify Hashnode (@BenBallard), Mastodon (@benballrd11)
+5. **Set the Tuesday/Friday cadence** and stick to it for 4 weeks
+6. **First prestige pitch** — when the Naptown Crimebot project is ready, pitch Eye On Annapolis
+7. **Review [STATS.md](STATS.md) monthly** to track what's working
 
 ---
 
