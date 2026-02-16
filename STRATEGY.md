@@ -48,11 +48,11 @@ These platforms support **canonical URLs**, so Google knows Medium is the origin
 
 | Platform | Handle | Why |
 |----------|--------|-----|
-| **Dev.to** | *(set up)* | Huge developer audience, very API-friendly |
+| **Dev.to** | [@ben_ballard_11](https://dev.to/ben_ballard_11) | Huge developer audience, very API-friendly |
 | **Hashnode** | [@BenBallard](https://hashnode.com/@BenBallard) | Slightly more senior vibe, supports canonical URLs |
 | **Mastodon** | [@benballrd11](https://mastodon.social/@benballrd11) | Share links + short summaries for each post |
 
-**Routine:** Every Tuesday/Friday publish → cross-post to Dev.to + Hashnode with canonical URL → share on Mastodon.
+**Routine flow:** Publish to BenDiagrams site → cross-post to Medium (canonical URL to site) → syndicate to Dev.to + Hashnode (canonical URL) → share on Mastodon.
 
 ### Category B: Prestige Targets (Resume Builders)
 
