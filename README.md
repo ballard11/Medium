@@ -2,6 +2,8 @@
 
 Analysis notebooks and articles for [medium.com/@ben.g.ballard](https://medium.com/@ben.g.ballard).
 
+**Blog:** [bendiagrams.com](https://bendiagrams.com) — Quarto site deployed via GitHub Pages
+
 **40 stories published** | **~43K views** | **$85.44 lifetime earnings** | See [STATS.md](STATS.md) for full analytics.
 
 ## Docs
@@ -9,27 +11,43 @@ Analysis notebooks and articles for [medium.com/@ben.g.ballard](https://medium.c
 | Doc | Purpose |
 |-----|---------|
 | [STRATEGY.md](STRATEGY.md) | Growth strategy — franchise model, publishing cadence, distribution plan |
-| [STATS.md](STATS.md) | Analytics dashboard — lifetime data, revenue by category, what works vs. doesn't. Updated monthly. |
+| [STATS.md](STATS.md) | Analytics dashboard — lifetime data, revenue by category. Updated monthly. |
+| [SECURITY.md](SECURITY.md) | Public repo security — .gitignore, code hiding, freeze strategy |
 
-## Projects
+## Repo Structure
 
-| Folder | Topic | Published Stories | Earnings |
-|--------|-------|-------------------|----------|
-| `cfb-data-analysis` | College football scoring (CFBD API) | CFB Talent Trends, CFB Recap, Portal P1 & P2 | $1.01 |
-| `google-trends` | Keyword trends (pytrends) | Using Google Trends API, Mastering Google Trends | $9.23 |
-| `maryland-car-crashes` | MD vehicle crashes + COVID | Maryland Car Crash Trends, Maryland Car Crashes | $0.08 |
-| `whoop-health-data` | Whoop wearable health data | — (unpublished) | — |
-| `zillow-home-values` | Zillow ZHVI forecasting | — (unpublished) | — |
-| `oklahoma-football` | Oklahoma vs Notre Dame (R) | — (unpublished) | — |
+```
+├── bendiagrams-site/         # Quarto blog (bendiagrams.com)
+│   ├── sports/               # Sports & Odds posts
+│   ├── economics/            # Economics posts
+│   ├── code/                 # Code & Labs posts
+│   ├── toolbox/              # Quick-reference tool cards
+│   └── _templates/           # Post and toolbox templates
+├── cfb-data-analysis/        # College football analysis (CFBD API)
+├── google-trends/            # Google Trends API analysis
+├── sports-betting-odds-api/  # Sports betting with The Odds API
+├── archived/                 # Inactive projects and old scripts
+└── .github/workflows/        # GitHub Actions (auto-deploy on push)
+```
 
-**Top earners not yet in repo** (franchise opportunities):
+## Active Projects
 
-| Story | Earnings | Views | Opportunity |
-|-------|----------|-------|-------------|
-| Unlocking Sports Betting with Python | $32.26 | 6,700 | Sequel series + 2026 refresh |
-| Analyzing NBA Data Using Python and APIs | $13.45 | 14,100 | Sequel / updated version |
-| How to Analyze NBA Stats with the NBA API | $12.47 | 3,800 | Part of NBA franchise |
-| Easy Live Sports Odds: A Guide to Google... | $2.86 | 1,990 | Betting franchise |
+| Folder | Topic | Published Stories |
+|--------|-------|-------------------|
+| `cfb-data-analysis/` | College football scoring (CFBD API) | CFB Talent Trends, CFB Recap, Portal P1 & P2 |
+| `google-trends/` | Keyword trends (pytrends) | Using Google Trends API, Mastering Google Trends |
+| `sports-betting-odds-api/` | Sports betting with The Odds API | Unlocking Sports Betting with Python |
+
+## Publishing Workflow
+
+1. Do analysis in Jupyter notebook → `project-name/analysis.ipynb`
+2. Draft article as Quarto post → `bendiagrams-site/bucket/post-slug/index.qmd`
+3. Push to `main` → GitHub Actions deploys to [bendiagrams.com](https://bendiagrams.com)
+4. Wait 2-3 days for Google indexing
+5. Cross-post to Medium with canonical URL pointing to site
+6. Syndicate to Dev.to + Hashnode → share on Mastodon
+
+See [STRATEGY.md](STRATEGY.md) for the full cadence and distribution plan.
 
 ## Setup
 
@@ -39,56 +57,18 @@ Analysis notebooks and articles for [medium.com/@ben.g.ballard](https://medium.c
    pip install -r requirements.txt
    ```
 3. Create a `.env` file in the repo root with your API keys:
+   ```env
+   ODDS_API_KEY=your_odds_api_key
+   MEDIUM_TOKEN=your_medium_integration_token
+   CFBD_API_KEY=your_college_football_data_api_key
+   CHART_STUDIO_USERNAME=your_plotly_username
+   CHART_STUDIO_API_KEY=your_plotly_api_key
+   ```
 
-```env
-MEDIUM_TOKEN=your_medium_integration_token
-CFBD_API_KEY=your_college_football_data_api_key
-CHART_STUDIO_USERNAME=your_plotly_username
-CHART_STUDIO_API_KEY=your_plotly_api_key
-```
-
-Get your Medium integration token at: Settings > Security and apps > Integration tokens
-
-## Publishing to Medium
+## Local Development
 
 ```bash
-# Publish as draft (recommended first step)
-python publish.py cfb-data-analysis
-
-# Publish with tags
-python publish.py maryland-car-crashes --tags "data science,python,maryland"
-
-# Publish as public (use with caution - cannot edit via API after)
-python publish.py zillow-home-values --status public
-```
-
-Medium's API cannot edit posts after creation. Always publish as `draft` first, review on Medium's editor, then manually set to public.
-
-### Images in Articles
-
-Medium auto-loads images from URLs in your markdown. For images generated by your notebooks, push to GitHub and reference them as raw URLs:
-
-```markdown
-![Chart](https://raw.githubusercontent.com/ballard11/Medium/main/project-name/images/chart.png)
-```
-
-## Starting a New Project
-
-```bash
-cp -r _template/ my-new-project/
-```
-
-Then do your analysis in `analysis.ipynb`, write the article in `article.md`, and publish.
-
-## Project Structure
-
-Each project folder follows this layout:
-
-```
-project-name/
-|-- <descriptive-name>.ipynb  # Jupyter notebook (e.g. odds-api-2026.ipynb)
-|-- article.md                # Polished article for Medium
-|-- README.md                 # Project description, status, and performance stats
-|-- data/                     # Data files (CSVs, etc.) - optional
-+-- images/                   # Generated charts/figures - optional
+cd bendiagrams-site
+quarto preview          # Local dev server with auto-refresh
+quarto render           # Build to _site/ without serving
 ```

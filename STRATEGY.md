@@ -165,10 +165,13 @@ You can build a 4-part "NBA Betting System" series in two weeks instead of one m
 ## Publishing Workflow
 
 ```
-1. Do analysis in Jupyter notebook     →  project-name/analysis.ipynb
-2. Write polished article in markdown  →  project-name/article.md
-3. Publish as draft to Medium          →  python publish.py project-name
-4. Review on Medium, edit, then go public
-5. Update project README.md with Medium URL and stats
-6. Update STATS.md monthly from medium.com/me/stats
+1. Do analysis in Jupyter notebook        →  project-name/analysis.ipynb
+2. Draft article as Quarto post           →  bendiagrams-site/bucket/post-slug/index.qmd
+3. Preview locally                        →  quarto preview
+4. Publish to BenDiagrams site            →  git push origin main
+5. Wait 2-3 days for Google indexing
+6. Cross-post to Medium                   →  medium.com/p/import (set canonical URL to site)
+7. Syndicate to Dev.to + Hashnode         →  canonical URL pointing to site
+8. Share on Mastodon
+9. Update STATS.md monthly from medium.com/me/stats
 ```

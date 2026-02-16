@@ -1,6 +1,6 @@
 # Setup Guide: BenDiagrams Site
 
-**Current state:** Site is live at [ballard11.github.io/Medium](https://ballard11.github.io/Medium/) via GitHub Pages.
+**Current state:** Site is live at [bendiagrams.com](https://bendiagrams.com) via GitHub Pages.
 
 ---
 
@@ -17,17 +17,15 @@ Check deployment status: [GitHub Actions](https://github.com/ballard11/Medium/ac
 
 ---
 
-## Future: Custom Domain Setup
+## Custom Domain (Done)
 
-When you're ready to use a custom domain (e.g., `bendiagrams.com`):
+Domain `bendiagrams.com` is configured and live.
 
-### 1. Purchase Domain
+- **`_quarto.yml`:** `site-url: "https://bendiagrams.com"`
+- **`CNAME` file:** `bendiagrams.com`
+- **GitHub Pages:** Custom domain set in Settings → Pages, HTTPS enforced
 
-Go to [Namecheap](https://namecheap.com) or your preferred registrar and purchase the domain (~$10-15/year).
-
-### 2. Configure DNS Records
-
-Add these records at your domain registrar:
+### DNS Records (for reference)
 
 | Type | Name | Value | TTL |
 |------|------|-------|-----|
@@ -37,38 +35,16 @@ Add these records at your domain registrar:
 | A | @ | 185.199.111.153 | 3600 |
 | CNAME | www | ballard11.github.io | 3600 |
 
-DNS propagation: 15 minutes to 48 hours (usually 30 minutes).
-
-### 3. Configure GitHub Pages
-
-1. Go to repository **Settings** → **Pages**
-2. Under "Custom domain", enter your domain
-3. Click **Save**
-4. Wait for DNS check (green checkmark)
-5. Enable **Enforce HTTPS** when available
-
-### 4. Update Site Config
-
-In `_quarto.yml`, update:
-```yaml
-site-url: "https://yourdomain.com"
-```
-
-Create/update `CNAME` file in `bendiagrams-site/`:
-```
-yourdomain.com
-```
-
 ---
 
-## Future: Google Analytics
+## Google Analytics (Done)
 
-1. Create a GA4 property at [analytics.google.com](https://analytics.google.com)
-2. Get your Measurement ID (`G-XXXXXXXXXX`)
-3. In `_quarto.yml`, uncomment and update:
-   ```yaml
-   google-analytics: "G-XXXXXXXXXX"
-   ```
+GA4 is active in `_quarto.yml`:
+```yaml
+google-analytics: "G-7SD1391XRV"
+```
+
+View data at [analytics.google.com](https://analytics.google.com).
 
 ---
 

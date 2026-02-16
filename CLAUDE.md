@@ -9,8 +9,9 @@ This repo has two parts:
    - Each folder: notebook + `article.md` + `README.md` + optional `data/` and `images/`
 
 2. **Quarto blog site** (`bendiagrams-site/`) — Static site deployed to GitHub Pages
-   - Live at: `https://ballard11.github.io/Medium/`
+   - Live at: `https://bendiagrams.com`
    - 4 content buckets: `sports/`, `economics/`, `code/`, `toolbox/`
+   - Post structure: `bucket/post-slug/index.qmd` (each post gets its own folder)
    - Templates: `_templates/post-template.qmd`, `_templates/tool-template.qmd`
    - Config: `_quarto.yml`
 
@@ -56,16 +57,31 @@ Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) builds `bend
 - No public GitHub issues on the site (repo-actions removed from _quarto.yml)
 - Newsletter is deferred — no signup forms yet
 - Keep things simple — no over-engineering
-- Custom domain is a future task (currently using GitHub Pages URL)
+- Custom domain: `bendiagrams.com` (live, configured in `_quarto.yml` and `CNAME`)
+- Google Analytics: active (`G-7SD1391XRV`)
 - Author: Ben Ballard — medium.com/@ben.g.ballard
 - Social: [GitHub](https://github.com/ballard11) | [LinkedIn](https://www.linkedin.com/in/ben-ballard-44969313/) | [Medium](https://medium.com/@ben.g.ballard)
 
 ## Publishing Workflow
 
-**Goal:** 2x/week, ~75 min per article
+**Goal:** 2x/week (Tuesday anchor + Friday update), ~75 min per article
 
-- **Mon:** Pick topic → AI drafts notebook
-- **Tue:** Review notebook draft (30 min checkpoint)
-- **Wed-Thu:** AI drafts article → Review (20 min checkpoint)
-- **Fri:** Publish to site → Final review (10 min checkpoint)
-- **2-3 days later:** Cross-post to Medium with canonical URL
+### Weekly Cadence
+
+| Day | Task |
+|-----|------|
+| **Mon** | Pick topic → AI drafts notebook |
+| **Tue** | Review notebook (30 min) → Publish **Anchor** post (deep tutorial) |
+| **Wed** | AI drafts Friday's lighter piece from the same analysis |
+| **Thu** | Review article draft (20 min) |
+| **Fri** | Publish **Update** post (results, tips, quick wins) → Final review (10 min) |
+
+### Distribution (after each publish)
+
+1. Publish to BenDiagrams site (push to `main`)
+2. Wait 2-3 days for Google to index
+3. Cross-post to Medium with canonical URL pointing to site
+4. Syndicate to Dev.to + Hashnode (canonical URL)
+5. Share on Mastodon
+
+See [STRATEGY.md](STRATEGY.md) for the full franchise model and distribution details.

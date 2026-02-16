@@ -1,6 +1,6 @@
 # Getting Started: BenDiagrams Site
 
-**Status:** Live at [ballard11.github.io/Medium](https://ballard11.github.io/Medium/) via GitHub Pages
+**Status:** Live at [bendiagrams.com](https://bendiagrams.com) via GitHub Pages
 
 ---
 
@@ -8,6 +8,8 @@
 
 - **Framework:** Quarto static site
 - **Hosting:** GitHub Pages, auto-deployed via GitHub Actions on push to `main`
+- **Domain:** `bendiagrams.com` (custom domain, HTTPS enforced)
+- **Analytics:** Google Analytics (`G-7SD1391XRV`)
 - **Repo:** [github.com/ballard11/Medium](https://github.com/ballard11/Medium) (the `bendiagrams-site/` directory)
 
 Push to `main` → GitHub Actions builds → site updates in ~2-3 minutes.
@@ -27,17 +29,22 @@ Push to `main` → GitHub Actions builds → site updates in ~2-3 minutes.
 
 ## Creating a New Post
 
-### 1. Copy the template
+Each post lives in its own folder: `bucket/post-slug/index.qmd`
+
+### 1. Create the post folder and copy the template
 
 ```bash
 # Sports post
-cp _templates/post-template.qmd sports/my-new-post.qmd
+mkdir -p sports/my-post-slug
+cp _templates/post-template.qmd sports/my-post-slug/index.qmd
 
 # Economics post
-cp _templates/post-template.qmd economics/my-new-post.qmd
+mkdir -p economics/my-post-slug
+cp _templates/post-template.qmd economics/my-post-slug/index.qmd
 
 # Code post
-cp _templates/post-template.qmd code/my-new-post.qmd
+mkdir -p code/my-post-slug
+cp _templates/post-template.qmd code/my-post-slug/index.qmd
 ```
 
 ### 2. Update the YAML frontmatter
@@ -46,20 +53,30 @@ cp _templates/post-template.qmd code/my-new-post.qmd
 - `description:` - 1-2 sentence summary
 - `date:` - Use `today` or `"2026-02-15"`
 - `categories:` - e.g., `[sports, nba, python]`
-- `image:` - Featured image path
+- `image:` - Featured image path (relative to post folder, e.g., `images/chart.png`)
 - `draft:` - Set to `false` when ready to publish
 
-### 3. Write the post
+### 3. Add images
+
+Create an `images/` subfolder inside the post folder:
+
+```bash
+mkdir sports/my-post-slug/images
+```
+
+Reference images relative to the post: `![Alt text](images/chart.png)`
+
+### 4. Write the post
 
 Follow the style: code → output → explain in plain English. Conversational tone.
 
-### 4. Preview locally
+### 5. Preview locally
 
 ```bash
 quarto preview
 ```
 
-### 5. Publish
+### 6. Publish
 
 ```bash
 git add .
@@ -74,7 +91,8 @@ Live in ~2-3 minutes.
 ## Creating a Toolbox Card
 
 ```bash
-cp _templates/tool-template.qmd toolbox/my-tool.qmd
+mkdir -p toolbox/my-tool
+cp _templates/tool-template.qmd toolbox/my-tool/index.qmd
 ```
 
 Fill in the YAML fields (tool name, category, links, etc.) and it auto-populates the Toolbox listing.
@@ -85,7 +103,7 @@ Fill in the YAML fields (tool name, category, links, etc.) and it auto-populates
 
 1. Wait 2-3 days after publishing (let Google index your post first)
 2. Go to [medium.com/p/import](https://medium.com/p/import)
-3. Enter the post URL
+3. Enter the post URL from `bendiagrams.com`
 4. Verify canonical URL in Medium editor settings
 5. Publish
 
@@ -101,23 +119,15 @@ git push origin main    # Deploy (triggers GitHub Actions)
 
 ---
 
-## Future Additions (When Ready)
-
-- **Newsletter:** Email capture via ConvertKit (placeholder removed for now)
-- **Custom domain:** Purchase domain → configure DNS → update `_quarto.yml` site-url
-- **Google Analytics:** Uncomment and add GA4 measurement ID in `_quarto.yml`
-- **Migration:** Top Medium articles can be cross-posted with canonical URLs
-
----
-
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `_quarto.yml` | Site config (nav, theme, footer, SEO) |
+| `_quarto.yml` | Site config (nav, theme, footer, SEO, GA) |
 | `index.qmd` | Homepage with auto-listing of posts |
 | `about.qmd` | About page |
 | `styles.css` + `custom.scss` | Styling and dark mode |
 | `_templates/post-template.qmd` | New post template |
 | `_templates/tool-template.qmd` | New toolbox card template |
 | `.github/workflows/publish.yml` | GitHub Actions deployment |
+| `CNAME` | Custom domain file (`bendiagrams.com`) |
