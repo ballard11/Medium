@@ -84,78 +84,78 @@
     "text": "Resources\n\nOfficial API Docs\nPython Client\nMy Analysis Using This API"
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html",
-    "href": "sports/oklahoma-football-evolution.html",
+    "objectID": "sports/oklahoma-football-evolution/index.html",
+    "href": "sports/oklahoma-football-evolution/index.html",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "",
     "text": "If you’re an Oklahoma fan, the last few years have been a rollercoaster. New coaches, new conference, new everything. But how has the team actually performed on the field when you look at the numbers?\nI decided to dig into 6 seasons of Oklahoma football data (2020-2025) to see how the offense and defense have trended. Spoiler alert: the numbers tell a fascinating story about a program in transition."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#what-were-building",
-    "href": "sports/oklahoma-football-evolution.html#what-were-building",
+    "objectID": "sports/oklahoma-football-evolution/index.html#what-were-building",
+    "href": "sports/oklahoma-football-evolution/index.html#what-were-building",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "What We’re Building",
     "text": "What We’re Building\nI’ll show you how to pull college football data using Python and the College Football Data API, analyze Oklahoma’s scoring trends, and visualize offensive and defensive performance across multiple seasons. By the end, you’ll see exactly how to track any team’s performance over time."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#getting-started-with-the-api",
-    "href": "sports/oklahoma-football-evolution.html#getting-started-with-the-api",
+    "objectID": "sports/oklahoma-football-evolution/index.html#getting-started-with-the-api",
+    "href": "sports/oklahoma-football-evolution/index.html#getting-started-with-the-api",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "Getting Started with the API",
     "text": "Getting Started with the API\nFirst things first - you’ll need an API key from collegefootballdata.com. It’s completely free. Just sign up and grab your key.\nInstall the package if you haven’t already:\npip install cfbd\nNow let’s import what we need and set up the API:\n\nimport cfbd\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\n# Configure API key - Replace 'YOUR_API_KEY_HERE' with your actual key\nconfiguration = cfbd.Configuration()\nconfiguration.api_key['Authorization'] = 'YOUR_API_KEY_HERE'  # Get your free key at collegefootballdata.com\nconfiguration.api_key_prefix['Authorization'] = 'Bearer'\n\n# Create API instance\napi_instance = cfbd.GamesApi(cfbd.ApiClient(configuration))\n\nSimple enough. Now we’re ready to pull some data."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#pulling-game-data",
-    "href": "sports/oklahoma-football-evolution.html#pulling-game-data",
+    "objectID": "sports/oklahoma-football-evolution/index.html#pulling-game-data",
+    "href": "sports/oklahoma-football-evolution/index.html#pulling-game-data",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "Pulling Game Data",
     "text": "Pulling Game Data\nLet’s start by grabbing all 2025 games to see what we’re working with:\n\n# Get 2025 season games\ngames_2025 = api_instance.get_games(year=2025)\ndf_2025 = pd.DataFrame.from_records([g.to_dict() for g in games_2025])\n\nprint(f\"Total games in 2025: {len(df_2025)}\")\ndf_2025.head()\n\nThis pulls every single college football game from 2025 - we’re talking thousands of games. But we only care about Oklahoma, so let’s filter:\n\n# Filter for just Oklahoma games (both home and away)\noklahoma_games_2025 = df_2025[(df_2025['home_team'] == 'Oklahoma') | (df_2025['away_team'] == 'Oklahoma')]\n\nprint(f\"Oklahoma played {len(oklahoma_games_2025)} games in 2025\")\noklahoma_games_2025[['week', 'home_team', 'away_team', 'home_points', 'away_points']].head(10)\n\nYou’ll see something like:\nOklahoma played 13 games in 2025\nPerfect. Now we’ve got all Oklahoma’s games for one season."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#calculating-points-scored-vs-points-allowed",
-    "href": "sports/oklahoma-football-evolution.html#calculating-points-scored-vs-points-allowed",
+    "objectID": "sports/oklahoma-football-evolution/index.html#calculating-points-scored-vs-points-allowed",
+    "href": "sports/oklahoma-football-evolution/index.html#calculating-points-scored-vs-points-allowed",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "Calculating Points Scored vs Points Allowed",
     "text": "Calculating Points Scored vs Points Allowed\nHere’s where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.\n\n# Figure out if Oklahoma was home or away\noklahoma_games_2025['is_home'] = oklahoma_games_2025['home_team'] == 'Oklahoma'\noklahoma_games_2025['points_scored'] = oklahoma_games_2025.apply(\n    lambda row: row['home_points'] if row['is_home'] else row['away_points'], axis=1\n)\noklahoma_games_2025['points_allowed'] = oklahoma_games_2025.apply(\n    lambda row: row['away_points'] if row['is_home'] else row['home_points'], axis=1\n)\n\n# Let's see what we got\noklahoma_games_2025[['week', 'home_team', 'away_team', 'is_home', 'points_scored', 'points_allowed']].head(10)\n\nSo what data did we really get? Now for each game, we know exactly how many points Oklahoma scored and how many they gave up. This is the foundation for everything else."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#expanding-to-multiple-seasons",
-    "href": "sports/oklahoma-football-evolution.html#expanding-to-multiple-seasons",
+    "objectID": "sports/oklahoma-football-evolution/index.html#expanding-to-multiple-seasons",
+    "href": "sports/oklahoma-football-evolution/index.html#expanding-to-multiple-seasons",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "Expanding to Multiple Seasons",
     "text": "Expanding to Multiple Seasons\nOne season is interesting, but trends over time? That’s where the magic happens. Let’s grab 6 seasons (2020-2025) and process them all:\n\n# Get data for 2020-2025 seasons\nyears = [2020, 2021, 2022, 2023, 2024, 2025]\nall_seasons = {}\n\nfor year in years:\n    # Get all games for this year\n    games = api_instance.get_games(year=year)\n    df = pd.DataFrame.from_records([g.to_dict() for g in games])\n\n    # Filter for Oklahoma games\n    oklahoma_games = df[(df['home_team'] == 'Oklahoma') | (df['away_team'] == 'Oklahoma')]\n\n    # Add game number (1st game, 2nd game, etc.)\n    oklahoma_games['game_number'] = range(1, len(oklahoma_games) + 1)\n\n    # Figure out if home/away and calculate points\n    oklahoma_games['is_home'] = oklahoma_games['home_team'] == 'Oklahoma'\n    oklahoma_games['points_scored'] = oklahoma_games.apply(\n        lambda row: row['home_points'] if row['is_home'] else row['away_points'], axis=1\n    )\n    oklahoma_games['points_allowed'] = oklahoma_games.apply(\n        lambda row: row['away_points'] if row['is_home'] else row['home_points'], axis=1\n    )\n\n    # Calculate cumulative points over the season\n    oklahoma_games['cumulative_scored'] = oklahoma_games['points_scored'].cumsum()\n    oklahoma_games['cumulative_allowed'] = oklahoma_games['points_allowed'].cumsum()\n\n    # Store in dictionary\n    all_seasons[year] = oklahoma_games\n    print(f\"{year}: {len(oklahoma_games)} games, {oklahoma_games['points_scored'].sum():.0f} total points scored\")\n\nYou’ll see output like:\n2020: 11 games, 443 total points scored\n2021: 14 games, 569 total points scored\n2022: 13 games, 476 total points scored\n2023: 13 games, 455 total points scored\n2024: 12 games, 384 total points scored\n2025: 13 games, 412 total points scored\nAlready you can see some trends - 2021 was a high-scoring year, while 2024 was rough. But let’s visualize this properly."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#visualizing-the-trends",
-    "href": "sports/oklahoma-football-evolution.html#visualizing-the-trends",
+    "objectID": "sports/oklahoma-football-evolution/index.html#visualizing-the-trends",
+    "href": "sports/oklahoma-football-evolution/index.html#visualizing-the-trends",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "Visualizing the Trends",
     "text": "Visualizing the Trends\nLet’s create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):\n\n# Visualize offensive and defensive trends\nfig, axs = plt.subplots(1, 2, figsize=(14, 5))\n\n# Use a nice color palette\ncolors = plt.cm.tab10(range(len(years)))\n\nfor i, year in enumerate(years):\n    data = all_seasons[year]\n\n    # Plot cumulative points scored (offense)\n    axs[0].plot(data['game_number'], data['cumulative_scored'],\n                label=f'{year}', color=colors[i], linewidth=2)\n\n    # Plot cumulative points allowed (defense - lower is better)\n    axs[1].plot(data['game_number'], data['cumulative_allowed'],\n                label=f'{year}', color=colors[i], linewidth=2, linestyle='--')\n\n# Offensive chart\naxs[0].set_xlabel('Game Number', fontsize=12)\naxs[0].set_ylabel('Cumulative Points Scored', fontsize=12)\naxs[0].set_title('Oklahoma Offense: Points Scored Per Season', fontsize=14, fontweight='bold')\naxs[0].legend()\naxs[0].grid(True, alpha=0.3)\n\n# Defensive chart\naxs[1].set_xlabel('Game Number', fontsize=12)\naxs[1].set_ylabel('Cumulative Points Allowed', fontsize=12)\naxs[1].set_title('Oklahoma Defense: Points Allowed Per Season', fontsize=14, fontweight='bold')\naxs[1].legend()\naxs[1].grid(True, alpha=0.3)\n\nplt.tight_layout()\nplt.show()\n\nThis gives you two beautiful charts showing how Oklahoma’s offense and defense performed game-by-game across all 6 seasons. The steeper the line, the more points scored (offense) or allowed (defense)."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#breaking-down-points-per-game",
-    "href": "sports/oklahoma-football-evolution.html#breaking-down-points-per-game",
+    "objectID": "sports/oklahoma-football-evolution/index.html#breaking-down-points-per-game",
+    "href": "sports/oklahoma-football-evolution/index.html#breaking-down-points-per-game",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "Breaking Down Points Per Game",
     "text": "Breaking Down Points Per Game\nCumulative stats are cool, but let’s normalize this by looking at points per game:\n\n# Calculate average points per game for each season\nfor year in years:\n    data = all_seasons[year]\n    avg_scored = data['points_scored'].mean()\n    avg_allowed = data['points_allowed'].mean()\n    num_games = len(data)\n\n    print(f\"{year} ({num_games} games): {avg_scored:.1f} PPG scored, {avg_allowed:.1f} PPG allowed, {avg_scored - avg_allowed:+.1f} point differential\")\n\nSample output:\n2020 (11 games): 40.3 PPG scored, 26.5 PPG allowed, +13.8 point differential\n2021 (14 games): 40.6 PPG scored, 31.2 PPG allowed, +9.4 point differential\n2022 (13 games): 36.6 PPG scored, 27.8 PPG allowed, +8.8 point differential\n2023 (13 games): 35.0 PPG scored, 24.2 PPG allowed, +10.8 point differential\n2024 (12 games): 32.0 PPG scored, 22.5 PPG allowed, +9.5 point differential\n2025 (13 games): 31.7 PPG scored, 21.8 PPG allowed, +9.9 point differential\nNow we can clearly see the offensive decline - from 40+ PPG in 2020-2021 down to barely 32 PPG by 2024-2025. But defense has actually improved!"
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#final-visualization-side-by-side-comparison",
-    "href": "sports/oklahoma-football-evolution.html#final-visualization-side-by-side-comparison",
+    "objectID": "sports/oklahoma-football-evolution/index.html#final-visualization-side-by-side-comparison",
+    "href": "sports/oklahoma-football-evolution/index.html#final-visualization-side-by-side-comparison",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "Final Visualization: Side-by-Side Comparison",
     "text": "Final Visualization: Side-by-Side Comparison\nLet’s make one more chart using Oklahoma’s crimson and cream colors to show the year-over-year comparison:\n\n# Create bar chart comparing PPG across seasons\nfig, ax = plt.subplots(figsize=(10, 6))\n\nppg_scored = [all_seasons[year]['points_scored'].mean() for year in years]\nppg_allowed = [all_seasons[year]['points_allowed'].mean() for year in years]\n\nx = range(len(years))\nwidth = 0.35\n\nbars1 = ax.bar([i - width/2 for i in x], ppg_scored, width, label='Points Scored', color='#841617', alpha=0.8)\nbars2 = ax.bar([i + width/2 for i in x], ppg_allowed, width, label='Points Allowed', color='#FFC72C', alpha=0.8)\n\nax.set_xlabel('Season', fontsize=12)\nax.set_ylabel('Points Per Game', fontsize=12)\nax.set_title('Oklahoma Football: Points Per Game by Season (2020-2025)', fontsize=14, fontweight='bold')\nax.set_xticks(x)\nax.set_xticklabels(years)\nax.legend()\nax.grid(True, axis='y', alpha=0.3)\n\nplt.tight_layout()\nplt.show()\n\nThis final chart makes it crystal clear - Oklahoma’s offense has steadily declined since the Lincoln Riley era, but the defense has gotten significantly better under Brent Venables."
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#what-did-we-learn",
-    "href": "sports/oklahoma-football-evolution.html#what-did-we-learn",
+    "objectID": "sports/oklahoma-football-evolution/index.html#what-did-we-learn",
+    "href": "sports/oklahoma-football-evolution/index.html#what-did-we-learn",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "What Did We Learn?",
     "text": "What Did We Learn?\nThe data tells a compelling story:\n\nOffense peaked in 2021 with 40.6 PPG, but has dropped nearly 9 points per game since then\nDefense has improved dramatically - from allowing 31.2 PPG in 2021 to just 21.8 in 2025\nThe program is transforming from an offensive juggernaut to a more balanced, defense-first team\nSEC competition matters - the 2024 and 2025 seasons (Oklahoma’s first in the SEC) show the offensive struggles against tougher defenses"
   },
   {
-    "objectID": "sports/oklahoma-football-evolution.html#whats-next",
-    "href": "sports/oklahoma-football-evolution.html#whats-next",
+    "objectID": "sports/oklahoma-football-evolution/index.html#whats-next",
+    "href": "sports/oklahoma-football-evolution/index.html#whats-next",
     "title": "Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition",
     "section": "What’s Next?",
     "text": "What’s Next?\nI’m planning to expand this analysis to compare Oklahoma’s metrics against other SEC teams to see how they truly stack up in their new conference. Are they competitive? Or do they need more time to adjust?\nI’m also curious to break this down by opponent strength - did Oklahoma score more against weaker teams and struggle against ranked opponents?\nIf you want to run this analysis for your team, just grab your free API key and swap out “Oklahoma” for your school. The code is yours. Boomer Sooner!\n\nHave questions or want to see other teams analyzed? Drop a comment below. I love diving into sports data and I’m always looking for my next analysis project."

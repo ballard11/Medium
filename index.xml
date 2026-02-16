@@ -10,7 +10,961 @@
 <atom:link href="https://bendiagrams.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A data science lab for sports analytics, economic trends, and code experiments</description>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Sat, 16 Dec 2023 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 14 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition</title>
+  <dc:creator>Ben Ballard</dc:creator>
+  <link>https://bendiagrams.com/sports/oklahoma-football-evolution/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>If you’re an Oklahoma fan, the last few years have been a rollercoaster. New coaches, new conference, new everything. But how has the team <em>actually</em> performed on the field when you look at the numbers?</p>
+<p>I decided to dig into 6 seasons of Oklahoma football data (2020-2025) to see how the offense and defense have trended. Spoiler alert: the numbers tell a fascinating story about a program in transition.</p>
+<section id="what-were-building" class="level2">
+<h2 class="anchored" data-anchor-id="what-were-building">What We’re Building</h2>
+<p>I’ll show you how to pull college football data using Python and the College Football Data API, analyze Oklahoma’s scoring trends, and visualize offensive and defensive performance across multiple seasons. By the end, you’ll see exactly how to track any team’s performance over time.</p>
+</section>
+<section id="getting-started-with-the-api" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started-with-the-api">Getting Started with the API</h2>
+<p>First things first - you’ll need an API key from <a href="https://collegefootballdata.com">collegefootballdata.com</a>. It’s completely free. Just sign up and grab your key.</p>
+<p>Install the package if you haven’t already:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install cfbd</span></code></pre></div></div>
+<p>Now let’s import what we need and set up the API:</p>
+<div id="7dba9757" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> cfbd</span>
+<span id="cb2-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb2-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb2-4"></span>
+<span id="cb2-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Configure API key - Replace 'YOUR_API_KEY_HERE' with your actual key</span></span>
+<span id="cb2-6">configuration <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cfbd.Configuration()</span>
+<span id="cb2-7">configuration.api_key[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Authorization'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'YOUR_API_KEY_HERE'</span>  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Get your free key at collegefootballdata.com</span></span>
+<span id="cb2-8">configuration.api_key_prefix[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Authorization'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Bearer'</span></span>
+<span id="cb2-9"></span>
+<span id="cb2-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Create API instance</span></span>
+<span id="cb2-11">api_instance <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> cfbd.GamesApi(cfbd.ApiClient(configuration))</span></code></pre></div></div>
+</div>
+<p>Simple enough. Now we’re ready to pull some data.</p>
+</section>
+<section id="pulling-game-data" class="level2">
+<h2 class="anchored" data-anchor-id="pulling-game-data">Pulling Game Data</h2>
+<p>Let’s start by grabbing all 2025 games to see what we’re working with:</p>
+<div id="cdf0b2ae" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Get 2025 season games</span></span>
+<span id="cb3-2">games_2025 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> api_instance.get_games(year<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2025</span>)</span>
+<span id="cb3-3">df_2025 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.DataFrame.from_records([g.to_dict() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> g <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> games_2025])</span>
+<span id="cb3-4"></span>
+<span id="cb3-5"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Total games in 2025: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(df_2025)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>)</span>
+<span id="cb3-6">df_2025.head()</span></code></pre></div></div>
+</div>
+<p>This pulls every single college football game from 2025 - we’re talking thousands of games. But we only care about Oklahoma, so let’s filter:</p>
+<div id="91c76eb5" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Filter for just Oklahoma games (both home and away)</span></span>
+<span id="cb4-2">oklahoma_games_2025 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> df_2025[(df_2025[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_team'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma'</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> (df_2025[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_team'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma'</span>)]</span>
+<span id="cb4-3"></span>
+<span id="cb4-4"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Oklahoma played </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(oklahoma_games_2025)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> games in 2025"</span>)</span>
+<span id="cb4-5">oklahoma_games_2025[[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'week'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_team'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_team'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_points'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_points'</span>]].head(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)</span></code></pre></div></div>
+</div>
+<p>You’ll see something like:</p>
+<pre><code>Oklahoma played 13 games in 2025</code></pre>
+<p>Perfect. Now we’ve got all Oklahoma’s games for one season.</p>
+</section>
+<section id="calculating-points-scored-vs-points-allowed" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-points-scored-vs-points-allowed">Calculating Points Scored vs Points Allowed</h2>
+<p>Here’s where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.</p>
+<div id="42661300" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Figure out if Oklahoma was home or away</span></span>
+<span id="cb6-2">oklahoma_games_2025[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'is_home'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games_2025[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_team'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma'</span></span>
+<span id="cb6-3">oklahoma_games_2025[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_scored'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games_2025.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">apply</span>(</span>
+<span id="cb6-4">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">lambda</span> row: row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_points'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'is_home'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_points'</span>], axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb6-5">)</span>
+<span id="cb6-6">oklahoma_games_2025[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_allowed'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games_2025.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">apply</span>(</span>
+<span id="cb6-7">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">lambda</span> row: row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_points'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'is_home'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_points'</span>], axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb6-8">)</span>
+<span id="cb6-9"></span>
+<span id="cb6-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Let's see what we got</span></span>
+<span id="cb6-11">oklahoma_games_2025[[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'week'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_team'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_team'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'is_home'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_scored'</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_allowed'</span>]].head(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)</span></code></pre></div></div>
+</div>
+<p>So what data did we really get? Now for each game, we know exactly how many points Oklahoma scored and how many they gave up. This is the foundation for everything else.</p>
+</section>
+<section id="expanding-to-multiple-seasons" class="level2">
+<h2 class="anchored" data-anchor-id="expanding-to-multiple-seasons">Expanding to Multiple Seasons</h2>
+<p>One season is interesting, but trends over time? That’s where the magic happens. Let’s grab 6 seasons (2020-2025) and process them all:</p>
+<div id="4595f14e" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Get data for 2020-2025 seasons</span></span>
+<span id="cb7-2">years <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2021</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2022</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2024</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2025</span>]</span>
+<span id="cb7-3">all_seasons <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> {}</span>
+<span id="cb7-4"></span>
+<span id="cb7-5"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> year <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> years:</span>
+<span id="cb7-6">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Get all games for this year</span></span>
+<span id="cb7-7">    games <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> api_instance.get_games(year<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>year)</span>
+<span id="cb7-8">    df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.DataFrame.from_records([g.to_dict() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> g <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> games])</span>
+<span id="cb7-9"></span>
+<span id="cb7-10">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Filter for Oklahoma games</span></span>
+<span id="cb7-11">    oklahoma_games <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> df[(df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_team'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma'</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span> (df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_team'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma'</span>)]</span>
+<span id="cb7-12"></span>
+<span id="cb7-13">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Add game number (1st game, 2nd game, etc.)</span></span>
+<span id="cb7-14">    oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'game_number'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(oklahoma_games) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb7-15"></span>
+<span id="cb7-16">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Figure out if home/away and calculate points</span></span>
+<span id="cb7-17">    oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'is_home'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_team'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma'</span></span>
+<span id="cb7-18">    oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_scored'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">apply</span>(</span>
+<span id="cb7-19">        <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">lambda</span> row: row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_points'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'is_home'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_points'</span>], axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb7-20">    )</span>
+<span id="cb7-21">    oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_allowed'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">apply</span>(</span>
+<span id="cb7-22">        <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">lambda</span> row: row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'away_points'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'is_home'</span>] <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> row[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'home_points'</span>], axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb7-23">    )</span>
+<span id="cb7-24"></span>
+<span id="cb7-25">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Calculate cumulative points over the season</span></span>
+<span id="cb7-26">    oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cumulative_scored'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_scored'</span>].cumsum()</span>
+<span id="cb7-27">    oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cumulative_allowed'</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_allowed'</span>].cumsum()</span>
+<span id="cb7-28"></span>
+<span id="cb7-29">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Store in dictionary</span></span>
+<span id="cb7-30">    all_seasons[year] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> oklahoma_games</span>
+<span id="cb7-31">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>year<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(oklahoma_games)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> games, </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>oklahoma_games[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_scored'</span>]<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">sum</span>()<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:.0f}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> total points scored"</span>)</span></code></pre></div></div>
+</div>
+<p>You’ll see output like:</p>
+<pre><code>2020: 11 games, 443 total points scored
+2021: 14 games, 569 total points scored
+2022: 13 games, 476 total points scored
+2023: 13 games, 455 total points scored
+2024: 12 games, 384 total points scored
+2025: 13 games, 412 total points scored</code></pre>
+<p>Already you can see some trends - 2021 was a high-scoring year, while 2024 was rough. But let’s visualize this properly.</p>
+</section>
+<section id="visualizing-the-trends" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-the-trends">Visualizing the Trends</h2>
+<p>Let’s create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):</p>
+<div id="691f1370" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Visualize offensive and defensive trends</span></span>
+<span id="cb9-2">fig, axs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.subplots(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, figsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">14</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>))</span>
+<span id="cb9-3"></span>
+<span id="cb9-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Use a nice color palette</span></span>
+<span id="cb9-5">colors <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.cm.tab10(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(years)))</span>
+<span id="cb9-6"></span>
+<span id="cb9-7"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> i, year <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">enumerate</span>(years):</span>
+<span id="cb9-8">    data <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> all_seasons[year]</span>
+<span id="cb9-9"></span>
+<span id="cb9-10">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Plot cumulative points scored (offense)</span></span>
+<span id="cb9-11">    axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].plot(data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'game_number'</span>], data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cumulative_scored'</span>],</span>
+<span id="cb9-12">                label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>year<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>colors[i], linewidth<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)</span>
+<span id="cb9-13"></span>
+<span id="cb9-14">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Plot cumulative points allowed (defense - lower is better)</span></span>
+<span id="cb9-15">    axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>].plot(data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'game_number'</span>], data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'cumulative_allowed'</span>],</span>
+<span id="cb9-16">                label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>year<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>colors[i], linewidth<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, linestyle<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'--'</span>)</span>
+<span id="cb9-17"></span>
+<span id="cb9-18"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Offensive chart</span></span>
+<span id="cb9-19">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].set_xlabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Game Number'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb9-20">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].set_ylabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Cumulative Points Scored'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb9-21">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].set_title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma Offense: Points Scored Per Season'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">14</span>, fontweight<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'bold'</span>)</span>
+<span id="cb9-22">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].legend()</span>
+<span id="cb9-23">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>].grid(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>)</span>
+<span id="cb9-24"></span>
+<span id="cb9-25"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Defensive chart</span></span>
+<span id="cb9-26">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>].set_xlabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Game Number'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb9-27">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>].set_ylabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Cumulative Points Allowed'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb9-28">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>].set_title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma Defense: Points Allowed Per Season'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">14</span>, fontweight<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'bold'</span>)</span>
+<span id="cb9-29">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>].legend()</span>
+<span id="cb9-30">axs[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>].grid(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>)</span>
+<span id="cb9-31"></span>
+<span id="cb9-32">plt.tight_layout()</span>
+<span id="cb9-33">plt.show()</span></code></pre></div></div>
+</div>
+<p>This gives you two beautiful charts showing how Oklahoma’s offense and defense performed game-by-game across all 6 seasons. The steeper the line, the more points scored (offense) or allowed (defense).</p>
+</section>
+<section id="breaking-down-points-per-game" class="level2">
+<h2 class="anchored" data-anchor-id="breaking-down-points-per-game">Breaking Down Points Per Game</h2>
+<p>Cumulative stats are cool, but let’s normalize this by looking at points per game:</p>
+<div id="2e486415" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Calculate average points per game for each season</span></span>
+<span id="cb10-2"><span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> year <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> years:</span>
+<span id="cb10-3">    data <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> all_seasons[year]</span>
+<span id="cb10-4">    avg_scored <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_scored'</span>].mean()</span>
+<span id="cb10-5">    avg_allowed <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> data[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_allowed'</span>].mean()</span>
+<span id="cb10-6">    num_games <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(data)</span>
+<span id="cb10-7"></span>
+<span id="cb10-8">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>year<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> (</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>num_games<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> games): </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>avg_scored<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:.1f}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> PPG scored, </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>avg_allowed<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:.1f}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> PPG allowed, </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>avg_scored <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> avg_allowed<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:+.1f}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> point differential"</span>)</span></code></pre></div></div>
+</div>
+<p>Sample output:</p>
+<pre><code>2020 (11 games): 40.3 PPG scored, 26.5 PPG allowed, +13.8 point differential
+2021 (14 games): 40.6 PPG scored, 31.2 PPG allowed, +9.4 point differential
+2022 (13 games): 36.6 PPG scored, 27.8 PPG allowed, +8.8 point differential
+2023 (13 games): 35.0 PPG scored, 24.2 PPG allowed, +10.8 point differential
+2024 (12 games): 32.0 PPG scored, 22.5 PPG allowed, +9.5 point differential
+2025 (13 games): 31.7 PPG scored, 21.8 PPG allowed, +9.9 point differential</code></pre>
+<p>Now we can clearly see the offensive decline - from 40+ PPG in 2020-2021 down to barely 32 PPG by 2024-2025. But defense has actually improved!</p>
+</section>
+<section id="final-visualization-side-by-side-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="final-visualization-side-by-side-comparison">Final Visualization: Side-by-Side Comparison</h2>
+<p>Let’s make one more chart using Oklahoma’s crimson and cream colors to show the year-over-year comparison:</p>
+<div id="70069a44" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Create bar chart comparing PPG across seasons</span></span>
+<span id="cb12-2">fig, ax <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.subplots(figsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>))</span>
+<span id="cb12-3"></span>
+<span id="cb12-4">ppg_scored <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [all_seasons[year][<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_scored'</span>].mean() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> year <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> years]</span>
+<span id="cb12-5">ppg_allowed <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [all_seasons[year][<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'points_allowed'</span>].mean() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> year <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> years]</span>
+<span id="cb12-6"></span>
+<span id="cb12-7">x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">range</span>(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">len</span>(years))</span>
+<span id="cb12-8">width <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.35</span></span>
+<span id="cb12-9"></span>
+<span id="cb12-10">bars1 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ax.bar([i <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span> width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> x], ppg_scored, width, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Points Scored'</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#841617'</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span>)</span>
+<span id="cb12-11">bars2 <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> ax.bar([i <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> x], ppg_allowed, width, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Points Allowed'</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#FFC72C'</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span>)</span>
+<span id="cb12-12"></span>
+<span id="cb12-13">ax.set_xlabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Season'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb12-14">ax.set_ylabel(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Points Per Game'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>)</span>
+<span id="cb12-15">ax.set_title(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Oklahoma Football: Points Per Game by Season (2020-2025)'</span>, fontsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">14</span>, fontweight<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'bold'</span>)</span>
+<span id="cb12-16">ax.set_xticks(x)</span>
+<span id="cb12-17">ax.set_xticklabels(years)</span>
+<span id="cb12-18">ax.legend()</span>
+<span id="cb12-19">ax.grid(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'y'</span>, alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>)</span>
+<span id="cb12-20"></span>
+<span id="cb12-21">plt.tight_layout()</span>
+<span id="cb12-22">plt.show()</span></code></pre></div></div>
+</div>
+<p>This final chart makes it crystal clear - Oklahoma’s offense has steadily declined since the Lincoln Riley era, but the defense has gotten significantly better under Brent Venables.</p>
+</section>
+<section id="what-did-we-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-did-we-learn">What Did We Learn?</h2>
+<p>The data tells a compelling story:</p>
+<ul>
+<li><strong>Offense peaked in 2021</strong> with 40.6 PPG, but has dropped nearly 9 points per game since then</li>
+<li><strong>Defense has improved dramatically</strong> - from allowing 31.2 PPG in 2021 to just 21.8 in 2025</li>
+<li><strong>The program is transforming</strong> from an offensive juggernaut to a more balanced, defense-first team</li>
+<li><strong>SEC competition matters</strong> - the 2024 and 2025 seasons (Oklahoma’s first in the SEC) show the offensive struggles against tougher defenses</li>
+</ul>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next?</h2>
+<p>I’m planning to expand this analysis to compare Oklahoma’s metrics against other SEC teams to see how they truly stack up in their new conference. Are they competitive? Or do they need more time to adjust?</p>
+<p>I’m also curious to break this down by opponent strength - did Oklahoma score more against weaker teams and struggle against ranked opponents?</p>
+<p>If you want to run this analysis for your team, just grab your free API key and swap out “Oklahoma” for your school. The code is yours. Boomer Sooner!</p>
+<hr>
+<p><strong>Have questions or want to see other teams analyzed?</strong> Drop a comment below. I love diving into sports data and I’m always looking for my next analysis project.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>sports</category>
+  <category>cfb</category>
+  <category>python</category>
+  <category>data-analysis</category>
+  <guid>https://bendiagrams.com/sports/oklahoma-football-evolution/</guid>
+  <pubDate>Sat, 14 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://bendiagrams.com/sports/oklahoma-football-evolution/oklahoma-chart.png" medium="image" type="image/png"/>
+</item>
 <item>
   <title>Unlocking Sports Betting with Python: The Odds API</title>
   <dc:creator>Ben Ballard</dc:creator>
@@ -32,7 +986,7 @@
 <li>Key parameters include <code>SPORT</code>, <code>REGIONS</code>, <code>MARKETS</code>, <code>ODDS_FORMAT</code>, and <code>DATE_FORMAT</code>.</li>
 </ul>
 <p>The below will work. Money Back Guarantee. Just get your own API key.</p>
-<div id="0c07ed3e" class="cell" data-execution_count="1">
+<div id="42c382d8" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> requests</span>
@@ -261,7 +1215,7 @@ font-style: inherit;">"</span>)</span></code></pre></div></div>
 <section id="flattening-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="flattening-the-data">Flattening the Data</h2>
 <p>The above code pulls data for upcoming games. And then if you want the data to be nice and clean, instead of a JSON, the below should work for ya.</p>
-<div id="a3f9a7fc" class="cell" data-execution_count="2">
+<div id="f122735e" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
@@ -568,7 +1522,7 @@ font-style: inherit;">print</span>(df)</span></code></pre></div></div>
 <h2 class="anchored" data-anchor-id="gathering-the-data">Gathering the Data</h2>
 <p>The first step is identifying what player you’d like to analyze. Use the player ID to pull their career stats. Replace the current ID <code>'202681'</code> with whatever the new player ID is.</p>
 <p>The code utilizes the <code>nba_api.stats.endpoints</code> module, specifically tapping into <code>playercareerstats</code>. This function will fetch the comprehensive career statistics of your chosen player.</p>
-<div id="d4158841" class="cell" data-execution_count="1">
+<div id="0e48c9ff" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> nba_api.stats.endpoints <span class="im" style="color: #00769E;
@@ -604,7 +1558,7 @@ background-color: null;
 font-style: inherit;">print</span>(seasons_played.tolist())</span></code></pre></div></div>
 </div>
 <p>The above code will print out the number of seasons the NBA player you chose played in a list like this: <code>['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']</code>. Copy the years output and replace the list of seasons below.</p>
-<div id="de46f45d" class="cell" data-execution_count="2">
+<div id="d9d63933" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
@@ -693,7 +1647,7 @@ font-style: inherit;">True</span>)</span></code></pre></div></div>
 <section id="data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-processing">Data Processing</h2>
 <p>After pulling the data, the next steps involve processing the data for analysis and visualization. While the data comes pretty clean after the API pull, there was some processing I did. First, ensure the GAME_DATE column is in a datetime format using the pandas <code>to_datetime</code> method.</p>
-<div id="79e50e32" class="cell" data-execution_count="3">
+<div id="8b711b94" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Convert Game_Date to a datetime</span></span>
@@ -719,7 +1673,7 @@ background-color: null;
 font-style: inherit;">'M'</span>)</span></code></pre></div></div>
 </div>
 <p>Creating summary tables is important for understanding the data and building narratives for story-telling. I used the following code to create a yearly aggregation of the game level stats to tell the story of a player’s career.</p>
-<div id="a018f406" class="cell" data-execution_count="4">
+<div id="b6e2bd72" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Aggregate game level data to yearly</span></span>
@@ -821,7 +1775,7 @@ font-style: inherit;">'FTA'</span>]</span></code></pre></div></div>
 </figure>
 </div>
 <p>In order to get that graphic to work, we must first create the cumulative sum of threes (FG3M) for each season.</p>
-<div id="f1f23b6c" class="cell" data-execution_count="5">
+<div id="9e4a81eb" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Calculate Cumulative Sum</span></span>
@@ -845,7 +1799,7 @@ background-color: null;
 font-style: inherit;">'FGM'</span>].cumsum()</span></code></pre></div></div>
 </div>
 <p>Finally, this code snippet is designed to plot a distinct line for each season, representing the cumulative field goals made by the player. I’ve chosen red for the 2023 season to make it stand out against the others which will be grey.</p>
-<div id="e1eb81d0" class="cell" data-execution_count="6">
+<div id="4c9e55bb" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plotting a line for each season</span></span>
@@ -970,7 +1924,7 @@ font-style: inherit;">'Cumulative FG Made'</span>)</span></code></pre></div></di
 <h2 class="anchored" data-anchor-id="nba-api">NBA API</h2>
 <p>Using the <code>nba_api</code> package, it is simple to write a script or program that can request and parse NBA data. The <code>nba_api</code> provides many methods such as <code>get_players()</code>, <code>playercareerstats()</code>, etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.</p>
 <p>Let’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.</p>
-<div id="58fbd02b" class="cell" data-execution_count="1">
+<div id="93c46287" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> nba_api.stats.endpoints <span class="im" style="color: #00769E;
@@ -1075,7 +2029,7 @@ font-style: inherit;">"</span>)</span></code></pre></div></div>
 <section id="visualization" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
 <p>Once we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.</p>
-<div id="bfec28d1" class="cell" data-execution_count="2">
+<div id="44816d8e" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> plotly.express <span class="im" style="color: #00769E;
@@ -1131,7 +2085,7 @@ font-style: inherit;">=</span>px.colors.sequential.Viridis</span>
 </figure>
 </div>
 <p>The scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.</p>
-<div id="1bbda5bd" class="cell" data-execution_count="3">
+<div id="e14457b4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Assuming top_500_avg is your DataFrame with average stats</span></span>
