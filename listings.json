@@ -8,6 +8,14 @@
     ]
   },
   {
+    "listing": "/economics/index.html",
+    "items": []
+  },
+  {
+    "listing": "/code/index.html",
+    "items": []
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/sports/index.html",
@@ -17,17 +25,12 @@
     ]
   },
   {
-    "listing": "/code/index.html",
-    "items": []
-  },
-  {
-    "listing": "/economics/index.html",
-    "items": []
-  },
-  {
     "listing": "/sports/index.html",
     "items": [
-      "/sports/oklahoma-football-evolution.html"
+      "/sports/oklahoma-football-evolution.html",
+      "/sports/sports-betting-python/index.html",
+      "/sports/nba-stats-api-python/index.html",
+      "/sports/analyzing-nba-data/index.html"
     ]
   }
 ]

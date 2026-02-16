@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ben Ballard">
+<meta name="dcterms.date" content="2023-02-19">
+<meta name="description" content="Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python">
 
-<title>Sports &amp; Odds – BenDiagrams</title>
+<title>Analyzing NBA Data Using Python and APIs – BenDiagrams</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,33 +23,66 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-c9194bc14ae50690701688e543e640f1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-16ebe9197407bae725f838976070c0c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-c9194bc14ae50690701688e543e640f1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-16ebe9197407bae725f838976070c0c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,35 +110,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-7SD1391XRV"></script>
 
 <script type="text/javascript">
@@ -113,44 +120,17 @@ gtag('js', new Date());
 gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Sports &amp; Odds – BenDiagrams">
-<meta property="og:description" content="Betting algorithms, player props, and sports analytics">
-<meta property="og:image" content="https://bendiagrams.com/sports/oklahoma-chart.png">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Analyzing NBA Data Using Python and APIs – BenDiagrams">
+<meta property="og:description" content="Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python">
+<meta property="og:image" content="https://bendiagrams.com/sports/analyzing-nba-data/images/top-500-scatter.png">
 <meta property="og:site_name" content="BenDiagrams">
+<meta property="og:image:height" content="1650">
+<meta property="og:image:width" content="1632">
 </head>
 
-<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="floating nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -315,11 +295,11 @@ window.Quarto = {
   </script>
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">BenDiagrams</span>
     </a>
   </div>
@@ -330,29 +310,29 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../sports/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../sports/index.html"> 
 <span class="menu-text">Sports &amp; Odds</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../economics/index.html"> 
+    <a class="nav-link" href="../../economics/index.html"> 
 <span class="menu-text">Economics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../code/index.html"> 
+    <a class="nav-link" href="../../code/index.html"> 
 <span class="menu-text">Code &amp; Labs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../toolbox/index.html"> 
+    <a class="nav-link" href="../../toolbox/index.html"> 
 <span class="menu-text">The Toolbox</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -374,199 +354,151 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Sports &amp; Odds</h1>
-            <p class="subtitle lead">Betting algorithms, player props, and sports analytics</p>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-body">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-youll-find-here" id="toc-what-youll-find-here" class="nav-link active" data-scroll-target="#what-youll-find-here">What You’ll Find Here</a></li>
-  <li><a href="#all-sports-posts" id="toc-all-sports-posts" class="nav-link" data-scroll-target="#all-sports-posts">All Sports Posts</a></li>
+  <li><a href="#nba-api" id="toc-nba-api" class="nav-link active" data-scroll-target="#nba-api">NBA API</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next</a></li>
   </ul>
 </nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="YXBpcw==">apis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="YmV0dGluZw==">betting <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2Zi">cfb <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YS1hbmFseXNpcw==">data-analysis <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bmJh">nba <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="c3BvcnRz">sports <span class="quarto-category-count">(4)</span></div></div></div>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Analyzing NBA Data Using Python and APIs</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">sports</div>
+    <div class="quarto-category">nba</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">apis</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ben Ballard </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 19, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<section id="what-youll-find-here" class="level2">
-<h2 class="anchored" data-anchor-id="what-youll-find-here">What You’ll Find Here</h2>
-<p>NBA player prop models, college football betting trends, and sports analytics experiments. Every post includes:</p>
-<ul>
-<li><strong>The Data</strong>: Real APIs (ESPN, CFBD, odds providers)</li>
-<li><strong>The Code</strong>: Jupyter notebooks with Python, Pandas, Plotly</li>
-<li><strong>The Results</strong>: Interactive charts and model outputs</li>
-</ul>
-<p>If you’re building your own sports models or just curious what the data says, start here.</p>
+</header>
+
+
+<p>If you’re a fan of basketball, you probably love watching NBA games and following your favorite players. But did you know that you can also analyze NBA data using Python and a powerful API? In this blog post, I’ll show you how to use the NBA_API to access NBA data, perform statistical analysis, and create visualizations.</p>
+<p>The NBA has become a staple in American culture and as technology has progressed, accessing NBA data has become increasingly easier. There are several NBA APIs available on the web, but for the purpose of this analysis, we will focus on the <code>nba_api</code> package. The <code>nba_api</code> is an API Client for <a href="https://www.nba.com">nba.com</a>. This package’s stated goal is to make the APIs of NBA.com easily accessible and provide accessible documentation. This package is open-source.</p>
+<section id="nba-api" class="level2">
+<h2 class="anchored" data-anchor-id="nba-api">NBA API</h2>
+<p>Using the <code>nba_api</code> package, it is simple to write a script or program that can request and parse NBA data. The <code>nba_api</code> provides many methods such as <code>get_players()</code>, <code>playercareerstats()</code>, etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.</p>
+<p>Let’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.</p>
+<div id="5591b04d" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nba_api.stats.endpoints <span class="im">import</span> leagueleaders</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pull data for the top 500 scorers</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    top_500 <span class="op">=</span> leagueleaders.LeagueLeaders(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        season<span class="op">=</span><span class="st">'2023-24'</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        season_type_all_star<span class="op">=</span><span class="st">'Regular Season'</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        stat_category_abbreviation<span class="op">=</span><span class="st">'PTS'</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ).get_data_frames()[<span class="dv">0</span>][:<span class="dv">500</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Correct column names for grouping</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    avg_stats_columns <span class="op">=</span> [<span class="st">'MIN'</span>, <span class="st">'FGM'</span>, <span class="st">'FGA'</span>, <span class="st">'FTM'</span>, <span class="st">'FTA'</span>, <span class="st">'PTS'</span>, <span class="st">'FG3M'</span>, <span class="st">'FG3A'</span>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    top_500_avg <span class="op">=</span> top_500.groupby([<span class="st">'PLAYER'</span>, <span class="st">'PLAYER_ID'</span>])[avg_stats_columns].mean()</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Inspect the first few rows of the averaged stats</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(top_500_avg.head())</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"An error occurred: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>leagueleaders.LeagueLeaders()</code> method takes in parameters such as the season and stat category abbreviation to pull data for the top 500 players by points scored per game for the specified season. The <code>get_data_frames()</code> method returns a list of data frames, with the first item in the list containing the data we want. We then filter out the top 500 players and group them by name and player ID using the <code>groupby()</code> method. Finally, we calculate the average values for the desired columns.</p>
+</section>
+<section id="visualization" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<p>Once we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.</p>
+<div id="639d19c6" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset index to turn 'PLAYER' and 'PLAYER_ID' back into regular columns</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df_for_plotting <span class="op">=</span> top_500_avg.reset_index()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with colors based on 'PTS'</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    df_for_plotting,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'PTS'</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'FG3M'</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">'PLAYER'</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'PTS'</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    color_continuous_scale<span class="op">=</span>px.colors.sequential.Viridis</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This will display an interactive scatter plot of the average number of three-pointers made versus the total points scored for each player in the top 500.</p>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="images/top-500-scatter.png" class="img-fluid figure-img"></p>
+<figcaption class="margin-caption">Top 500 NBA players by PTS — scatter plot of points vs three-pointers made</figcaption>
+</figure>
+</div>
+<p>The scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.</p>
+<div id="723cbaf9" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming top_500_avg is your DataFrame with average stats</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>top_10 <span class="op">=</span> top_500_avg.sort_values(by<span class="op">=</span><span class="st">'PTS'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>top_10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="images/top-10-scorers.png" class="img-fluid figure-img"></p>
+<figcaption class="margin-caption">2023-24 NBA Points Leaderboard — top 10 scorers</figcaption>
+</figure>
+</div>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next</h2>
+<p>The <code>nba_api</code> package is a great tool for accessing and analyzing NBA data. With its many methods, it’s a great way to grab fun data to conduct your analysis. With powerful tools such as pandas and plotly, it is easy to gain insights and produce visualizations. Whether you are a casual NBA fan or a seasoned analyst, the <code>nba_api</code> package is worth checking out.</p>
+<p>If you want to go deeper, I’ve created a more detailed post on the NBA API and manipulating the data in Python: <a href="../nba-stats-api-python/">Analyze NBA Stats with the NBA API and Python</a>.</p>
 <hr>
-</section>
-<section id="all-sports-posts" class="level2">
-<h2 class="anchored" data-anchor-id="all-sports-posts">All Sports Posts</h2>
-<!-- Listing automatically generates below -->
-
+<p><em>Originally published on <a href="https://medium.com/@ben.g.ballard">Medium</a> on February 19, 2023.</em></p>
 
 
 </section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="c3BvcnRzJTJDY2ZiJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1771027200000" data-listing-file-modified-sort="1771249524460" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1366">
-<a href="../sports/oklahoma-football-evolution.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../sports/oklahoma-chart.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('Y2Zi'); return false;">cfb</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YS1hbmFseXNpcw=='); return false;">data-analysis</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Analyzing 6 seasons of Oklahoma football data (2020-2025) to see how the offense and defense evolved during the SEC transition</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Feb 14, 2026
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="c3BvcnRzJTJDYmV0dGluZyUyQ3B5dGhvbiUyQ2FwaXM=" data-listing-date-sort="1702684800000" data-listing-file-modified-sort="1771249524479" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1865">
-<a href="../sports/sports-betting-python/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../sports/sports-betting-python/images/implied-probability-filtered.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Unlocking Sports Betting with Python: The Odds API
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YmV0dGluZw=='); return false;">betting</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YXBpcw=='); return false;">apis</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>How to access live sports betting odds with Python and The Odds API — spreads, moneylines, and championship futures</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Dec 16, 2023
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="c3BvcnRzJTJDbmJhJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1702252800000" data-listing-file-modified-sort="1771249524460" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="858">
-<a href="../sports/nba-stats-api-python/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../sports/nba-stats-api-python/images/cumulative-3fgm.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Analyze NBA Stats with the NBA API and Python
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmJh'); return false;">nba</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YS1hbmFseXNpcw=='); return false;">data-analysis</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>A deep dive into pulling NBA player career stats, processing game logs, and creating visualizations with Python</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Dec 11, 2023
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="c3BvcnRzJTJDbmJhJTJDcHl0aG9uJTJDYXBpcw==" data-listing-date-sort="1676764800000" data-listing-file-modified-sort="1771249524455" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="681">
-<a href="../sports/analyzing-nba-data/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../sports/analyzing-nba-data/images/top-500-scatter.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Analyzing NBA Data Using Python and APIs
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmJh'); return false;">nba</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YXBpcw=='); return false;">apis</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python</p>
-</div>
-<div class="card-attribution card-text-small end">
-<div class="listing-date">
-Feb 19, 2023
-</div>
-</div>
-</div>
-</div></a>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -999,7 +931,7 @@ Feb 19, 2023
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
-    <a class="nav-link" href="../index.xml">
+    <a class="nav-link" href="../../index.xml">
 <p>RSS</p>
 </a>
   </li>  

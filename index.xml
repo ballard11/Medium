@@ -35,7 +35,7 @@
 background-color: null;
 font-style: inherit;">pip</span> install cfbd</span></code></pre></div></div>
 <p>Now let’s import what we need and set up the API:</p>
-<div id="957fbd70" class="cell" data-execution_count="1">
+<div id="6e52926a" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> cfbd</span>
@@ -85,7 +85,7 @@ font-style: inherit;">=</span> cfbd.GamesApi(cfbd.ApiClient(configuration))</spa
 <section id="pulling-game-data" class="level2">
 <h2 class="anchored" data-anchor-id="pulling-game-data">Pulling Game Data</h2>
 <p>Let’s start by grabbing all 2025 games to see what we’re working with:</p>
-<div id="22b583cf" class="cell" data-execution_count="2">
+<div id="cc9c0ac7" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Get 2025 season games</span></span>
@@ -122,7 +122,7 @@ font-style: inherit;">"</span>)</span>
 <span id="cb3-6">df_2025.head()</span></code></pre></div></div>
 </div>
 <p>This pulls every single college football game from 2025 - we’re talking thousands of games. But we only care about Oklahoma, so let’s filter:</p>
-<div id="243a0926" class="cell" data-execution_count="3">
+<div id="880241b0" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Filter for just Oklahoma games (both home and away)</span></span>
@@ -178,7 +178,7 @@ font-style: inherit;">10</span>)</span></code></pre></div></div>
 <section id="calculating-points-scored-vs-points-allowed" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-points-scored-vs-points-allowed">Calculating Points Scored vs Points Allowed</h2>
 <p>Here’s where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.</p>
-<div id="eb1a10ba" class="cell" data-execution_count="4">
+<div id="9a686424" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Figure out if Oklahoma was home or away</span></span>
@@ -274,7 +274,7 @@ font-style: inherit;">10</span>)</span></code></pre></div></div>
 <section id="expanding-to-multiple-seasons" class="level2">
 <h2 class="anchored" data-anchor-id="expanding-to-multiple-seasons">Expanding to Multiple Seasons</h2>
 <p>One season is interesting, but trends over time? That’s where the magic happens. Let’s grab 6 seasons (2020-2025) and process them all:</p>
-<div id="1c3f4f9b" class="cell" data-execution_count="5">
+<div id="299ada62" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Get data for 2020-2025 seasons</span></span>
@@ -501,7 +501,7 @@ font-style: inherit;"> total points scored"</span>)</span></code></pre></div></d
 <section id="visualizing-the-trends" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-trends">Visualizing the Trends</h2>
 <p>Let’s create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):</p>
-<div id="8d191379" class="cell" data-execution_count="6">
+<div id="c00d3a09" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Visualize offensive and defensive trends</span></span>
@@ -705,7 +705,7 @@ font-style: inherit;">0.3</span>)</span>
 <section id="breaking-down-points-per-game" class="level2">
 <h2 class="anchored" data-anchor-id="breaking-down-points-per-game">Breaking Down Points Per Game</h2>
 <p>Cumulative stats are cool, but let’s normalize this by looking at points per game:</p>
-<div id="69c20242" class="cell" data-execution_count="7">
+<div id="4e802531" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Calculate average points per game for each season</span></span>
@@ -785,7 +785,7 @@ font-style: inherit;"> point differential"</span>)</span></code></pre></div></di
 <section id="final-visualization-side-by-side-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="final-visualization-side-by-side-comparison">Final Visualization: Side-by-Side Comparison</h2>
 <p>Let’s make one more chart using Oklahoma’s crimson and cream colors to show the year-over-year comparison:</p>
-<div id="49833f81" class="cell" data-execution_count="8">
+<div id="8387b909" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Create bar chart comparing PPG across seasons</span></span>
@@ -996,7 +996,7 @@ font-style: inherit;">0.3</span>)</span>
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="c3BvcnRzJTJDY2ZiJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1771027200000" data-listing-file-modified-sort="1771196852161" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1366">
+<div class="g-col-1" data-index="0" data-categories="c3BvcnRzJTJDY2ZiJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1771027200000" data-listing-file-modified-sort="1771249524460" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1366">
 <a href="../sports/oklahoma-football-evolution.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -1028,11 +1028,107 @@ Feb 14, 2026
 </div>
 </div></a>
 </div>
+<div class="g-col-1" data-index="1" data-categories="c3BvcnRzJTJDYmV0dGluZyUyQ3B5dGhvbiUyQ2FwaXM=" data-listing-date-sort="1702684800000" data-listing-file-modified-sort="1771249524479" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1865">
+<a href="../sports/sports-betting-python/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="https://bendiagrams.com/sports/sports-betting-python/images/implied-probability-filtered.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Unlocking Sports Betting with Python: The Odds API
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmV0dGluZw=='); return false;">betting</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('YXBpcw=='); return false;">apis</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>How to access live sports betting odds with Python and The Odds API — spreads, moneylines, and championship futures</p>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Dec 16, 2023
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="c3BvcnRzJTJDbmJhJTJDcHl0aG9uJTJDZGF0YS1hbmFseXNpcw==" data-listing-date-sort="1702252800000" data-listing-file-modified-sort="1771249524460" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="858">
+<a href="../sports/nba-stats-api-python/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="https://bendiagrams.com/sports/nba-stats-api-python/images/cumulative-3fgm.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Analyze NBA Stats with the NBA API and Python
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bmJh'); return false;">nba</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YS1hbmFseXNpcw=='); return false;">data-analysis</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>A deep dive into pulling NBA player career stats, processing game logs, and creating visualizations with Python</p>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Dec 11, 2023
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="c3BvcnRzJTJDbmJhJTJDcHl0aG9uJTJDYXBpcw==" data-listing-date-sort="1676764800000" data-listing-file-modified-sort="1771249524455" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="681">
+<a href="../sports/analyzing-nba-data/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="https://bendiagrams.com/sports/analyzing-nba-data/images/top-500-scatter.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Analyzing NBA Data Using Python and APIs
+</h5>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3BvcnRz'); return false;">sports</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bmJh'); return false;">nba</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('YXBpcw=='); return false;">apis</div>
+
+</div>
+<div class="card-text listing-description delink">
+<p>Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python</p>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Feb 19, 2023
+</div>
+</div>
+</div>
+</div></a>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://bendiagrams.com/sports/</guid>
-  <pubDate>Sun, 15 Feb 2026 23:08:16 GMT</pubDate>
+  <pubDate>Mon, 16 Feb 2026 13:46:07 GMT</pubDate>
 </item>
 <item>
   <title>Economics &amp; Trends</title>
@@ -1070,7 +1166,7 @@ Feb 14, 2026
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://bendiagrams.com/economics/</guid>
-  <pubDate>Sun, 15 Feb 2026 23:08:16 GMT</pubDate>
+  <pubDate>Mon, 16 Feb 2026 13:46:07 GMT</pubDate>
 </item>
 <item>
   <title>Code &amp; Labs</title>
@@ -1108,7 +1204,7 @@ Feb 14, 2026
 <div class="listing-no-matching d-none">No matching items</div>
 </div> ]]></description>
   <guid>https://bendiagrams.com/code/</guid>
-  <pubDate>Sun, 15 Feb 2026 23:08:16 GMT</pubDate>
+  <pubDate>Mon, 16 Feb 2026 13:46:07 GMT</pubDate>
 </item>
 </channel>
 </rss>
