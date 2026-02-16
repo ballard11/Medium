@@ -15,8 +15,11 @@ website:
   repo-url: "https://github.com/ballard11/Medium"
   google-analytics: "G-7SD1391XRV"
 
+  favicon: images/favicon.png
+
   navbar:
     logo: images/logo.png
+    logo-height: 125px
     background: primary
     search: true
     left:
