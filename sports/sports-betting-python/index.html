@@ -80,9 +80,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-16ebe9197407bae725f838976070c0c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6ff154e3c9dd7c309cf7da6408194489.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a0c5efba0f68d791b8e11eac0cd566b0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6ff154e3c9dd7c309cf7da6408194489.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -299,6 +299,10 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/logo.png" alt="" class="navbar-logo dark-content">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">BenDiagrams</span>
     </a>
@@ -314,26 +318,15 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../sports/index.html"> 
-<span class="menu-text">Sports &amp; Odds</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../economics/index.html"> 
-<span class="menu-text">Economics</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../code/index.html"> 
-<span class="menu-text">Code &amp; Labs</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../toolbox/index.html"> 
-<span class="menu-text">The Toolbox</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://medium.com/@ben.g.ballard"> <i class="bi bi-medium" role="img">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/ballard11"> <i class="bi bi-github" role="img">
@@ -439,7 +432,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <li>Key parameters include <code>SPORT</code>, <code>REGIONS</code>, <code>MARKETS</code>, <code>ODDS_FORMAT</code>, and <code>DATE_FORMAT</code>.</li>
 </ul>
 <p>The below will work. Money Back Guarantee. Just get your own API key.</p>
-<div id="96a9ca0a" class="cell" data-execution_count="1">
+<div id="cf874d7d" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -502,7 +495,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <section id="flattening-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="flattening-the-data">Flattening the Data</h2>
 <p>The above code pulls data for upcoming games. And then if you want the data to be nice and clean, instead of a JSON, the below should work for ya.</p>
-<div id="ec0c410d" class="cell" data-execution_count="2">
+<div id="205fe7ea" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>odds_data <span class="op">=</span> odds_json</span>

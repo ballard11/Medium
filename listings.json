@@ -1,33 +1,7 @@
 [
   {
-    "listing": "/toolbox/index.html",
-    "items": [
-      "/toolbox/cfbd-api.html",
-      "/toolbox/pandas.html",
-      "/toolbox/plotly.html"
-    ]
-  },
-  {
-    "listing": "/economics/index.html",
-    "items": []
-  },
-  {
-    "listing": "/code/index.html",
-    "items": []
-  },
-  {
     "listing": "/index.html",
     "items": [
-      "/sports/index.html",
-      "/economics/index.html",
-      "/code/index.html",
-      "/sports/oklahoma-football-evolution.html"
-    ]
-  },
-  {
-    "listing": "/sports/index.html",
-    "items": [
-      "/sports/oklahoma-football-evolution.html",
       "/sports/sports-betting-python/index.html",
       "/sports/nba-stats-api-python/index.html",
       "/sports/analyzing-nba-data/index.html"

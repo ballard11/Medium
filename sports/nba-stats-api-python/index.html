@@ -80,9 +80,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d0cc795610e240dfc9438d600a170584.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-16ebe9197407bae725f838976070c0c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-3fecdb93604be274283f70f851eeed1f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6ff154e3c9dd7c309cf7da6408194489.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a0c5efba0f68d791b8e11eac0cd566b0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-6ff154e3c9dd7c309cf7da6408194489.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -299,6 +299,10 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/logo.png" alt="" class="navbar-logo dark-content">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">BenDiagrams</span>
     </a>
@@ -314,26 +318,15 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../sports/index.html"> 
-<span class="menu-text">Sports &amp; Odds</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../economics/index.html"> 
-<span class="menu-text">Economics</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../code/index.html"> 
-<span class="menu-text">Code &amp; Labs</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../toolbox/index.html"> 
-<span class="menu-text">The Toolbox</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://medium.com/@ben.g.ballard"> <i class="bi bi-medium" role="img">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/ballard11"> <i class="bi bi-github" role="img">
@@ -423,7 +416,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="gathering-the-data">Gathering the Data</h2>
 <p>The first step is identifying what player you’d like to analyze. Use the player ID to pull their career stats. Replace the current ID <code>'202681'</code> with whatever the new player ID is.</p>
 <p>The code utilizes the <code>nba_api.stats.endpoints</code> module, specifically tapping into <code>playercareerstats</code>. This function will fetch the comprehensive career statistics of your chosen player.</p>
-<div id="18ec6515" class="cell" data-execution_count="1">
+<div id="38e09838" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nba_api.stats.endpoints <span class="im">import</span> playercareerstats</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetching career statistics for Player of Choice using his player ID</span></span>
@@ -435,7 +428,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seasons_played.tolist())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The above code will print out the number of seasons the NBA player you chose played in a list like this: <code>['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']</code>. Copy the years output and replace the list of seasons below.</p>
-<div id="68488d32" class="cell" data-execution_count="2">
+<div id="d8e76774" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nba_api.stats.endpoints <span class="im">import</span> playergamelog</span>
@@ -464,7 +457,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <section id="data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-processing">Data Processing</h2>
 <p>After pulling the data, the next steps involve processing the data for analysis and visualization. While the data comes pretty clean after the API pull, there was some processing I did. First, ensure the GAME_DATE column is in a datetime format using the pandas <code>to_datetime</code> method.</p>
-<div id="7d31264b" class="cell" data-execution_count="3">
+<div id="e28e93ee" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Game_Date to a datetime</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'GAME_DATE'</span>] <span class="op">=</span> pd.to_datetime(all_seasons_logs_df[<span class="st">'GAME_DATE'</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -472,7 +465,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'MONTH_YEAR'</span>] <span class="op">=</span> all_seasons_logs_df[<span class="st">'GAME_DATE'</span>].dt.to_period(<span class="st">'M'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Creating summary tables is important for understanding the data and building narratives for story-telling. I used the following code to create a yearly aggregation of the game level stats to tell the story of a player’s career.</p>
-<div id="860f998f" class="cell" data-execution_count="4">
+<div id="0ef20ca0" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate game level data to yearly</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yearly_stats <span class="op">=</span> all_seasons_logs_df.groupby(<span class="st">'YEAR'</span>).agg({</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FGM'</span>: <span class="st">'sum'</span>,</span>
@@ -512,13 +505,13 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 </figure>
 </div>
 <p>In order to get that graphic to work, we must first create the cumulative sum of threes (FG3M) for each season.</p>
-<div id="3017dd83" class="cell" data-execution_count="5">
+<div id="a303d4c5" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Cumulative Sum</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'FG3M_CUMSUM'</span>] <span class="op">=</span> all_seasons_logs_df.groupby(<span class="st">'YEAR'</span>)[<span class="st">'FG3M'</span>].cumsum()</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'FGM_CUMSUM'</span>] <span class="op">=</span> all_seasons_logs_df.groupby(<span class="st">'YEAR'</span>)[<span class="st">'FGM'</span>].cumsum()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Finally, this code snippet is designed to plot a distinct line for each season, representing the cumulative field goals made by the player. I’ve chosen red for the 2023 season to make it stand out against the others which will be grey.</p>
-<div id="c3a69aa4" class="cell" data-execution_count="6">
+<div id="23b16435" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting a line for each season</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> all_seasons_logs_df[<span class="st">'YEAR'</span>].unique():</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    season_data <span class="op">=</span> all_seasons_logs_df[all_seasons_logs_df[<span class="st">'YEAR'</span>] <span class="op">==</span> year]</span>

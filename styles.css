@@ -1,4 +1,4 @@
-/* Custom styles for The Modeled World */
+/* Custom styles for BenDiagrams */
 
 /* ============================================
    LANGUAGE-SPECIFIC CODE BLOCK BORDERS
@@ -122,7 +122,7 @@ body.quarto-dark code:not(pre > code) {
 /* Newsletter section styling */
 #newsletter {
   background-color: #f8f9fa;
-  border: 2px solid #007bff;
+  border: 2px solid #1a2744;
   padding: 2em;
   border-radius: 8px;
   margin: 2em 0;
@@ -141,7 +141,7 @@ body.quarto-dark #newsletter {
 /* Fallback for grid cards without images */
 .quarto-grid .listing-item .listing-image {
   min-height: 200px;
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  background: linear-gradient(135deg, #1a2744 0%, #0f1a2e 100%);
   border-radius: 4px;
   display: flex;
   align-items: center;
