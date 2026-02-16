@@ -16,22 +16,17 @@ website:
   google-analytics: "G-7SD1391XRV"
 
   navbar:
+    logo: images/logo.png
     background: primary
     search: true
     left:
       - text: "Home"
         href: index.qmd
-      - text: "Sports & Odds"
-        href: sports/index.qmd
-      - text: "Economics"
-        href: economics/index.qmd
-      - text: "Code & Labs"
-        href: code/index.qmd
-      - text: "The Toolbox"
-        href: toolbox/index.qmd
-    right:
       - text: "About"
         href: about.qmd
+    right:
+      - icon: medium
+        href: "https://medium.com/@ben.g.ballard"
       - icon: github
         href: "https://github.com/ballard11"
       - icon: linkedin

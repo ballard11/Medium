@@ -2,9 +2,10 @@
 subtitle: "A data science lab for sports analytics, economic trends, and code experiments"
 listing:
   contents:
-    - "sports/*.qmd"
-    - "economics/*.qmd"
-    - "code/*.qmd"
+    - "sports/*/index.qmd"
+    - "economics/*/index.qmd"
+    - "code/*/index.qmd"
+    - "toolbox/*/index.qmd"
   type: default
   sort: "date desc"
   categories: true
