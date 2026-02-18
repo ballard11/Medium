@@ -5,7 +5,8 @@ date: "2026-02-18"
 categories: [Python, Sports Betting, Data Science, APIs]
 jupyter: python3
 execute:
-  freeze: false
+  eval: false
+  echo: true
 ---
 
 In [Part 1: Unlocking Sports Betting with Python](https://medium.com/@ben.g.ballard/unlocking-sports-betting-with-python), we pulled live odds from The Odds API and compared bookmaker lines in a Jupyter notebook.
