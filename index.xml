@@ -33,7 +33,7 @@
 <section id="fetching-live-odds" class="level2">
 <h2 class="anchored" data-anchor-id="fetching-live-odds">Fetching Live Odds</h2>
 <p>Let’s pull today’s NBA odds. Same endpoint as Part 1 — we’re just requesting all three market types at once: moneyline (<code>h2h</code>), spreads, and totals.</p>
-<div id="e0d0ff10" class="cell" data-execution_count="2">
+<div id="c5cd3f2c" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">SPORT <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -131,7 +131,7 @@ font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span>)</span></code></pre></div></div>
 </div>
-<div id="010ab3cc" class="cell" data-execution_count="3">
+<div id="53a05e40" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">df <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> flatten_odds(events)</span>
@@ -174,7 +174,7 @@ font-style: inherit;"> bookmakers'</span>)</span>
 <section id="section-1-live-odds-table" class="level2">
 <h2 class="anchored" data-anchor-id="section-1-live-odds-table">Section 1: Live Odds Table</h2>
 <p>First, let’s look at the moneyline odds. We’ll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.</p>
-<div id="ca4eab61" class="cell" data-execution_count="4">
+<div id="b07813a4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Filter to moneyline odds only</span></span>
@@ -248,7 +248,7 @@ font-style: inherit;">'#2ecc71'</span>)</span></code></pre></div></div>
 <section id="section-2-best-line-finder" class="level2">
 <h2 class="anchored" data-anchor-id="section-2-best-line-finder">Section 2: Best Line Finder</h2>
 <p>This one’s my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an “edge” it has over the second-best option.</p>
-<div id="b7ad0961" class="cell" data-execution_count="5">
+<div id="3bd7663e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">best_lines <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span>
@@ -362,7 +362,7 @@ font-style: inherit;">False</span>)</span></code></pre></div></div>
 <section id="section-3-implied-probability-chart" class="level2">
 <h2 class="anchored" data-anchor-id="section-3-implied-probability-chart">Section 3: Implied Probability Chart</h2>
 <p>American odds (like -150 or +130) are hard to read at a glance. Let’s convert everything to <strong>implied probabilities</strong> and visualize them. This tells us the “true” win probability the bookmaker is assigning to each team.</p>
-<div id="13c6dd74" class="cell" data-execution_count="6">
+<div id="da4bbf22" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Average odds across bookmakers for each team (consensus line)</span></span>
@@ -410,7 +410,7 @@ font-style: inherit;">'price'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'prob_pct'</span>]].head()</span></code></pre></div></div>
 </div>
-<div id="fdacfb98" class="cell" data-execution_count="7">
+<div id="2265012b" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Build the stacked bar chart</span></span>
@@ -559,7 +559,7 @@ font-style: inherit;">'Implied Win Probabilities (Consensus Odds)'</span>,</span
 <h2 class="anchored" data-anchor-id="section-4-player-props-explorer">Section 4: Player Props Explorer</h2>
 <p>This is where it gets really fun. We’ll pick a game, pull player props (points, rebounds, assists), and see where bookmakers disagree on the lines. Bigger disagreements = potential value bets.</p>
 <p>Let’s grab the first game and see what props are available.</p>
-<div id="98cb28ed" class="cell" data-execution_count="8">
+<div id="260e75af" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Pick the first game</span></span>
@@ -691,7 +691,7 @@ font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span>)</span></code></pre></div></div>
 </div>
-<div id="46d98c74" class="cell" data-execution_count="9">
+<div id="e38fd029" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">props_df <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> flatten_props(props_data)</span>
@@ -720,7 +720,7 @@ background-color: null;
 font-style: inherit;"> players'</span>)</span>
 <span id="cb8-3">props_df.head()</span></code></pre></div></div>
 </div>
-<div id="e3c428cd" class="cell" data-execution_count="10">
+<div id="c02407c0" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Scatter plot: points props, Over side only</span></span>
@@ -861,337 +861,6 @@ font-style: inherit;">'No points props available for this game yet.'</span>)</sp
   <pubDate>Wed, 18 Feb 2026 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>College Football Data API</title>
-  <link>https://bendiagrams.com/toolbox/cfbd-api.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<section id="what-it-does" class="level2">
-<h2 class="anchored" data-anchor-id="what-it-does">What It Does</h2>
-<p>The College Football Data API provides comprehensive college football data including team stats, player stats, game results, recruiting data, and betting lines. All for free with a simple API key.</p>
-</section>
-<section id="why-i-bookmarked-it" class="level2">
-<h2 class="anchored" data-anchor-id="why-i-bookmarked-it">Why I Bookmarked It</h2>
-<p>This is my go-to source for CFB analytics. The data quality is excellent, the Python client makes it easy to use, and it’s completely free. I’ve used this for analyzing Oklahoma’s SEC transition and betting line analysis.</p>
-</section>
-<section id="hello-world-example" class="level2">
-<h2 class="anchored" data-anchor-id="hello-world-example">Hello World Example</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> cfbd</span>
-<span id="cb1-2"></span>
-<span id="cb1-3"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Configure API</span></span>
-<span id="cb1-4">configuration <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cfbd.Configuration()</span>
-<span id="cb1-5">configuration.api_key[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Authorization'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'YOUR_API_KEY'</span></span>
-<span id="cb1-6">configuration.api_key_prefix[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Authorization'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Bearer'</span></span>
-<span id="cb1-7"></span>
-<span id="cb1-8"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Get 2025 games</span></span>
-<span id="cb1-9">api_instance <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> cfbd.GamesApi(cfbd.ApiClient(configuration))</span>
-<span id="cb1-10">games <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> api_instance.get_games(year<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2025</span>, team<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Oklahoma'</span>)</span>
-<span id="cb1-11"></span>
-<span id="cb1-12"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"Found </span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">len</span>(games)<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;"> Oklahoma games in 2025"</span>)</span></code></pre></div></div>
-</section>
-<section id="verdict" class="level2">
-<h2 class="anchored" data-anchor-id="verdict">Verdict</h2>
-<p><strong>Status: Active Use</strong> - This is my primary data source for CFB analysis.</p>
-<ul>
-<li><strong>Pros:</strong> Free, comprehensive data, great Python client, excellent documentation</li>
-<li><strong>Cons:</strong> Rate limits exist (but generous), some advanced metrics require premium</li>
-<li><strong>Use Cases:</strong> Game analysis, trend tracking, betting research</li>
-</ul>
-</section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<ul>
-<li><a href="https://collegefootballdata.com/api/docs">Official API Docs</a></li>
-<li><a href="https://github.com/CFBD/cfbd-python">Python Client</a></li>
-<li><a href="../sports/oklahoma-football-evolution.html">My Analysis Using This API</a></li>
-</ul>
-
-
-</section>
-
- ]]></description>
-  <category>tool</category>
-  <category>python</category>
-  <category>api</category>
-  <category>sports</category>
-  <guid>https://bendiagrams.com/toolbox/cfbd-api.html</guid>
-  <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Pandas</title>
-  <link>https://bendiagrams.com/toolbox/pandas.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<section id="what-it-does" class="level2">
-<h2 class="anchored" data-anchor-id="what-it-does">What It Does</h2>
-<p>Pandas is the foundational data analysis library for Python. It provides DataFrames (think Excel spreadsheets in code) and powerful tools for cleaning, transforming, and analyzing data.</p>
-</section>
-<section id="why-i-bookmarked-it" class="level2">
-<h2 class="anchored" data-anchor-id="why-i-bookmarked-it">Why I Bookmarked It</h2>
-<p>Every single data analysis project I do starts with Pandas. It’s the Swiss Army knife of data manipulation. Whether I’m cleaning API responses or calculating sports statistics, Pandas makes it simple.</p>
-</section>
-<section id="hello-world-example" class="level2">
-<h2 class="anchored" data-anchor-id="hello-world-example">Hello World Example</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> pd</span>
-<span id="cb1-2"></span>
-<span id="cb1-3"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Create a DataFrame from dict</span></span>
-<span id="cb1-4">data <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> {</span>
-<span id="cb1-5">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'team'</span>: [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Oklahoma'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Texas'</span>, <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Alabama'</span>],</span>
-<span id="cb1-6">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'wins'</span>: [<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">12</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">11</span>],</span>
-<span id="cb1-7">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'losses'</span>: [<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2</span>]</span>
-<span id="cb1-8">}</span>
-<span id="cb1-9"></span>
-<span id="cb1-10">df <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> pd.DataFrame(data)</span>
-<span id="cb1-11"></span>
-<span id="cb1-12"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Calculate win percentage</span></span>
-<span id="cb1-13">df[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'win_pct'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> df[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'wins'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">/</span> (df[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'wins'</span>] <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">+</span> df[<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'losses'</span>])</span>
-<span id="cb1-14"></span>
-<span id="cb1-15"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">print</span>(df)</span></code></pre></div></div>
-</section>
-<section id="verdict" class="level2">
-<h2 class="anchored" data-anchor-id="verdict">Verdict</h2>
-<p><strong>Status: Active Use</strong> - Non-negotiable foundation of my data stack.</p>
-<ul>
-<li><strong>Pros:</strong> Industry standard, massive community, handles any data format</li>
-<li><strong>Cons:</strong> Memory-intensive for huge datasets (use Polars for that)</li>
-<li><strong>Use Cases:</strong> Every data analysis project, API response parsing, CSV manipulation</li>
-</ul>
-</section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<ul>
-<li><a href="https://pandas.pydata.org/docs/">Official Docs</a></li>
-<li><a href="https://pandas.pydata.org/docs/user_guide/10min.html">10 Minutes to Pandas</a></li>
-<li><a href="../code/index.html">My Pandas Tutorials</a></li>
-</ul>
-
-
-</section>
-
- ]]></description>
-  <category>tool</category>
-  <category>python</category>
-  <category>data-analysis</category>
-  <guid>https://bendiagrams.com/toolbox/pandas.html</guid>
-  <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Plotly</title>
-  <link>https://bendiagrams.com/toolbox/plotly.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<section id="what-it-does" class="level2">
-<h2 class="anchored" data-anchor-id="what-it-does">What It Does</h2>
-<p>Plotly creates interactive, publication-quality graphs in Python. Unlike Matplotlib, Plotly charts are interactive by default - hover to see values, zoom, pan, and download as PNG.</p>
-</section>
-<section id="why-i-bookmarked-it" class="level2">
-<h2 class="anchored" data-anchor-id="why-i-bookmarked-it">Why I Bookmarked It</h2>
-<p>I switched from Matplotlib to Plotly for blog posts because readers can interact with the charts. The API is clean, the defaults look good, and it works seamlessly with Pandas DataFrames.</p>
-</section>
-<section id="hello-world-example" class="level2">
-<h2 class="anchored" data-anchor-id="hello-world-example">Hello World Example</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> plotly.express <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> px</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> pd</span>
-<span id="cb1-3"></span>
-<span id="cb1-4"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Sample data</span></span>
-<span id="cb1-5">df <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> pd.DataFrame({</span>
-<span id="cb1-6">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'year'</span>: [<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2021</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2022</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2023</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">2024</span>],</span>
-<span id="cb1-7">    <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'wins'</span>: [<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">11</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">6</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">13</span>]</span>
-<span id="cb1-8">})</span>
-<span id="cb1-9"></span>
-<span id="cb1-10"><span class="co" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;"># Create interactive line chart</span></span>
-<span id="cb1-11">fig <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> px.line(df, x<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'year'</span>, y<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'wins'</span>,</span>
-<span id="cb1-12">              title<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Oklahoma Football Wins by Year'</span>)</span>
-<span id="cb1-13"></span>
-<span id="cb1-14">fig.show()</span></code></pre></div></div>
-</section>
-<section id="verdict" class="level2">
-<h2 class="anchored" data-anchor-id="verdict">Verdict</h2>
-<p><strong>Status: Active Use</strong> - My default visualization library for blog posts.</p>
-<ul>
-<li><strong>Pros:</strong> Interactive by default, beautiful styling, great for web</li>
-<li><strong>Cons:</strong> Larger file sizes than static charts, overkill for simple plots</li>
-<li><strong>Use Cases:</strong> Blog visualizations, dashboards, exploratory data analysis</li>
-</ul>
-</section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<ul>
-<li><a href="https://plotly.com/python/">Official Docs</a></li>
-<li><a href="https://plotly.com/python/plotly-express/">Plotly Express</a></li>
-<li><a href="../sports/index.html">My Chart Examples</a></li>
-</ul>
-
-
-</section>
-
- ]]></description>
-  <category>tool</category>
-  <category>python</category>
-  <category>visualization</category>
-  <guid>https://bendiagrams.com/toolbox/plotly.html</guid>
-  <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
-</item>
-<item>
   <title>Tracking Oklahoma Football’s Evolution: A Data-Driven Look at the Sooners’ SEC Transition</title>
   <dc:creator>Ben Ballard</dc:creator>
   <link>https://bendiagrams.com/posts/oklahoma-football-evolution/</link>
@@ -1215,7 +884,7 @@ font-style: inherit;">'Oklahoma Football Wins by Year'</span>)</span>
 background-color: null;
 font-style: inherit;">pip</span> install cfbd</span></code></pre></div></div>
 <p>Now let’s import what we need and set up the API:</p>
-<div id="fcb1363f" class="cell" data-execution_count="1">
+<div id="b673a12a" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> cfbd</span>
@@ -1265,7 +934,7 @@ font-style: inherit;">=</span> cfbd.GamesApi(cfbd.ApiClient(configuration))</spa
 <section id="pulling-game-data" class="level2">
 <h2 class="anchored" data-anchor-id="pulling-game-data">Pulling Game Data</h2>
 <p>Let’s start by grabbing all 2025 games to see what we’re working with:</p>
-<div id="8dc33704" class="cell" data-execution_count="2">
+<div id="0713954a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Get 2025 season games</span></span>
@@ -1302,7 +971,7 @@ font-style: inherit;">"</span>)</span>
 <span id="cb3-6">df_2025.head()</span></code></pre></div></div>
 </div>
 <p>This pulls every single college football game from 2025 - we’re talking thousands of games. But we only care about Oklahoma, so let’s filter:</p>
-<div id="dd960bf7" class="cell" data-execution_count="3">
+<div id="7a56e71e" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Filter for just Oklahoma games (both home and away)</span></span>
@@ -1358,7 +1027,7 @@ font-style: inherit;">10</span>)</span></code></pre></div></div>
 <section id="calculating-points-scored-vs-points-allowed" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-points-scored-vs-points-allowed">Calculating Points Scored vs Points Allowed</h2>
 <p>Here’s where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.</p>
-<div id="fe2fd2dc" class="cell" data-execution_count="4">
+<div id="e3d304d0" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Figure out if Oklahoma was home or away</span></span>
@@ -1454,7 +1123,7 @@ font-style: inherit;">10</span>)</span></code></pre></div></div>
 <section id="expanding-to-multiple-seasons" class="level2">
 <h2 class="anchored" data-anchor-id="expanding-to-multiple-seasons">Expanding to Multiple Seasons</h2>
 <p>One season is interesting, but trends over time? That’s where the magic happens. Let’s grab 6 seasons (2020-2025) and process them all:</p>
-<div id="4865516e" class="cell" data-execution_count="5">
+<div id="64dc1d21" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Get data for 2020-2025 seasons</span></span>
@@ -1681,7 +1350,7 @@ font-style: inherit;"> total points scored"</span>)</span></code></pre></div></d
 <section id="visualizing-the-trends" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-trends">Visualizing the Trends</h2>
 <p>Let’s create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):</p>
-<div id="a765d1fc" class="cell" data-execution_count="6">
+<div id="65f3c4a0" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Visualize offensive and defensive trends</span></span>
@@ -1885,7 +1554,7 @@ font-style: inherit;">0.3</span>)</span>
 <section id="breaking-down-points-per-game" class="level2">
 <h2 class="anchored" data-anchor-id="breaking-down-points-per-game">Breaking Down Points Per Game</h2>
 <p>Cumulative stats are cool, but let’s normalize this by looking at points per game:</p>
-<div id="ea15e084" class="cell" data-execution_count="7">
+<div id="ab4bfde5" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Calculate average points per game for each season</span></span>
@@ -1965,7 +1634,7 @@ font-style: inherit;"> point differential"</span>)</span></code></pre></div></di
 <section id="final-visualization-side-by-side-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="final-visualization-side-by-side-comparison">Final Visualization: Side-by-Side Comparison</h2>
 <p>Let’s make one more chart using Oklahoma’s crimson and cream colors to show the year-over-year comparison:</p>
-<div id="d3dca532" class="cell" data-execution_count="8">
+<div id="b58c3485" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Create bar chart comparing PPG across seasons</span></span>
@@ -2166,7 +1835,7 @@ font-style: inherit;">0.3</span>)</span>
 <li>Key parameters include <code>SPORT</code>, <code>REGIONS</code>, <code>MARKETS</code>, <code>ODDS_FORMAT</code>, and <code>DATE_FORMAT</code>.</li>
 </ul>
 <p>The below will work. Money Back Guarantee. Just get your own API key.</p>
-<div id="ca333859" class="cell" data-execution_count="1">
+<div id="340d4f5c" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> requests</span>
@@ -2395,7 +2064,7 @@ font-style: inherit;">"</span>)</span></code></pre></div></div>
 <section id="flattening-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="flattening-the-data">Flattening the Data</h2>
 <p>The above code pulls data for upcoming games. And then if you want the data to be nice and clean, instead of a JSON, the below should work for ya.</p>
-<div id="c0990ed5" class="cell" data-execution_count="2">
+<div id="637f3179" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
@@ -2702,7 +2371,7 @@ font-style: inherit;">print</span>(df)</span></code></pre></div></div>
 <h2 class="anchored" data-anchor-id="gathering-the-data">Gathering the Data</h2>
 <p>The first step is identifying what player you’d like to analyze. Use the player ID to pull their career stats. Replace the current ID <code>'202681'</code> with whatever the new player ID is.</p>
 <p>The code utilizes the <code>nba_api.stats.endpoints</code> module, specifically tapping into <code>playercareerstats</code>. This function will fetch the comprehensive career statistics of your chosen player.</p>
-<div id="f58bf585" class="cell" data-execution_count="1">
+<div id="cf0c667a" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> nba_api.stats.endpoints <span class="im" style="color: #00769E;
@@ -2738,7 +2407,7 @@ background-color: null;
 font-style: inherit;">print</span>(seasons_played.tolist())</span></code></pre></div></div>
 </div>
 <p>The above code will print out the number of seasons the NBA player you chose played in a list like this: <code>['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']</code>. Copy the years output and replace the list of seasons below.</p>
-<div id="a2ab07c3" class="cell" data-execution_count="2">
+<div id="7ddc1408" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
@@ -2827,7 +2496,7 @@ font-style: inherit;">True</span>)</span></code></pre></div></div>
 <section id="data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-processing">Data Processing</h2>
 <p>After pulling the data, the next steps involve processing the data for analysis and visualization. While the data comes pretty clean after the API pull, there was some processing I did. First, ensure the GAME_DATE column is in a datetime format using the pandas <code>to_datetime</code> method.</p>
-<div id="6caeabc4" class="cell" data-execution_count="3">
+<div id="4e69972e" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Convert Game_Date to a datetime</span></span>
@@ -2853,7 +2522,7 @@ background-color: null;
 font-style: inherit;">'M'</span>)</span></code></pre></div></div>
 </div>
 <p>Creating summary tables is important for understanding the data and building narratives for story-telling. I used the following code to create a yearly aggregation of the game level stats to tell the story of a player’s career.</p>
-<div id="932634c4" class="cell" data-execution_count="4">
+<div id="809eadbf" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Aggregate game level data to yearly</span></span>
@@ -2955,7 +2624,7 @@ font-style: inherit;">'FTA'</span>]</span></code></pre></div></div>
 </figure>
 </div>
 <p>In order to get that graphic to work, we must first create the cumulative sum of threes (FG3M) for each season.</p>
-<div id="3d46dd65" class="cell" data-execution_count="5">
+<div id="e0da9cf6" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Calculate Cumulative Sum</span></span>
@@ -2979,7 +2648,7 @@ background-color: null;
 font-style: inherit;">'FGM'</span>].cumsum()</span></code></pre></div></div>
 </div>
 <p>Finally, this code snippet is designed to plot a distinct line for each season, representing the cumulative field goals made by the player. I’ve chosen red for the 2023 season to make it stand out against the others which will be grey.</p>
-<div id="76bbc4d4" class="cell" data-execution_count="6">
+<div id="d3e32d9d" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plotting a line for each season</span></span>
@@ -3104,7 +2773,7 @@ font-style: inherit;">'Cumulative FG Made'</span>)</span></code></pre></div></di
 <h2 class="anchored" data-anchor-id="nba-api">NBA API</h2>
 <p>Using the <code>nba_api</code> package, it is simple to write a script or program that can request and parse NBA data. The <code>nba_api</code> provides many methods such as <code>get_players()</code>, <code>playercareerstats()</code>, etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.</p>
 <p>Let’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.</p>
-<div id="769c33ee" class="cell" data-execution_count="1">
+<div id="2e16f423" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> nba_api.stats.endpoints <span class="im" style="color: #00769E;
@@ -3209,7 +2878,7 @@ font-style: inherit;">"</span>)</span></code></pre></div></div>
 <section id="visualization" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
 <p>Once we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.</p>
-<div id="4dbc74d3" class="cell" data-execution_count="2">
+<div id="ba52e750" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> plotly.express <span class="im" style="color: #00769E;
@@ -3265,7 +2934,7 @@ font-style: inherit;">=</span>px.colors.sequential.Viridis</span>
 </figure>
 </div>
 <p>The scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.</p>
-<div id="593ac12b" class="cell" data-execution_count="3">
+<div id="446b29c4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Assuming top_500_avg is your DataFrame with average stats</span></span>

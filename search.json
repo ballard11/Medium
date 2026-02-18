@@ -1,234 +1,52 @@
 [
   {
-    "objectID": "toolbox/plotly.html",
-    "href": "toolbox/plotly.html",
-    "title": "Plotly",
+    "objectID": "posts/sports-betting-python/index.html",
+    "href": "posts/sports-betting-python/index.html",
+    "title": "Unlocking Sports Betting with Python: The Odds API",
     "section": "",
-    "text": "Plotly creates interactive, publication-quality graphs in Python. Unlike Matplotlib, Plotly charts are interactive by default - hover to see values, zoom, pan, and download as PNG."
+    "text": "This article explains how to access The Odds API using Python. We’ll cover the basics of obtaining an API key, using a Python script to pull from the API, wrangling the data, and then making an absolute ton of money. Anyway, this will provide enough code for you to be dangerous out there.\nPublic Service Announcement: Even if we’re using Python and data… it’s still gambling. Careful out there.\nI’ve made it for you easy below with the exact code you will need. First open your favorite python IDE like Jupyter Notebook or VS Code. From there you need to obtain an API key from The Odds API, which allows 500 requests per month."
   },
   {
-    "objectID": "toolbox/plotly.html#what-it-does",
-    "href": "toolbox/plotly.html#what-it-does",
-    "title": "Plotly",
-    "section": "",
-    "text": "Plotly creates interactive, publication-quality graphs in Python. Unlike Matplotlib, Plotly charts are interactive by default - hover to see values, zoom, pan, and download as PNG."
+    "objectID": "posts/sports-betting-python/index.html#importing-libraries-and-api-setup",
+    "href": "posts/sports-betting-python/index.html#importing-libraries-and-api-setup",
+    "title": "Unlocking Sports Betting with Python: The Odds API",
+    "section": "Importing Libraries and API Setup",
+    "text": "Importing Libraries and API Setup\n\nUse the requests library for HTTP requests. Install it via pip if not already present.\nObtain an API key from The Odds API.\nKey parameters include SPORT, REGIONS, MARKETS, ODDS_FORMAT, and DATE_FORMAT.\n\nThe below will work. Money Back Guarantee. Just get your own API key.\n\nimport requests\nimport os\n\n# Replace with your actual API key\nAPI_KEY = 'YOUR_API_KEY'\n\n# Setting parameters for NBA Basketball odds and spreads\nSPORT = 'basketball_nba'  # NBA sport key\nREGIONS = 'us'  # Focusing on US region\nMARKETS = 'spreads'  # Focusing on spreads market\nODDS_FORMAT = 'decimal'  # Using decimal format for odds\nDATE_FORMAT = 'iso'  # Using ISO format for dates\n\n# Fetching in-season sports (optional step, but useful for confirmation)\nsports_response = requests.get(\n    'https://api.the-odds-api.com/v4/sports',\n    params={'api_key': API_KEY}\n)\n\nif sports_response.status_code == 200:\n    print(f\"List of in season sports\", sports_response.json())\nelse:\n    print(f\"Failed to get sports: status_code {sports_response.status_code}, response body {sports_response.text}\")\n\n# Fetching NBA odds\nodds_response = requests.get(\n    f'https://api.the-odds-api.com/v4/sports/{SPORT}/odds',\n    params={\n        'api_key': API_KEY,\n        'regions': REGIONS,\n        'markets': MARKETS,\n        'oddsFormat': ODDS_FORMAT,\n        'dateFormat': DATE_FORMAT,\n    }\n)\n\nif odds_response.status_code == 200:\n    odds_json = odds_response.json()\n    print(\"Number of NBA events:\", len(odds_json))\n    print(odds_json)  # This prints the fetched odds data\n    # Check the usage quota\n    print(\"Remaining requests\", odds_response.headers['x-requests-remaining'])\n    print(\"Used requests\", odds_response.headers['x-requests-used'])\nelse:\n    print(f\"Failed to get odds: status_code {odds_response.status_code}, response body {odds_response.text}\")\n\nData: After running the above code, with this API you can access these data fields:\n\nEvent ID: Unique identifier for each game\nSport Key: Identifier for the sport (in this case, NBA basketball)\nSport Title: The title of the sport\nCommence Time: Start time of the game\nHome Team and Away Team: Teams playing the game\nBookmaker Key and Bookmaker Title: Identifier and name of the bookmaker offering the odds\nTeam: The team for which the odds are given\nPrice: The betting odds price\nPoint Spread: The point spread for the bet"
   },
   {
-    "objectID": "toolbox/plotly.html#why-i-bookmarked-it",
-    "href": "toolbox/plotly.html#why-i-bookmarked-it",
-    "title": "Plotly",
-    "section": "Why I Bookmarked It",
-    "text": "Why I Bookmarked It\nI switched from Matplotlib to Plotly for blog posts because readers can interact with the charts. The API is clean, the defaults look good, and it works seamlessly with Pandas DataFrames."
+    "objectID": "posts/sports-betting-python/index.html#flattening-the-data",
+    "href": "posts/sports-betting-python/index.html#flattening-the-data",
+    "title": "Unlocking Sports Betting with Python: The Odds API",
+    "section": "Flattening the Data",
+    "text": "Flattening the Data\nThe above code pulls data for upcoming games. And then if you want the data to be nice and clean, instead of a JSON, the below should work for ya.\n\nimport pandas as pd\n\nodds_data = odds_json\n\n# Prepare lists to hold extracted data\nevents = []\nfor event in odds_data:\n    event_id = event['id']\n    sport_key = event['sport_key']\n    sport_title = event['sport_title']\n    commence_time = event['commence_time']\n    home_team = event['home_team']\n    away_team = event['away_team']\n\n    for bookmaker in event['bookmakers']:\n        bookmaker_key = bookmaker['key']\n        bookmaker_title = bookmaker['title']\n\n        for market in bookmaker['markets']:\n            if market['key'] == 'spreads':\n                for outcome in market['outcomes']:\n                    team = outcome['name']\n                    price = outcome['price']\n                    point = outcome['point']\n\n                    # Append each record to the events list\n                    events.append((event_id, sport_key, sport_title, commence_time,\n                                   bookmaker_key, bookmaker_title, team, price,\n                                   point))\n\n# Create a DataFrame from the events list\ncolumns = ['Event ID', 'Sport Key', 'Sport Title', 'Commence Time', 'Home Team',\n           'Bookmaker Key', 'Bookmaker Title', 'Team', 'Price', 'Point Spread']\ndf = pd.DataFrame(events, columns=columns)\n\n# Display the DataFrame\nprint(df)"
   },
   {
-    "objectID": "toolbox/plotly.html#hello-world-example",
-    "href": "toolbox/plotly.html#hello-world-example",
-    "title": "Plotly",
-    "section": "Hello World Example",
-    "text": "Hello World Example\nimport plotly.express as px\nimport pandas as pd\n\n# Sample data\ndf = pd.DataFrame({\n    'year': [2020, 2021, 2022, 2023, 2024],\n    'wins': [9, 11, 6, 10, 13]\n})\n\n# Create interactive line chart\nfig = px.line(df, x='year', y='wins',\n              title='Oklahoma Football Wins by Year')\n\nfig.show()"
+    "objectID": "posts/sports-betting-python/index.html#whats-the-data-look-like",
+    "href": "posts/sports-betting-python/index.html#whats-the-data-look-like",
+    "title": "Unlocking Sports Betting with Python: The Odds API",
+    "section": "What’s the Data Look Like?",
+    "text": "What’s the Data Look Like?\n\n\n\nNBA spreads DataFrame\n\n\nBoom. A dataframe ready for the parsin’.\nSo what data did we really get? Most of the data we’re getting is related to games that are today and tomorrow.\n\n\n\nNBA game events from data pull\n\n\nMost of the data we got back is for what’s happening in the next 48 hours. But there are games all the way out to Christmas and the day after. Those are bigger games so bookmakers will have larger events out earlier.\nThe most common bookmakers in the data are Unibet, BetRivers and DraftKings. But the others have 20 datapoints as well, so FanDuel, BetMGM and others are in there.\n\n\n\nBookmakers in the data"
   },
   {
-    "objectID": "toolbox/plotly.html#verdict",
-    "href": "toolbox/plotly.html#verdict",
-    "title": "Plotly",
-    "section": "Verdict",
-    "text": "Verdict\nStatus: Active Use - My default visualization library for blog posts.\n\nPros: Interactive by default, beautiful styling, great for web\nCons: Larger file sizes than static charts, overkill for simple plots\nUse Cases: Blog visualizations, dashboards, exploratory data analysis"
+    "objectID": "posts/sports-betting-python/index.html#price-and-point-spread",
+    "href": "posts/sports-betting-python/index.html#price-and-point-spread",
+    "title": "Unlocking Sports Betting with Python: The Odds API",
+    "section": "Price and Point Spread",
+    "text": "Price and Point Spread\nWhat does Price and Point Spread really mean? Let’s explore and analyze the data.\n\nPrice\nIn sports betting, ‘Price’ refers to the odds offered by the bookmaker for a specific event or game outcome. These odds are a representation of the probability of an event occurring, estimated by the bookmaker.\nThe price determines how much a bettor can win. If the price (or odds) is 2.0 and you bet $100, you would win $200 (including your original stake) if your bet is successful.\nTypes of Odds: The format can vary — common types include decimal odds (e.g., 2.0), fractional odds (e.g., 1/1), and American odds (e.g., +100). We’re using the ‘decimal’ format for odds in our API call (ODDS_FORMAT = 'decimal'), so the ‘Price’ column represents the decimal odds offered by bookmakers.\nImplications: The odds reflect the bookmaker’s assessment of the event’s likelihood, and they are adjusted based on various factors, including team performance, injuries, and betting patterns.\n\nFor Example: A decimal odd of 1.93 means if you bet $1, you will receive $1.93 in return if you win (which includes your original stake). This format is straightforward and commonly used due to its simplicity in understanding potential returns.\n\n\n\n\nPrice histogram — most prices cluster around 1.90\n\n\n\n\nPoint Spread\nWe’re focusing on the ‘spreads’ market in our API call (MARKETS = 'spreads'), which means the data specifically relates to point spread betting. The point spread is a number set by bookmakers to provide a balance for both teams involved in a bet, essentially “handicapping” the favorite team.\nIt’s designed to level the playing field between a perceived stronger team (the favorite) and a weaker team (the underdog).\n\nBetting on the Favorite: For a bet on the favorite team to win, they must win the game by more than the point spread. For example, if the point spread is -7.5, the favorite team must win by 8 points or more.\nBetting on the Underdog: Conversely, if you bet on the underdog, they must either win outright or lose by fewer points than the spread. Using the same -7.5 spread, if the underdog loses by 7 points or less (or wins the game), the bet is won.\nAdjustments and Odds: The point spread can change leading up to the event, influenced by various factors like team news, weather conditions, or betting trends. The odds associated with the point spread can also vary, providing different payout rates.\n\n\n\n\nPoint spread distribution for NBA games\n\n\nTo add a little more color, this is what it looks like for the Dec-16 Milwaukee Bucks vs Detroit Pistons game. This shows that there’s some difference in Point Spread and the Price for the different Bookmakers.\n\n\n\nPrice vs Point Spread for bookmakers"
   },
   {
-    "objectID": "toolbox/plotly.html#resources",
-    "href": "toolbox/plotly.html#resources",
-    "title": "Plotly",
-    "section": "Resources",
-    "text": "Resources\n\nOfficial Docs\nPlotly Express\nMy Chart Examples"
+    "objectID": "posts/sports-betting-python/index.html#futures-picks-nba-champion",
+    "href": "posts/sports-betting-python/index.html#futures-picks-nba-champion",
+    "title": "Unlocking Sports Betting with Python: The Odds API",
+    "section": "Futures Picks — NBA Champion",
+    "text": "Futures Picks — NBA Champion\nFrom the Odds API, we can get Champion Price and derive the implied odds. There are a few changes that we need to make to the parameters of the API call. The differences being:\n\nSport = 'basketball_nba_championship_winner' — this changes the API to pull NBA Championship Winner data, versus specific games\nMARKETS = 'outrights' — Focusing on outright market for futures bets\n\nWe do have to calculate Implied Odds. Once we do that, we have a dataset that looks like this:\n\n\n\nChampionship futures data with implied odds\n\n\n\nWhy “1 Over the Price”?\nWe can calculate the implied championship odds from the Price of the event. The formula: (1 / price) * 100. We multiply by 100 to convert the odds to a percentage.\nThe reason for using this formula is rooted in how betting odds are structured. Betting odds represent the probability of an event, but they are also influenced by the bookmaker’s margin.\nWhen the price is high (for example, 5, like the Nuggets), it suggests a lower probability of occurrence. Conversely, a low price indicates a higher probability. The price reflects the bookmaker’s perceived risk. A price of 5 suggests a 1 in 5 chance. The implied probability is the reciprocal of the price.\nThe implied probability does not represent the true probability. Rather it is the bookmaker’s assessment of the likelihood. In future posts we will make some models to compare the implied probability with our estimates.\n\n\nCurrent Championship Odds\nEnough data talk, let’s see the current championship odds. As of Dec 16, the odds for champion are below. For the first graphic I put every team on there. Just to show that the Wizards, Jazz, Spurs, Hornets, and Pistons are given 0 chance of winning the title. Hard to argue with that.\n\n\n\nImplied probability for all 30 NBA teams\n\n\nI filtered to only include Teams and Bookmaker combinations where the Implied Probability is greater than 5%. Really shortens the list of teams down. There are only 9 teams here with significant odds at all. The Timberwolves are getting no love for being in the top of the West. Also Golden State is probably getting too much love as their season is going so far. I’d also throw the Clippers in there. I’d give those teams also 0 percent chance of winning this year. I think the Mavericks look like good value with implied probability at less than 5%.\n\n\n\nImplied probability filtered to &gt;5%"
   },
   {
-    "objectID": "toolbox/cfbd-api.html",
-    "href": "toolbox/cfbd-api.html",
-    "title": "College Football Data API",
-    "section": "",
-    "text": "The College Football Data API provides comprehensive college football data including team stats, player stats, game results, recruiting data, and betting lines. All for free with a simple API key."
-  },
-  {
-    "objectID": "toolbox/cfbd-api.html#what-it-does",
-    "href": "toolbox/cfbd-api.html#what-it-does",
-    "title": "College Football Data API",
-    "section": "",
-    "text": "The College Football Data API provides comprehensive college football data including team stats, player stats, game results, recruiting data, and betting lines. All for free with a simple API key."
-  },
-  {
-    "objectID": "toolbox/cfbd-api.html#why-i-bookmarked-it",
-    "href": "toolbox/cfbd-api.html#why-i-bookmarked-it",
-    "title": "College Football Data API",
-    "section": "Why I Bookmarked It",
-    "text": "Why I Bookmarked It\nThis is my go-to source for CFB analytics. The data quality is excellent, the Python client makes it easy to use, and it’s completely free. I’ve used this for analyzing Oklahoma’s SEC transition and betting line analysis."
-  },
-  {
-    "objectID": "toolbox/cfbd-api.html#hello-world-example",
-    "href": "toolbox/cfbd-api.html#hello-world-example",
-    "title": "College Football Data API",
-    "section": "Hello World Example",
-    "text": "Hello World Example\nimport cfbd\n\n# Configure API\nconfiguration = cfbd.Configuration()\nconfiguration.api_key['Authorization'] = 'YOUR_API_KEY'\nconfiguration.api_key_prefix['Authorization'] = 'Bearer'\n\n# Get 2025 games\napi_instance = cfbd.GamesApi(cfbd.ApiClient(configuration))\ngames = api_instance.get_games(year=2025, team='Oklahoma')\n\nprint(f\"Found {len(games)} Oklahoma games in 2025\")"
-  },
-  {
-    "objectID": "toolbox/cfbd-api.html#verdict",
-    "href": "toolbox/cfbd-api.html#verdict",
-    "title": "College Football Data API",
-    "section": "Verdict",
-    "text": "Verdict\nStatus: Active Use - This is my primary data source for CFB analysis.\n\nPros: Free, comprehensive data, great Python client, excellent documentation\nCons: Rate limits exist (but generous), some advanced metrics require premium\nUse Cases: Game analysis, trend tracking, betting research"
-  },
-  {
-    "objectID": "toolbox/cfbd-api.html#resources",
-    "href": "toolbox/cfbd-api.html#resources",
-    "title": "College Football Data API",
-    "section": "Resources",
-    "text": "Resources\n\nOfficial API Docs\nPython Client\nMy Analysis Using This API"
-  },
-  {
-    "objectID": "posts/sports-betting-dashboard-app/index.html",
-    "href": "posts/sports-betting-dashboard-app/index.html",
-    "title": "Analyzing Real-Time Sports Odds with Python",
-    "section": "",
-    "text": "In Part 1: Unlocking Sports Betting with Python, we pulled live odds from The Odds API and compared bookmaker lines in a Jupyter notebook.\nIn this tutorial, we’re going deeper. We will:\nWe’ll do all of this in a standard Jupyter notebook/Python script. Let’s dig in.\nI’ve pre-loaded the necessary libraries and the helper functions from Part 1. Now, let’s get to the good stuff: Fetching the Live Odds."
-  },
-  {
-    "objectID": "posts/sports-betting-dashboard-app/index.html#fetching-live-odds",
-    "href": "posts/sports-betting-dashboard-app/index.html#fetching-live-odds",
-    "title": "Analyzing Real-Time Sports Odds with Python",
-    "section": "Fetching Live Odds",
-    "text": "Fetching Live Odds\nLet’s pull today’s NBA odds. Same endpoint as Part 1 — we’re just requesting all three market types at once: moneyline (h2h), spreads, and totals.\n\nSPORT = 'basketball_nba'\n\nurl = f'https://api.the-odds-api.com/v4/sports/{SPORT}/odds/'\nparams = {\n    'apiKey': API_KEY,\n    'regions': 'us',\n    'markets': 'h2h,spreads,totals',\n    'oddsFormat': 'american',\n}\n\nresp = requests.get(url, params=params)\nresp.raise_for_status()\nevents = resp.json()\n\nprint(f'Got {len(events)} upcoming games')\nprint(f'Quota used: {resp.headers.get(\"x-requests-used\", \"?\")} | Remaining: {resp.headers.get(\"x-requests-remaining\", \"?\")}')\n\n\ndf = flatten_odds(events)\nprint(f'{len(df)} rows across {df[\"game\"].nunique()} games and {df[\"bookmaker\"].nunique()} bookmakers')\ndf.head()"
-  },
-  {
-    "objectID": "posts/sports-betting-dashboard-app/index.html#section-1-live-odds-table",
-    "href": "posts/sports-betting-dashboard-app/index.html#section-1-live-odds-table",
-    "title": "Analyzing Real-Time Sports Odds with Python",
-    "section": "Section 1: Live Odds Table",
-    "text": "Section 1: Live Odds Table\nFirst, let’s look at the moneyline odds. We’ll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.\n\n# Filter to moneyline odds only\nh2h = df[df['market'] == 'h2h'].copy()\n\n# Pivot: game + team as rows, bookmakers as columns\npivot = h2h.pivot_table(\n    index=['game', 'outcome'],\n    columns='bookmaker',\n    values='price',\n    aggfunc='first',\n)\n\n# Highlight valid odds and format to 1 decimal place\npivot.style.format(\"{:.1f}\", na_rep=\"-\").highlight_max(axis=1, color='#2ecc71')\n\nSee how some bookmakers offer slightly better odds? Those differences matter. Let’s make it even easier to spot the best lines."
-  },
-  {
-    "objectID": "posts/sports-betting-dashboard-app/index.html#section-2-best-line-finder",
-    "href": "posts/sports-betting-dashboard-app/index.html#section-2-best-line-finder",
-    "title": "Analyzing Real-Time Sports Odds with Python",
-    "section": "Section 2: Best Line Finder",
-    "text": "Section 2: Best Line Finder\nThis one’s my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an “edge” it has over the second-best option.\n\nbest_lines = []\n\nfor (game, outcome), row in pivot.iterrows():\n    best_book = row.idxmax()\n    best_price = row.max()\n    second_best = row.nlargest(2).iloc[-1] if len(row.dropna()) &gt; 1 else best_price\n    \n    best_lines.append({\n        'Game': game,\n        'Team': outcome,\n        'Best Book': best_book,\n        'Best Odds': int(best_price) if pd.notna(best_price) else None,\n        '2nd Best': int(second_best) if pd.notna(second_best) else None,\n        'Edge': int(best_price - second_best) if pd.notna(best_price) and pd.notna(second_best) else 0,\n    })\n\nbest_df = pd.DataFrame(best_lines)\nbest_df.sort_values('Edge', ascending=False)\n\nThe “Edge” column shows the difference in odds between the best and second-best bookmaker. Higher edge = more value shopping around. In the dashboard, this becomes a sortable table so you can instantly spot the biggest disagreements."
-  },
-  {
-    "objectID": "posts/sports-betting-dashboard-app/index.html#section-3-implied-probability-chart",
-    "href": "posts/sports-betting-dashboard-app/index.html#section-3-implied-probability-chart",
-    "title": "Analyzing Real-Time Sports Odds with Python",
-    "section": "Section 3: Implied Probability Chart",
-    "text": "Section 3: Implied Probability Chart\nAmerican odds (like -150 or +130) are hard to read at a glance. Let’s convert everything to implied probabilities and visualize them. This tells us the “true” win probability the bookmaker is assigning to each team.\n\n# Average odds across bookmakers for each team (consensus line)\nconsensus = h2h.groupby(['game', 'outcome'])['price'].mean().reset_index()\nconsensus['implied_prob'] = consensus['price'].apply(american_to_implied_prob)\nconsensus['prob_pct'] = (consensus['implied_prob'] * 100).round(1)\n\nconsensus[['game', 'outcome', 'price', 'prob_pct']].head()\n\n\n# Build the stacked bar chart\ngames = consensus['game'].unique()\n\nfig = go.Figure()\n\nfor game in games:\n    game_data = consensus[consensus['game'] == game]\n    for _, row in game_data.iterrows():\n        prob = row['prob_pct']\n        fig.add_trace(go.Bar(\n            y=[game],\n            x=[prob],\n            name=row['outcome'],\n            orientation='h',\n            text=f\"{row['outcome']}: {prob:.1f}%\",\n            textposition='inside',\n            showlegend=False,\n            marker_color='#2ecc71' if prob &gt;= 50 else '#e74c3c',\n        ))\n\nfig.update_layout(\n    barmode='stack',\n    xaxis_title='Implied Probability (%)',\n    yaxis_title='',\n    height=max(400, len(games) * 60),\n    title='Implied Win Probabilities (Consensus Odds)',\n)\n\nfig.show()\n\nGreen = favorite, red = underdog. You can hover over each bar (if running locally) to see the exact probability."
-  },
-  {
-    "objectID": "posts/sports-betting-dashboard-app/index.html#section-4-player-props-explorer",
-    "href": "posts/sports-betting-dashboard-app/index.html#section-4-player-props-explorer",
-    "title": "Analyzing Real-Time Sports Odds with Python",
-    "section": "Section 4: Player Props Explorer",
-    "text": "Section 4: Player Props Explorer\nThis is where it gets really fun. We’ll pick a game, pull player props (points, rebounds, assists), and see where bookmakers disagree on the lines. Bigger disagreements = potential value bets.\nLet’s grab the first game and see what props are available.\n\n# Pick the first game\nevent_id = events[0]['id']\ngame_name = f\"{events[0]['away_team']} @ {events[0]['home_team']}\"\nprint(f'Fetching props for: {game_name}')\n\nprops_url = f'https://api.the-odds-api.com/v4/sports/{SPORT}/events/{event_id}/odds/'\nprops_params = {\n    'apiKey': API_KEY,\n    'regions': 'us',\n    'markets': 'player_points,player_rebounds,player_assists',\n    'oddsFormat': 'american',\n}\n\nprops_resp = requests.get(props_url, params=props_params)\nprops_resp.raise_for_status()\nprops_data = props_resp.json()\n\nprint(f'Quota used: {props_resp.headers.get(\"x-requests-used\", \"?\")} | Remaining: {props_resp.headers.get(\"x-requests-remaining\", \"?\")}')\n\n\nprops_df = flatten_props(props_data)\nprint(f'{len(props_df)} prop lines across {props_df[\"player\"].nunique()} players')\nprops_df.head()\n\n\n# Scatter plot: points props, Over side only\npoints = props_df[(props_df['market'] == 'player_points') & (props_df['side'] == 'Over')].copy()\n\nif not points.empty:\n    fig = px.scatter(\n        points,\n        x='line',\n        y='price',\n        color='bookmaker',\n        hover_data=['player', 'bookmaker', 'line', 'price'],\n        text='player',\n        title=f'Points Props — {game_name}',\n    )\n\n    fig.update_traces(textposition='top center', textfont_size=9)\n    fig.update_layout(\n        xaxis_title='Points Line',\n        yaxis_title='Odds (American)',\n        height=600,\n    )\n    fig.show()\nelse:\n    print('No points props available for this game yet.')\n\nWhen you see the same player at the same line but with different odds across bookmakers — that’s where line shopping pays off. The scatter plot makes it visual: clusters of dots at the same x-position (line) with spread along the y-axis (odds) means bookmakers disagree."
-  },
-  {
-    "objectID": "posts/sports-betting-dashboard-app/index.html#whats-next",
-    "href": "posts/sports-betting-dashboard-app/index.html#whats-next",
-    "title": "Analyzing Real-Time Sports Odds with Python",
-    "section": "What’s Next?",
-    "text": "What’s Next?\nWe’ve now built a script that:\n\nPulls live odds\nFinds the best lines\nCalculates win probabilities\nScans for player prop disparities\n\nBut there’s one problem: Running a script manually every time you want to check odds is annoying. In the next article, we’re going to take this code and wrap it into a Streamlit Dashboard.\nWe’ll build a live web app that: - Runs 24/7 - Auto-refreshes every 5 minutes - Visualizes this data in a clean, interactive UI - Can be deployed to the web (so you can check it from your phone)\nStay tuned for the next post."
-  },
-  {
-    "objectID": "posts/nba-stats-api-python/index.html",
-    "href": "posts/nba-stats-api-python/index.html",
-    "title": "Analyze NBA Stats with the NBA API and Python",
-    "section": "",
-    "text": "This post is a walk-through on how I created a process using Python to pull NBA data through the NBA API and analyze player career stats like field goal percentages, points, rebounds and assists. In particular, I’ll focus on how I pulled from the NBA API, the pandas data processing, and the matplotlib visualizations."
-  },
-  {
-    "objectID": "posts/nba-stats-api-python/index.html#gathering-the-data",
-    "href": "posts/nba-stats-api-python/index.html#gathering-the-data",
-    "title": "Analyze NBA Stats with the NBA API and Python",
-    "section": "Gathering the Data",
-    "text": "Gathering the Data\nThe first step is identifying what player you’d like to analyze. Use the player ID to pull their career stats. Replace the current ID '202681' with whatever the new player ID is.\nThe code utilizes the nba_api.stats.endpoints module, specifically tapping into playercareerstats. This function will fetch the comprehensive career statistics of your chosen player.\n\nfrom nba_api.stats.endpoints import playercareerstats\n\n# Fetching career statistics for Player of Choice using his player ID\nplayer_career = playercareerstats.PlayerCareerStats(player_id='202681')\nplayer_career_df = player_career.get_data_frames()[0]\n\n# Extracting the seasons of player of choice\nseasons_played = player_career_df['SEASON_ID'].unique()\nprint(seasons_played.tolist())\n\nThe above code will print out the number of seasons the NBA player you chose played in a list like this: ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']. Copy the years output and replace the list of seasons below.\n\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom nba_api.stats.endpoints import playergamelog\n\n# Initialize an empty DataFrame to store all game logs\nall_seasons_logs_df = pd.DataFrame()\n\n# List of seasons to loop through (update this list as needed)\nseasons = ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']\n\n# Fetch game logs for each season and add a 'SEASON' column\nfor season in seasons:\n    player_logs = playergamelog.PlayerGameLog(player_id='202681', season=season)\n    season_logs_df = player_logs.get_data_frames()[0]\n    season_logs_df['SEASON'] = season\n    all_seasons_logs_df = pd.concat([all_seasons_logs_df, season_logs_df], ignore_index=True)\n\nAfter running the above, the all_seasons_logs_df dataframe will include all game data for the player of interest. The table includes many more stats, but here’s a small example of what is contained in the data.\n\n\n\nSample of the Season Logs for Player from NBA API"
-  },
-  {
-    "objectID": "posts/nba-stats-api-python/index.html#data-processing",
-    "href": "posts/nba-stats-api-python/index.html#data-processing",
-    "title": "Analyze NBA Stats with the NBA API and Python",
-    "section": "Data Processing",
-    "text": "Data Processing\nAfter pulling the data, the next steps involve processing the data for analysis and visualization. While the data comes pretty clean after the API pull, there was some processing I did. First, ensure the GAME_DATE column is in a datetime format using the pandas to_datetime method.\n\n# Convert Game_Date to a datetime\nall_seasons_logs_df['GAME_DATE'] = pd.to_datetime(all_seasons_logs_df['GAME_DATE'])\n\n# Create Month_Year to facilitate Month/Date Analysis\nall_seasons_logs_df['MONTH_YEAR'] = all_seasons_logs_df['GAME_DATE'].dt.to_period('M')\n\nCreating summary tables is important for understanding the data and building narratives for story-telling. I used the following code to create a yearly aggregation of the game level stats to tell the story of a player’s career.\n\n# Aggregate game level data to yearly\nyearly_stats = all_seasons_logs_df.groupby('YEAR').agg({\n    'FGM': 'sum',\n    'FGA': 'sum',\n    'FG3M': 'sum',\n    'FG3A': 'sum',\n    'FTM': 'sum',\n    'FTA': 'sum',\n}).reset_index()\n\n# Calculate field goal percentages\nyearly_stats['FG_PCT'] = yearly_stats['FGM'] / yearly_stats['FGA']\nyearly_stats['FG3_PCT'] = yearly_stats['FG3M'] / yearly_stats['FG3A']\nyearly_stats['FT_PCT'] = yearly_stats['FTM'] / yearly_stats['FTA']"
-  },
-  {
-    "objectID": "posts/nba-stats-api-python/index.html#data-visualization",
-    "href": "posts/nba-stats-api-python/index.html#data-visualization",
-    "title": "Analyze NBA Stats with the NBA API and Python",
-    "section": "Data Visualization",
-    "text": "Data Visualization\nThe final part of this script is visualizing the data. There are many options to visualize the data from line charts, histograms, bar graphics. I used seaborn and matplotlib to create visualizations.\n\n\n\nLine graphs showing Points, Assists, and Rebounds over years\n\n\n\n\n\nHistograms showing Field Goal Percentages by category\n\n\nFinally, I’ll present a visualization that I enjoyed creating. This graph tracks a specific stat — in this case, the number of three-pointers made per season — and compares it across different seasons. The visualization plots the cumulative count of three-pointers made each season, with the game number on the X-axis. To highlight a specific season, like 2009, I’ve used a red line. Interestingly, while 2009 was a career-high in three-point percentage, it featured one of the lowest totals for made threes. This type of visualization offers a nuanced view of a player’s performance over time.\n\n\n\nCumulative 3-Point Field Goals Made by season\n\n\nIn order to get that graphic to work, we must first create the cumulative sum of threes (FG3M) for each season.\n\n# Calculate Cumulative Sum\nall_seasons_logs_df['FG3M_CUMSUM'] = all_seasons_logs_df.groupby('YEAR')['FG3M'].cumsum()\nall_seasons_logs_df['FGM_CUMSUM'] = all_seasons_logs_df.groupby('YEAR')['FGM'].cumsum()\n\nFinally, this code snippet is designed to plot a distinct line for each season, representing the cumulative field goals made by the player. I’ve chosen red for the 2023 season to make it stand out against the others which will be grey.\n\n# Plotting a line for each season\nfor year in all_seasons_logs_df['YEAR'].unique():\n    season_data = all_seasons_logs_df[all_seasons_logs_df['YEAR'] == year]\n\n    # Plot a Particular Year of Interest Red\n    color = 'red' if year == 2023 else 'silver'\n    label = f'{year}' if year == 2023 else None\n    plt.plot(season_data['Game_Number'], season_data['FGM_CUMSUM'], label=label, color=color)\n\nplt.title('Cumulative Field Goals Made by Player Over Each Season')\nplt.xlabel('Game Number')\nplt.ylabel('Cumulative FG Made')"
-  },
-  {
-    "objectID": "posts/nba-stats-api-python/index.html#whats-next",
-    "href": "posts/nba-stats-api-python/index.html#whats-next",
-    "title": "Analyze NBA Stats with the NBA API and Python",
+    "objectID": "posts/sports-betting-python/index.html#whats-next",
+    "href": "posts/sports-betting-python/index.html#whats-next",
+    "title": "Unlocking Sports Betting with Python: The Odds API",
     "section": "What’s Next",
-    "text": "What’s Next\nI plan to revisit this in a few days and work on a few areas. Specifically:\n\nDynamic Season List: Instead of hardcoding the seasons list, dynamically generate it based on the player’s career data. This would make the script more flexible and reduce the need for manual updates.\nModularization: Break down the notebook into functions for specific tasks (fetching data, processing data, and plotting). This will make the code more organized and reusable.\nDocumentation: Adding more comments and explanations throughout the script. Once I clean it up, I plan to post to my GitHub.\n\nHope you found value in this. Please let me know. I’m always interested in other points of view and learning from others on how to improve my analysis process.\n\nOriginally published on Medium on December 11, 2023."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "BenDiagrams is a place where I have fun, learn, and share what I’ve learned. I write about sports analytics, economic trends, and code experiments - all with a focus on real data, reuseable code, and insights."
-  },
-  {
-    "objectID": "about.html#what-i-write-about",
-    "href": "about.html#what-i-write-about",
-    "title": "About",
-    "section": "What I Write About",
-    "text": "What I Write About\n\nData Science: Python tutorials, Machine Learning, visualization, tools and workflows\nSports Analytics: Betting models, player props, performance predictions\nEconomic Trends: Inflation tracking, CPI analysis, macro indicators\nCode Experiments: API integrations, Python tutorials, MLOps workflows\n\nEvery post includes reproducible code, real data sources, and interactive visualizations."
-  },
-  {
-    "objectID": "about.html#the-stack",
-    "href": "about.html#the-stack",
-    "title": "About",
-    "section": "The Stack",
-    "text": "The Stack\n\nLanguage: Python (Pandas, Plotly, scikit-learn)\nTools: Jupyter, Quarto, VS Code\nPublishing: GitHub Pages, automated via GitHub Actions\nData Sources: College Football Data API, NBA API, FRED, odds providers"
-  },
-  {
-    "objectID": "about.html#contact",
-    "href": "about.html#contact",
-    "title": "About",
-    "section": "Contact",
-    "text": "Contact\n\nMedium: @ben.g.ballard\nLinkedIn: https://www.linkedin.com/in/ben-ballard-44969313/\nGitHub: https://github.com/ballard11\n\nOr just drop a comment on any post."
-  },
-  {
-    "objectID": "about.html#disclaimer",
-    "href": "about.html#disclaimer",
-    "title": "About",
-    "section": "Disclaimer",
-    "text": "Disclaimer\nNothing here is financial advice. All code and analysis is for educational purposes."
-  },
-  {
-    "objectID": "posts/analyzing-nba-data/index.html",
-    "href": "posts/analyzing-nba-data/index.html",
-    "title": "Analyzing NBA Data Using Python and APIs",
-    "section": "",
-    "text": "If you’re a fan of basketball, you probably love watching NBA games and following your favorite players. But did you know that you can also analyze NBA data using Python and a powerful API? In this blog post, I’ll show you how to use the NBA_API to access NBA data, perform statistical analysis, and create visualizations.\nThe NBA has become a staple in American culture and as technology has progressed, accessing NBA data has become increasingly easier. There are several NBA APIs available on the web, but for the purpose of this analysis, we will focus on the nba_api package. The nba_api is an API Client for nba.com. This package’s stated goal is to make the APIs of NBA.com easily accessible and provide accessible documentation. This package is open-source."
-  },
-  {
-    "objectID": "posts/analyzing-nba-data/index.html#nba-api",
-    "href": "posts/analyzing-nba-data/index.html#nba-api",
-    "title": "Analyzing NBA Data Using Python and APIs",
-    "section": "NBA API",
-    "text": "NBA API\nUsing the nba_api package, it is simple to write a script or program that can request and parse NBA data. The nba_api provides many methods such as get_players(), playercareerstats(), etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.\nLet’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.\n\nfrom nba_api.stats.endpoints import leagueleaders\nimport pandas as pd\n\ntry:\n    # Pull data for the top 500 scorers\n    top_500 = leagueleaders.LeagueLeaders(\n        season='2023-24',\n        season_type_all_star='Regular Season',\n        stat_category_abbreviation='PTS'\n    ).get_data_frames()[0][:500]\n\n    # Correct column names for grouping\n    avg_stats_columns = ['MIN', 'FGM', 'FGA', 'FTM', 'FTA', 'PTS', 'FG3M', 'FG3A']\n    top_500_avg = top_500.groupby(['PLAYER', 'PLAYER_ID'])[avg_stats_columns].mean()\n\n    # Inspect the first few rows of the averaged stats\n    print(top_500_avg.head())\n\nexcept Exception as e:\n    print(f\"An error occurred: {e}\")\n\nThe leagueleaders.LeagueLeaders() method takes in parameters such as the season and stat category abbreviation to pull data for the top 500 players by points scored per game for the specified season. The get_data_frames() method returns a list of data frames, with the first item in the list containing the data we want. We then filter out the top 500 players and group them by name and player ID using the groupby() method. Finally, we calculate the average values for the desired columns."
-  },
-  {
-    "objectID": "posts/analyzing-nba-data/index.html#visualization",
-    "href": "posts/analyzing-nba-data/index.html#visualization",
-    "title": "Analyzing NBA Data Using Python and APIs",
-    "section": "Visualization",
-    "text": "Visualization\nOnce we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.\n\nimport plotly.express as px\n\n# Reset index to turn 'PLAYER' and 'PLAYER_ID' back into regular columns\ndf_for_plotting = top_500_avg.reset_index()\n\n# Create a scatter plot with colors based on 'PTS'\nfig = px.scatter(\n    df_for_plotting,\n    x='PTS',\n    y='FG3M',\n    hover_name='PLAYER',\n    color='PTS',\n    color_continuous_scale=px.colors.sequential.Viridis\n)\n\nfig.show()\n\nThis will display an interactive scatter plot of the average number of three-pointers made versus the total points scored for each player in the top 500.\n\n\n\nTop 500 NBA players by PTS — scatter plot of points vs three-pointers made\n\n\nThe scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.\n\n# Assuming top_500_avg is your DataFrame with average stats\ntop_10 = top_500_avg.sort_values(by='PTS', ascending=False).head(10)\ntop_10\n\n\n\n\n2023-24 NBA Points Leaderboard — top 10 scorers"
-  },
-  {
-    "objectID": "posts/analyzing-nba-data/index.html#whats-next",
-    "href": "posts/analyzing-nba-data/index.html#whats-next",
-    "title": "Analyzing NBA Data Using Python and APIs",
-    "section": "What’s Next",
-    "text": "What’s Next\nThe nba_api package is a great tool for accessing and analyzing NBA data. With its many methods, it’s a great way to grab fun data to conduct your analysis. With powerful tools such as pandas and plotly, it is easy to gain insights and produce visualizations. Whether you are a casual NBA fan or a seasoned analyst, the nba_api package is worth checking out.\nIf you want to go deeper, I’ve created a more detailed post on the NBA API and manipulating the data in Python: Analyze NBA Stats with the NBA API and Python.\n\nOriginally published on Medium on February 19, 2023."
+    "text": "What’s Next\nI’m very excited to have access to this data. There are a lot of additional analysis I’d like to do both for the NBA and for college football. What are your thoughts on the above? Anything you’d like to see?\n\nOriginally published on Medium on December 16, 2023."
   },
   {
     "objectID": "posts/oklahoma-football-evolution/index.html",
@@ -308,94 +126,150 @@
     "text": "What’s Next?\nI’m planning to expand this analysis to compare Oklahoma’s metrics against other SEC teams to see how they truly stack up in their new conference. Are they competitive? Or do they need more time to adjust?\nI’m also curious to break this down by opponent strength - did Oklahoma score more against weaker teams and struggle against ranked opponents?\nIf you want to run this analysis for your team, just grab your free API key and swap out “Oklahoma” for your school. The code is yours. Boomer Sooner!\n\nHave questions or want to see other teams analyzed? Drop a comment below. I love diving into sports data and I’m always looking for my next analysis project."
   },
   {
-    "objectID": "posts/sports-betting-python/index.html",
-    "href": "posts/sports-betting-python/index.html",
-    "title": "Unlocking Sports Betting with Python: The Odds API",
+    "objectID": "posts/analyzing-nba-data/index.html",
+    "href": "posts/analyzing-nba-data/index.html",
+    "title": "Analyzing NBA Data Using Python and APIs",
     "section": "",
-    "text": "This article explains how to access The Odds API using Python. We’ll cover the basics of obtaining an API key, using a Python script to pull from the API, wrangling the data, and then making an absolute ton of money. Anyway, this will provide enough code for you to be dangerous out there.\nPublic Service Announcement: Even if we’re using Python and data… it’s still gambling. Careful out there.\nI’ve made it for you easy below with the exact code you will need. First open your favorite python IDE like Jupyter Notebook or VS Code. From there you need to obtain an API key from The Odds API, which allows 500 requests per month."
+    "text": "If you’re a fan of basketball, you probably love watching NBA games and following your favorite players. But did you know that you can also analyze NBA data using Python and a powerful API? In this blog post, I’ll show you how to use the NBA_API to access NBA data, perform statistical analysis, and create visualizations.\nThe NBA has become a staple in American culture and as technology has progressed, accessing NBA data has become increasingly easier. There are several NBA APIs available on the web, but for the purpose of this analysis, we will focus on the nba_api package. The nba_api is an API Client for nba.com. This package’s stated goal is to make the APIs of NBA.com easily accessible and provide accessible documentation. This package is open-source."
   },
   {
-    "objectID": "posts/sports-betting-python/index.html#importing-libraries-and-api-setup",
-    "href": "posts/sports-betting-python/index.html#importing-libraries-and-api-setup",
-    "title": "Unlocking Sports Betting with Python: The Odds API",
-    "section": "Importing Libraries and API Setup",
-    "text": "Importing Libraries and API Setup\n\nUse the requests library for HTTP requests. Install it via pip if not already present.\nObtain an API key from The Odds API.\nKey parameters include SPORT, REGIONS, MARKETS, ODDS_FORMAT, and DATE_FORMAT.\n\nThe below will work. Money Back Guarantee. Just get your own API key.\n\nimport requests\nimport os\n\n# Replace with your actual API key\nAPI_KEY = 'YOUR_API_KEY'\n\n# Setting parameters for NBA Basketball odds and spreads\nSPORT = 'basketball_nba'  # NBA sport key\nREGIONS = 'us'  # Focusing on US region\nMARKETS = 'spreads'  # Focusing on spreads market\nODDS_FORMAT = 'decimal'  # Using decimal format for odds\nDATE_FORMAT = 'iso'  # Using ISO format for dates\n\n# Fetching in-season sports (optional step, but useful for confirmation)\nsports_response = requests.get(\n    'https://api.the-odds-api.com/v4/sports',\n    params={'api_key': API_KEY}\n)\n\nif sports_response.status_code == 200:\n    print(f\"List of in season sports\", sports_response.json())\nelse:\n    print(f\"Failed to get sports: status_code {sports_response.status_code}, response body {sports_response.text}\")\n\n# Fetching NBA odds\nodds_response = requests.get(\n    f'https://api.the-odds-api.com/v4/sports/{SPORT}/odds',\n    params={\n        'api_key': API_KEY,\n        'regions': REGIONS,\n        'markets': MARKETS,\n        'oddsFormat': ODDS_FORMAT,\n        'dateFormat': DATE_FORMAT,\n    }\n)\n\nif odds_response.status_code == 200:\n    odds_json = odds_response.json()\n    print(\"Number of NBA events:\", len(odds_json))\n    print(odds_json)  # This prints the fetched odds data\n    # Check the usage quota\n    print(\"Remaining requests\", odds_response.headers['x-requests-remaining'])\n    print(\"Used requests\", odds_response.headers['x-requests-used'])\nelse:\n    print(f\"Failed to get odds: status_code {odds_response.status_code}, response body {odds_response.text}\")\n\nData: After running the above code, with this API you can access these data fields:\n\nEvent ID: Unique identifier for each game\nSport Key: Identifier for the sport (in this case, NBA basketball)\nSport Title: The title of the sport\nCommence Time: Start time of the game\nHome Team and Away Team: Teams playing the game\nBookmaker Key and Bookmaker Title: Identifier and name of the bookmaker offering the odds\nTeam: The team for which the odds are given\nPrice: The betting odds price\nPoint Spread: The point spread for the bet"
+    "objectID": "posts/analyzing-nba-data/index.html#nba-api",
+    "href": "posts/analyzing-nba-data/index.html#nba-api",
+    "title": "Analyzing NBA Data Using Python and APIs",
+    "section": "NBA API",
+    "text": "NBA API\nUsing the nba_api package, it is simple to write a script or program that can request and parse NBA data. The nba_api provides many methods such as get_players(), playercareerstats(), etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.\nLet’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.\n\nfrom nba_api.stats.endpoints import leagueleaders\nimport pandas as pd\n\ntry:\n    # Pull data for the top 500 scorers\n    top_500 = leagueleaders.LeagueLeaders(\n        season='2023-24',\n        season_type_all_star='Regular Season',\n        stat_category_abbreviation='PTS'\n    ).get_data_frames()[0][:500]\n\n    # Correct column names for grouping\n    avg_stats_columns = ['MIN', 'FGM', 'FGA', 'FTM', 'FTA', 'PTS', 'FG3M', 'FG3A']\n    top_500_avg = top_500.groupby(['PLAYER', 'PLAYER_ID'])[avg_stats_columns].mean()\n\n    # Inspect the first few rows of the averaged stats\n    print(top_500_avg.head())\n\nexcept Exception as e:\n    print(f\"An error occurred: {e}\")\n\nThe leagueleaders.LeagueLeaders() method takes in parameters such as the season and stat category abbreviation to pull data for the top 500 players by points scored per game for the specified season. The get_data_frames() method returns a list of data frames, with the first item in the list containing the data we want. We then filter out the top 500 players and group them by name and player ID using the groupby() method. Finally, we calculate the average values for the desired columns."
   },
   {
-    "objectID": "posts/sports-betting-python/index.html#flattening-the-data",
-    "href": "posts/sports-betting-python/index.html#flattening-the-data",
-    "title": "Unlocking Sports Betting with Python: The Odds API",
-    "section": "Flattening the Data",
-    "text": "Flattening the Data\nThe above code pulls data for upcoming games. And then if you want the data to be nice and clean, instead of a JSON, the below should work for ya.\n\nimport pandas as pd\n\nodds_data = odds_json\n\n# Prepare lists to hold extracted data\nevents = []\nfor event in odds_data:\n    event_id = event['id']\n    sport_key = event['sport_key']\n    sport_title = event['sport_title']\n    commence_time = event['commence_time']\n    home_team = event['home_team']\n    away_team = event['away_team']\n\n    for bookmaker in event['bookmakers']:\n        bookmaker_key = bookmaker['key']\n        bookmaker_title = bookmaker['title']\n\n        for market in bookmaker['markets']:\n            if market['key'] == 'spreads':\n                for outcome in market['outcomes']:\n                    team = outcome['name']\n                    price = outcome['price']\n                    point = outcome['point']\n\n                    # Append each record to the events list\n                    events.append((event_id, sport_key, sport_title, commence_time,\n                                   bookmaker_key, bookmaker_title, team, price,\n                                   point))\n\n# Create a DataFrame from the events list\ncolumns = ['Event ID', 'Sport Key', 'Sport Title', 'Commence Time', 'Home Team',\n           'Bookmaker Key', 'Bookmaker Title', 'Team', 'Price', 'Point Spread']\ndf = pd.DataFrame(events, columns=columns)\n\n# Display the DataFrame\nprint(df)"
+    "objectID": "posts/analyzing-nba-data/index.html#visualization",
+    "href": "posts/analyzing-nba-data/index.html#visualization",
+    "title": "Analyzing NBA Data Using Python and APIs",
+    "section": "Visualization",
+    "text": "Visualization\nOnce we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.\n\nimport plotly.express as px\n\n# Reset index to turn 'PLAYER' and 'PLAYER_ID' back into regular columns\ndf_for_plotting = top_500_avg.reset_index()\n\n# Create a scatter plot with colors based on 'PTS'\nfig = px.scatter(\n    df_for_plotting,\n    x='PTS',\n    y='FG3M',\n    hover_name='PLAYER',\n    color='PTS',\n    color_continuous_scale=px.colors.sequential.Viridis\n)\n\nfig.show()\n\nThis will display an interactive scatter plot of the average number of three-pointers made versus the total points scored for each player in the top 500.\n\n\n\nTop 500 NBA players by PTS — scatter plot of points vs three-pointers made\n\n\nThe scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.\n\n# Assuming top_500_avg is your DataFrame with average stats\ntop_10 = top_500_avg.sort_values(by='PTS', ascending=False).head(10)\ntop_10\n\n\n\n\n2023-24 NBA Points Leaderboard — top 10 scorers"
   },
   {
-    "objectID": "posts/sports-betting-python/index.html#whats-the-data-look-like",
-    "href": "posts/sports-betting-python/index.html#whats-the-data-look-like",
-    "title": "Unlocking Sports Betting with Python: The Odds API",
-    "section": "What’s the Data Look Like?",
-    "text": "What’s the Data Look Like?\n\n\n\nNBA spreads DataFrame\n\n\nBoom. A dataframe ready for the parsin’.\nSo what data did we really get? Most of the data we’re getting is related to games that are today and tomorrow.\n\n\n\nNBA game events from data pull\n\n\nMost of the data we got back is for what’s happening in the next 48 hours. But there are games all the way out to Christmas and the day after. Those are bigger games so bookmakers will have larger events out earlier.\nThe most common bookmakers in the data are Unibet, BetRivers and DraftKings. But the others have 20 datapoints as well, so FanDuel, BetMGM and others are in there.\n\n\n\nBookmakers in the data"
-  },
-  {
-    "objectID": "posts/sports-betting-python/index.html#price-and-point-spread",
-    "href": "posts/sports-betting-python/index.html#price-and-point-spread",
-    "title": "Unlocking Sports Betting with Python: The Odds API",
-    "section": "Price and Point Spread",
-    "text": "Price and Point Spread\nWhat does Price and Point Spread really mean? Let’s explore and analyze the data.\n\nPrice\nIn sports betting, ‘Price’ refers to the odds offered by the bookmaker for a specific event or game outcome. These odds are a representation of the probability of an event occurring, estimated by the bookmaker.\nThe price determines how much a bettor can win. If the price (or odds) is 2.0 and you bet $100, you would win $200 (including your original stake) if your bet is successful.\nTypes of Odds: The format can vary — common types include decimal odds (e.g., 2.0), fractional odds (e.g., 1/1), and American odds (e.g., +100). We’re using the ‘decimal’ format for odds in our API call (ODDS_FORMAT = 'decimal'), so the ‘Price’ column represents the decimal odds offered by bookmakers.\nImplications: The odds reflect the bookmaker’s assessment of the event’s likelihood, and they are adjusted based on various factors, including team performance, injuries, and betting patterns.\n\nFor Example: A decimal odd of 1.93 means if you bet $1, you will receive $1.93 in return if you win (which includes your original stake). This format is straightforward and commonly used due to its simplicity in understanding potential returns.\n\n\n\n\nPrice histogram — most prices cluster around 1.90\n\n\n\n\nPoint Spread\nWe’re focusing on the ‘spreads’ market in our API call (MARKETS = 'spreads'), which means the data specifically relates to point spread betting. The point spread is a number set by bookmakers to provide a balance for both teams involved in a bet, essentially “handicapping” the favorite team.\nIt’s designed to level the playing field between a perceived stronger team (the favorite) and a weaker team (the underdog).\n\nBetting on the Favorite: For a bet on the favorite team to win, they must win the game by more than the point spread. For example, if the point spread is -7.5, the favorite team must win by 8 points or more.\nBetting on the Underdog: Conversely, if you bet on the underdog, they must either win outright or lose by fewer points than the spread. Using the same -7.5 spread, if the underdog loses by 7 points or less (or wins the game), the bet is won.\nAdjustments and Odds: The point spread can change leading up to the event, influenced by various factors like team news, weather conditions, or betting trends. The odds associated with the point spread can also vary, providing different payout rates.\n\n\n\n\nPoint spread distribution for NBA games\n\n\nTo add a little more color, this is what it looks like for the Dec-16 Milwaukee Bucks vs Detroit Pistons game. This shows that there’s some difference in Point Spread and the Price for the different Bookmakers.\n\n\n\nPrice vs Point Spread for bookmakers"
-  },
-  {
-    "objectID": "posts/sports-betting-python/index.html#futures-picks-nba-champion",
-    "href": "posts/sports-betting-python/index.html#futures-picks-nba-champion",
-    "title": "Unlocking Sports Betting with Python: The Odds API",
-    "section": "Futures Picks — NBA Champion",
-    "text": "Futures Picks — NBA Champion\nFrom the Odds API, we can get Champion Price and derive the implied odds. There are a few changes that we need to make to the parameters of the API call. The differences being:\n\nSport = 'basketball_nba_championship_winner' — this changes the API to pull NBA Championship Winner data, versus specific games\nMARKETS = 'outrights' — Focusing on outright market for futures bets\n\nWe do have to calculate Implied Odds. Once we do that, we have a dataset that looks like this:\n\n\n\nChampionship futures data with implied odds\n\n\n\nWhy “1 Over the Price”?\nWe can calculate the implied championship odds from the Price of the event. The formula: (1 / price) * 100. We multiply by 100 to convert the odds to a percentage.\nThe reason for using this formula is rooted in how betting odds are structured. Betting odds represent the probability of an event, but they are also influenced by the bookmaker’s margin.\nWhen the price is high (for example, 5, like the Nuggets), it suggests a lower probability of occurrence. Conversely, a low price indicates a higher probability. The price reflects the bookmaker’s perceived risk. A price of 5 suggests a 1 in 5 chance. The implied probability is the reciprocal of the price.\nThe implied probability does not represent the true probability. Rather it is the bookmaker’s assessment of the likelihood. In future posts we will make some models to compare the implied probability with our estimates.\n\n\nCurrent Championship Odds\nEnough data talk, let’s see the current championship odds. As of Dec 16, the odds for champion are below. For the first graphic I put every team on there. Just to show that the Wizards, Jazz, Spurs, Hornets, and Pistons are given 0 chance of winning the title. Hard to argue with that.\n\n\n\nImplied probability for all 30 NBA teams\n\n\nI filtered to only include Teams and Bookmaker combinations where the Implied Probability is greater than 5%. Really shortens the list of teams down. There are only 9 teams here with significant odds at all. The Timberwolves are getting no love for being in the top of the West. Also Golden State is probably getting too much love as their season is going so far. I’d also throw the Clippers in there. I’d give those teams also 0 percent chance of winning this year. I think the Mavericks look like good value with implied probability at less than 5%.\n\n\n\nImplied probability filtered to &gt;5%"
-  },
-  {
-    "objectID": "posts/sports-betting-python/index.html#whats-next",
-    "href": "posts/sports-betting-python/index.html#whats-next",
-    "title": "Unlocking Sports Betting with Python: The Odds API",
+    "objectID": "posts/analyzing-nba-data/index.html#whats-next",
+    "href": "posts/analyzing-nba-data/index.html#whats-next",
+    "title": "Analyzing NBA Data Using Python and APIs",
     "section": "What’s Next",
-    "text": "What’s Next\nI’m very excited to have access to this data. There are a lot of additional analysis I’d like to do both for the NBA and for college football. What are your thoughts on the above? Anything you’d like to see?\n\nOriginally published on Medium on December 16, 2023."
+    "text": "What’s Next\nThe nba_api package is a great tool for accessing and analyzing NBA data. With its many methods, it’s a great way to grab fun data to conduct your analysis. With powerful tools such as pandas and plotly, it is easy to gain insights and produce visualizations. Whether you are a casual NBA fan or a seasoned analyst, the nba_api package is worth checking out.\nIf you want to go deeper, I’ve created a more detailed post on the NBA API and manipulating the data in Python: Analyze NBA Stats with the NBA API and Python.\n\nOriginally published on Medium on February 19, 2023."
   },
   {
-    "objectID": "toolbox/pandas.html",
-    "href": "toolbox/pandas.html",
-    "title": "Pandas",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "Pandas is the foundational data analysis library for Python. It provides DataFrames (think Excel spreadsheets in code) and powerful tools for cleaning, transforming, and analyzing data."
+    "text": "BenDiagrams is a place where I have fun, learn, and share what I’ve learned. I write about sports analytics, economic trends, and code experiments - all with a focus on real data, reuseable code, and insights."
   },
   {
-    "objectID": "toolbox/pandas.html#what-it-does",
-    "href": "toolbox/pandas.html#what-it-does",
-    "title": "Pandas",
+    "objectID": "about.html#what-i-write-about",
+    "href": "about.html#what-i-write-about",
+    "title": "About",
+    "section": "What I Write About",
+    "text": "What I Write About\n\nData Science: Python tutorials, Machine Learning, visualization, tools and workflows\nSports Analytics: Betting models, player props, performance predictions\nEconomic Trends: Inflation tracking, CPI analysis, macro indicators\nCode Experiments: API integrations, Python tutorials, MLOps workflows\n\nEvery post includes reproducible code, real data sources, and interactive visualizations."
+  },
+  {
+    "objectID": "about.html#the-stack",
+    "href": "about.html#the-stack",
+    "title": "About",
+    "section": "The Stack",
+    "text": "The Stack\n\nLanguage: Python (Pandas, Plotly, scikit-learn)\nTools: Jupyter, Quarto, VS Code\nPublishing: GitHub Pages, automated via GitHub Actions\nData Sources: College Football Data API, NBA API, FRED, odds providers"
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About",
+    "section": "Contact",
+    "text": "Contact\n\nMedium: @ben.g.ballard\nLinkedIn: https://www.linkedin.com/in/ben-ballard-44969313/\nGitHub: https://github.com/ballard11\n\nOr just drop a comment on any post."
+  },
+  {
+    "objectID": "about.html#disclaimer",
+    "href": "about.html#disclaimer",
+    "title": "About",
+    "section": "Disclaimer",
+    "text": "Disclaimer\nNothing here is financial advice. All code and analysis is for educational purposes."
+  },
+  {
+    "objectID": "posts/nba-stats-api-python/index.html",
+    "href": "posts/nba-stats-api-python/index.html",
+    "title": "Analyze NBA Stats with the NBA API and Python",
     "section": "",
-    "text": "Pandas is the foundational data analysis library for Python. It provides DataFrames (think Excel spreadsheets in code) and powerful tools for cleaning, transforming, and analyzing data."
+    "text": "This post is a walk-through on how I created a process using Python to pull NBA data through the NBA API and analyze player career stats like field goal percentages, points, rebounds and assists. In particular, I’ll focus on how I pulled from the NBA API, the pandas data processing, and the matplotlib visualizations."
   },
   {
-    "objectID": "toolbox/pandas.html#why-i-bookmarked-it",
-    "href": "toolbox/pandas.html#why-i-bookmarked-it",
-    "title": "Pandas",
-    "section": "Why I Bookmarked It",
-    "text": "Why I Bookmarked It\nEvery single data analysis project I do starts with Pandas. It’s the Swiss Army knife of data manipulation. Whether I’m cleaning API responses or calculating sports statistics, Pandas makes it simple."
+    "objectID": "posts/nba-stats-api-python/index.html#gathering-the-data",
+    "href": "posts/nba-stats-api-python/index.html#gathering-the-data",
+    "title": "Analyze NBA Stats with the NBA API and Python",
+    "section": "Gathering the Data",
+    "text": "Gathering the Data\nThe first step is identifying what player you’d like to analyze. Use the player ID to pull their career stats. Replace the current ID '202681' with whatever the new player ID is.\nThe code utilizes the nba_api.stats.endpoints module, specifically tapping into playercareerstats. This function will fetch the comprehensive career statistics of your chosen player.\n\nfrom nba_api.stats.endpoints import playercareerstats\n\n# Fetching career statistics for Player of Choice using his player ID\nplayer_career = playercareerstats.PlayerCareerStats(player_id='202681')\nplayer_career_df = player_career.get_data_frames()[0]\n\n# Extracting the seasons of player of choice\nseasons_played = player_career_df['SEASON_ID'].unique()\nprint(seasons_played.tolist())\n\nThe above code will print out the number of seasons the NBA player you chose played in a list like this: ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']. Copy the years output and replace the list of seasons below.\n\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom nba_api.stats.endpoints import playergamelog\n\n# Initialize an empty DataFrame to store all game logs\nall_seasons_logs_df = pd.DataFrame()\n\n# List of seasons to loop through (update this list as needed)\nseasons = ['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']\n\n# Fetch game logs for each season and add a 'SEASON' column\nfor season in seasons:\n    player_logs = playergamelog.PlayerGameLog(player_id='202681', season=season)\n    season_logs_df = player_logs.get_data_frames()[0]\n    season_logs_df['SEASON'] = season\n    all_seasons_logs_df = pd.concat([all_seasons_logs_df, season_logs_df], ignore_index=True)\n\nAfter running the above, the all_seasons_logs_df dataframe will include all game data for the player of interest. The table includes many more stats, but here’s a small example of what is contained in the data.\n\n\n\nSample of the Season Logs for Player from NBA API"
   },
   {
-    "objectID": "toolbox/pandas.html#hello-world-example",
-    "href": "toolbox/pandas.html#hello-world-example",
-    "title": "Pandas",
-    "section": "Hello World Example",
-    "text": "Hello World Example\nimport pandas as pd\n\n# Create a DataFrame from dict\ndata = {\n    'team': ['Oklahoma', 'Texas', 'Alabama'],\n    'wins': [10, 12, 11],\n    'losses': [3, 2, 2]\n}\n\ndf = pd.DataFrame(data)\n\n# Calculate win percentage\ndf['win_pct'] = df['wins'] / (df['wins'] + df['losses'])\n\nprint(df)"
+    "objectID": "posts/nba-stats-api-python/index.html#data-processing",
+    "href": "posts/nba-stats-api-python/index.html#data-processing",
+    "title": "Analyze NBA Stats with the NBA API and Python",
+    "section": "Data Processing",
+    "text": "Data Processing\nAfter pulling the data, the next steps involve processing the data for analysis and visualization. While the data comes pretty clean after the API pull, there was some processing I did. First, ensure the GAME_DATE column is in a datetime format using the pandas to_datetime method.\n\n# Convert Game_Date to a datetime\nall_seasons_logs_df['GAME_DATE'] = pd.to_datetime(all_seasons_logs_df['GAME_DATE'])\n\n# Create Month_Year to facilitate Month/Date Analysis\nall_seasons_logs_df['MONTH_YEAR'] = all_seasons_logs_df['GAME_DATE'].dt.to_period('M')\n\nCreating summary tables is important for understanding the data and building narratives for story-telling. I used the following code to create a yearly aggregation of the game level stats to tell the story of a player’s career.\n\n# Aggregate game level data to yearly\nyearly_stats = all_seasons_logs_df.groupby('YEAR').agg({\n    'FGM': 'sum',\n    'FGA': 'sum',\n    'FG3M': 'sum',\n    'FG3A': 'sum',\n    'FTM': 'sum',\n    'FTA': 'sum',\n}).reset_index()\n\n# Calculate field goal percentages\nyearly_stats['FG_PCT'] = yearly_stats['FGM'] / yearly_stats['FGA']\nyearly_stats['FG3_PCT'] = yearly_stats['FG3M'] / yearly_stats['FG3A']\nyearly_stats['FT_PCT'] = yearly_stats['FTM'] / yearly_stats['FTA']"
   },
   {
-    "objectID": "toolbox/pandas.html#verdict",
-    "href": "toolbox/pandas.html#verdict",
-    "title": "Pandas",
-    "section": "Verdict",
-    "text": "Verdict\nStatus: Active Use - Non-negotiable foundation of my data stack.\n\nPros: Industry standard, massive community, handles any data format\nCons: Memory-intensive for huge datasets (use Polars for that)\nUse Cases: Every data analysis project, API response parsing, CSV manipulation"
+    "objectID": "posts/nba-stats-api-python/index.html#data-visualization",
+    "href": "posts/nba-stats-api-python/index.html#data-visualization",
+    "title": "Analyze NBA Stats with the NBA API and Python",
+    "section": "Data Visualization",
+    "text": "Data Visualization\nThe final part of this script is visualizing the data. There are many options to visualize the data from line charts, histograms, bar graphics. I used seaborn and matplotlib to create visualizations.\n\n\n\nLine graphs showing Points, Assists, and Rebounds over years\n\n\n\n\n\nHistograms showing Field Goal Percentages by category\n\n\nFinally, I’ll present a visualization that I enjoyed creating. This graph tracks a specific stat — in this case, the number of three-pointers made per season — and compares it across different seasons. The visualization plots the cumulative count of three-pointers made each season, with the game number on the X-axis. To highlight a specific season, like 2009, I’ve used a red line. Interestingly, while 2009 was a career-high in three-point percentage, it featured one of the lowest totals for made threes. This type of visualization offers a nuanced view of a player’s performance over time.\n\n\n\nCumulative 3-Point Field Goals Made by season\n\n\nIn order to get that graphic to work, we must first create the cumulative sum of threes (FG3M) for each season.\n\n# Calculate Cumulative Sum\nall_seasons_logs_df['FG3M_CUMSUM'] = all_seasons_logs_df.groupby('YEAR')['FG3M'].cumsum()\nall_seasons_logs_df['FGM_CUMSUM'] = all_seasons_logs_df.groupby('YEAR')['FGM'].cumsum()\n\nFinally, this code snippet is designed to plot a distinct line for each season, representing the cumulative field goals made by the player. I’ve chosen red for the 2023 season to make it stand out against the others which will be grey.\n\n# Plotting a line for each season\nfor year in all_seasons_logs_df['YEAR'].unique():\n    season_data = all_seasons_logs_df[all_seasons_logs_df['YEAR'] == year]\n\n    # Plot a Particular Year of Interest Red\n    color = 'red' if year == 2023 else 'silver'\n    label = f'{year}' if year == 2023 else None\n    plt.plot(season_data['Game_Number'], season_data['FGM_CUMSUM'], label=label, color=color)\n\nplt.title('Cumulative Field Goals Made by Player Over Each Season')\nplt.xlabel('Game Number')\nplt.ylabel('Cumulative FG Made')"
   },
   {
-    "objectID": "toolbox/pandas.html#resources",
-    "href": "toolbox/pandas.html#resources",
-    "title": "Pandas",
-    "section": "Resources",
-    "text": "Resources\n\nOfficial Docs\n10 Minutes to Pandas\nMy Pandas Tutorials"
+    "objectID": "posts/nba-stats-api-python/index.html#whats-next",
+    "href": "posts/nba-stats-api-python/index.html#whats-next",
+    "title": "Analyze NBA Stats with the NBA API and Python",
+    "section": "What’s Next",
+    "text": "What’s Next\nI plan to revisit this in a few days and work on a few areas. Specifically:\n\nDynamic Season List: Instead of hardcoding the seasons list, dynamically generate it based on the player’s career data. This would make the script more flexible and reduce the need for manual updates.\nModularization: Break down the notebook into functions for specific tasks (fetching data, processing data, and plotting). This will make the code more organized and reusable.\nDocumentation: Adding more comments and explanations throughout the script. Once I clean it up, I plan to post to my GitHub.\n\nHope you found value in this. Please let me know. I’m always interested in other points of view and learning from others on how to improve my analysis process.\n\nOriginally published on Medium on December 11, 2023."
+  },
+  {
+    "objectID": "posts/sports-betting-dashboard-app/index.html",
+    "href": "posts/sports-betting-dashboard-app/index.html",
+    "title": "Analyzing Real-Time Sports Odds with Python",
+    "section": "",
+    "text": "In Part 1: Unlocking Sports Betting with Python, we pulled live odds from The Odds API and compared bookmaker lines in a Jupyter notebook.\nIn this tutorial, we’re going deeper. We will:\nWe’ll do all of this in a standard Jupyter notebook/Python script. Let’s dig in.\nI’ve pre-loaded the necessary libraries and the helper functions from Part 1. Now, let’s get to the good stuff: Fetching the Live Odds."
+  },
+  {
+    "objectID": "posts/sports-betting-dashboard-app/index.html#fetching-live-odds",
+    "href": "posts/sports-betting-dashboard-app/index.html#fetching-live-odds",
+    "title": "Analyzing Real-Time Sports Odds with Python",
+    "section": "Fetching Live Odds",
+    "text": "Fetching Live Odds\nLet’s pull today’s NBA odds. Same endpoint as Part 1 — we’re just requesting all three market types at once: moneyline (h2h), spreads, and totals.\n\nSPORT = 'basketball_nba'\n\nurl = f'https://api.the-odds-api.com/v4/sports/{SPORT}/odds/'\nparams = {\n    'apiKey': API_KEY,\n    'regions': 'us',\n    'markets': 'h2h,spreads,totals',\n    'oddsFormat': 'american',\n}\n\nresp = requests.get(url, params=params)\nresp.raise_for_status()\nevents = resp.json()\n\nprint(f'Got {len(events)} upcoming games')\nprint(f'Quota used: {resp.headers.get(\"x-requests-used\", \"?\")} | Remaining: {resp.headers.get(\"x-requests-remaining\", \"?\")}')\n\n\ndf = flatten_odds(events)\nprint(f'{len(df)} rows across {df[\"game\"].nunique()} games and {df[\"bookmaker\"].nunique()} bookmakers')\ndf.head()"
+  },
+  {
+    "objectID": "posts/sports-betting-dashboard-app/index.html#section-1-live-odds-table",
+    "href": "posts/sports-betting-dashboard-app/index.html#section-1-live-odds-table",
+    "title": "Analyzing Real-Time Sports Odds with Python",
+    "section": "Section 1: Live Odds Table",
+    "text": "Section 1: Live Odds Table\nFirst, let’s look at the moneyline odds. We’ll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.\n\n# Filter to moneyline odds only\nh2h = df[df['market'] == 'h2h'].copy()\n\n# Pivot: game + team as rows, bookmakers as columns\npivot = h2h.pivot_table(\n    index=['game', 'outcome'],\n    columns='bookmaker',\n    values='price',\n    aggfunc='first',\n)\n\n# Highlight valid odds and format to 1 decimal place\npivot.style.format(\"{:.1f}\", na_rep=\"-\").highlight_max(axis=1, color='#2ecc71')\n\nSee how some bookmakers offer slightly better odds? Those differences matter. Let’s make it even easier to spot the best lines."
+  },
+  {
+    "objectID": "posts/sports-betting-dashboard-app/index.html#section-2-best-line-finder",
+    "href": "posts/sports-betting-dashboard-app/index.html#section-2-best-line-finder",
+    "title": "Analyzing Real-Time Sports Odds with Python",
+    "section": "Section 2: Best Line Finder",
+    "text": "Section 2: Best Line Finder\nThis one’s my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an “edge” it has over the second-best option.\n\nbest_lines = []\n\nfor (game, outcome), row in pivot.iterrows():\n    best_book = row.idxmax()\n    best_price = row.max()\n    second_best = row.nlargest(2).iloc[-1] if len(row.dropna()) &gt; 1 else best_price\n    \n    best_lines.append({\n        'Game': game,\n        'Team': outcome,\n        'Best Book': best_book,\n        'Best Odds': int(best_price) if pd.notna(best_price) else None,\n        '2nd Best': int(second_best) if pd.notna(second_best) else None,\n        'Edge': int(best_price - second_best) if pd.notna(best_price) and pd.notna(second_best) else 0,\n    })\n\nbest_df = pd.DataFrame(best_lines)\nbest_df.sort_values('Edge', ascending=False)\n\nThe “Edge” column shows the difference in odds between the best and second-best bookmaker. Higher edge = more value shopping around. In the dashboard, this becomes a sortable table so you can instantly spot the biggest disagreements."
+  },
+  {
+    "objectID": "posts/sports-betting-dashboard-app/index.html#section-3-implied-probability-chart",
+    "href": "posts/sports-betting-dashboard-app/index.html#section-3-implied-probability-chart",
+    "title": "Analyzing Real-Time Sports Odds with Python",
+    "section": "Section 3: Implied Probability Chart",
+    "text": "Section 3: Implied Probability Chart\nAmerican odds (like -150 or +130) are hard to read at a glance. Let’s convert everything to implied probabilities and visualize them. This tells us the “true” win probability the bookmaker is assigning to each team.\n\n# Average odds across bookmakers for each team (consensus line)\nconsensus = h2h.groupby(['game', 'outcome'])['price'].mean().reset_index()\nconsensus['implied_prob'] = consensus['price'].apply(american_to_implied_prob)\nconsensus['prob_pct'] = (consensus['implied_prob'] * 100).round(1)\n\nconsensus[['game', 'outcome', 'price', 'prob_pct']].head()\n\n\n# Build the stacked bar chart\ngames = consensus['game'].unique()\n\nfig = go.Figure()\n\nfor game in games:\n    game_data = consensus[consensus['game'] == game]\n    for _, row in game_data.iterrows():\n        prob = row['prob_pct']\n        fig.add_trace(go.Bar(\n            y=[game],\n            x=[prob],\n            name=row['outcome'],\n            orientation='h',\n            text=f\"{row['outcome']}: {prob:.1f}%\",\n            textposition='inside',\n            showlegend=False,\n            marker_color='#2ecc71' if prob &gt;= 50 else '#e74c3c',\n        ))\n\nfig.update_layout(\n    barmode='stack',\n    xaxis_title='Implied Probability (%)',\n    yaxis_title='',\n    height=max(400, len(games) * 60),\n    title='Implied Win Probabilities (Consensus Odds)',\n)\n\nfig.show()\n\nGreen = favorite, red = underdog. You can hover over each bar (if running locally) to see the exact probability."
+  },
+  {
+    "objectID": "posts/sports-betting-dashboard-app/index.html#section-4-player-props-explorer",
+    "href": "posts/sports-betting-dashboard-app/index.html#section-4-player-props-explorer",
+    "title": "Analyzing Real-Time Sports Odds with Python",
+    "section": "Section 4: Player Props Explorer",
+    "text": "Section 4: Player Props Explorer\nThis is where it gets really fun. We’ll pick a game, pull player props (points, rebounds, assists), and see where bookmakers disagree on the lines. Bigger disagreements = potential value bets.\nLet’s grab the first game and see what props are available.\n\n# Pick the first game\nevent_id = events[0]['id']\ngame_name = f\"{events[0]['away_team']} @ {events[0]['home_team']}\"\nprint(f'Fetching props for: {game_name}')\n\nprops_url = f'https://api.the-odds-api.com/v4/sports/{SPORT}/events/{event_id}/odds/'\nprops_params = {\n    'apiKey': API_KEY,\n    'regions': 'us',\n    'markets': 'player_points,player_rebounds,player_assists',\n    'oddsFormat': 'american',\n}\n\nprops_resp = requests.get(props_url, params=props_params)\nprops_resp.raise_for_status()\nprops_data = props_resp.json()\n\nprint(f'Quota used: {props_resp.headers.get(\"x-requests-used\", \"?\")} | Remaining: {props_resp.headers.get(\"x-requests-remaining\", \"?\")}')\n\n\nprops_df = flatten_props(props_data)\nprint(f'{len(props_df)} prop lines across {props_df[\"player\"].nunique()} players')\nprops_df.head()\n\n\n# Scatter plot: points props, Over side only\npoints = props_df[(props_df['market'] == 'player_points') & (props_df['side'] == 'Over')].copy()\n\nif not points.empty:\n    fig = px.scatter(\n        points,\n        x='line',\n        y='price',\n        color='bookmaker',\n        hover_data=['player', 'bookmaker', 'line', 'price'],\n        text='player',\n        title=f'Points Props — {game_name}',\n    )\n\n    fig.update_traces(textposition='top center', textfont_size=9)\n    fig.update_layout(\n        xaxis_title='Points Line',\n        yaxis_title='Odds (American)',\n        height=600,\n    )\n    fig.show()\nelse:\n    print('No points props available for this game yet.')\n\nWhen you see the same player at the same line but with different odds across bookmakers — that’s where line shopping pays off. The scatter plot makes it visual: clusters of dots at the same x-position (line) with spread along the y-axis (odds) means bookmakers disagree."
+  },
+  {
+    "objectID": "posts/sports-betting-dashboard-app/index.html#whats-next",
+    "href": "posts/sports-betting-dashboard-app/index.html#whats-next",
+    "title": "Analyzing Real-Time Sports Odds with Python",
+    "section": "What’s Next?",
+    "text": "What’s Next?\nWe’ve now built a script that:\n\nPulls live odds\nFinds the best lines\nCalculates win probabilities\nScans for player prop disparities\n\nBut there’s one problem: Running a script manually every time you want to check odds is annoying. In the next article, we’re going to take this code and wrap it into a Streamlit Dashboard.\nWe’ll build a live web app that: - Runs 24/7 - Auto-refreshes every 5 minutes - Visualizes this data in a clean, interactive UI - Can be deployed to the web (so you can check it from your phone)\nStay tuned for the next post."
   }
 ]

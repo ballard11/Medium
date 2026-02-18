@@ -417,7 +417,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <section id="fetching-live-odds" class="level2">
 <h2 class="anchored" data-anchor-id="fetching-live-odds">Fetching Live Odds</h2>
 <p>Let’s pull today’s NBA odds. Same endpoint as Part 1 — we’re just requesting all three market types at once: moneyline (<code>h2h</code>), spreads, and totals.</p>
-<div id="e0d0ff10" class="cell" data-execution_count="2">
+<div id="c5cd3f2c" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>SPORT <span class="op">=</span> <span class="st">'basketball_nba'</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f'https://api.the-odds-api.com/v4/sports/</span><span class="sc">{</span>SPORT<span class="sc">}</span><span class="ss">/odds/'</span></span>
@@ -435,7 +435,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Got </span><span class="sc">{</span><span class="bu">len</span>(events)<span class="sc">}</span><span class="ss"> upcoming games'</span>)</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Quota used: </span><span class="sc">{</span>resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-used"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss"> | Remaining: </span><span class="sc">{</span>resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-remaining"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="010ab3cc" class="cell" data-execution_count="3">
+<div id="53a05e40" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> flatten_odds(events)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss"> rows across </span><span class="sc">{</span>df[<span class="st">"game"</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> games and </span><span class="sc">{</span>df[<span class="st">"bookmaker"</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> bookmakers'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -444,7 +444,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <section id="section-1-live-odds-table" class="level2">
 <h2 class="anchored" data-anchor-id="section-1-live-odds-table">Section 1: Live Odds Table</h2>
 <p>First, let’s look at the moneyline odds. We’ll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.</p>
-<div id="ca4eab61" class="cell" data-execution_count="4">
+<div id="b07813a4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to moneyline odds only</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>h2h <span class="op">=</span> df[df[<span class="st">'market'</span>] <span class="op">==</span> <span class="st">'h2h'</span>].copy()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -464,7 +464,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <section id="section-2-best-line-finder" class="level2">
 <h2 class="anchored" data-anchor-id="section-2-best-line-finder">Section 2: Best Line Finder</h2>
 <p>This one’s my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an “edge” it has over the second-best option.</p>
-<div id="b7ad0961" class="cell" data-execution_count="5">
+<div id="3bd7663e" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>best_lines <span class="op">=</span> []</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (game, outcome), row <span class="kw">in</span> pivot.iterrows():</span>
@@ -489,7 +489,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <section id="section-3-implied-probability-chart" class="level2">
 <h2 class="anchored" data-anchor-id="section-3-implied-probability-chart">Section 3: Implied Probability Chart</h2>
 <p>American odds (like -150 or +130) are hard to read at a glance. Let’s convert everything to <strong>implied probabilities</strong> and visualize them. This tells us the “true” win probability the bookmaker is assigning to each team.</p>
-<div id="13c6dd74" class="cell" data-execution_count="6">
+<div id="da4bbf22" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average odds across bookmakers for each team (consensus line)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>consensus <span class="op">=</span> h2h.groupby([<span class="st">'game'</span>, <span class="st">'outcome'</span>])[<span class="st">'price'</span>].mean().reset_index()</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>consensus[<span class="st">'implied_prob'</span>] <span class="op">=</span> consensus[<span class="st">'price'</span>].<span class="bu">apply</span>(american_to_implied_prob)</span>
@@ -497,7 +497,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>consensus[[<span class="st">'game'</span>, <span class="st">'outcome'</span>, <span class="st">'price'</span>, <span class="st">'prob_pct'</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="fdacfb98" class="cell" data-execution_count="7">
+<div id="2265012b" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the stacked bar chart</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>games <span class="op">=</span> consensus[<span class="st">'game'</span>].unique()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -534,7 +534,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="section-4-player-props-explorer">Section 4: Player Props Explorer</h2>
 <p>This is where it gets really fun. We’ll pick a game, pull player props (points, rebounds, assists), and see where bookmakers disagree on the lines. Bigger disagreements = potential value bets.</p>
 <p>Let’s grab the first game and see what props are available.</p>
-<div id="98cb28ed" class="cell" data-execution_count="8">
+<div id="260e75af" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick the first game</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>event_id <span class="op">=</span> events[<span class="dv">0</span>][<span class="st">'id'</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>game_name <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>events[<span class="dv">0</span>][<span class="st">'away_team'</span>]<span class="sc">}</span><span class="ss"> @ </span><span class="sc">{</span>events[<span class="dv">0</span>][<span class="st">'home_team'</span>]<span class="sc">}</span><span class="ss">"</span></span>
@@ -554,12 +554,12 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Quota used: </span><span class="sc">{</span>props_resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-used"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss"> | Remaining: </span><span class="sc">{</span>props_resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-remaining"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="46d98c74" class="cell" data-execution_count="9">
+<div id="e38fd029" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>props_df <span class="op">=</span> flatten_props(props_data)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span><span class="bu">len</span>(props_df)<span class="sc">}</span><span class="ss"> prop lines across </span><span class="sc">{</span>props_df[<span class="st">"player"</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> players'</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>props_df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="e3c428cd" class="cell" data-execution_count="10">
+<div id="c02407c0" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot: points props, Over side only</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> props_df[(props_df[<span class="st">'market'</span>] <span class="op">==</span> <span class="st">'player_points'</span>) <span class="op">&amp;</span> (props_df[<span class="st">'side'</span>] <span class="op">==</span> <span class="st">'Over'</span>)].copy()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
