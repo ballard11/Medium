@@ -3,7 +3,6 @@ subtitle: "My lab for Data Science, Machine Learning, Sports Analytics, Economic
 listing:
   contents:
     - "posts/*/index.qmd"
-    - "toolbox/*.qmd"
   type: default
   sort: "date desc"
   categories: true
