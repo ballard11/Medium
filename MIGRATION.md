@@ -19,28 +19,28 @@ Based on your Medium stats (from STATS.md):
 
 ### 1. Unlocking Sports Betting with Python — MIGRATED
 - **Stats**: $32.26 earned, 6,700 views, 34.3% read rate
-- **Location**: `sports/sports-betting-python/index.qmd`
+- **Location**: `posts/sports-betting-python/index.qmd`
 - **Affiliate opportunity**: DraftKings/FanDuel sign-up links ($50-100 CPA)
 
 ### 2. Analyzing NBA Data Using Python and APIs — MIGRATED
 - **Stats**: $13.45 earned, 14,100 views, 41.1% read rate
-- **Location**: `sports/analyzing-nba-data/index.qmd`
+- **Location**: `posts/analyzing-nba-data/index.qmd`
 - **Affiliate opportunity**: DataCamp Python courses, NBA API courses
 
 ### 3. Analyze NBA Stats with the NBA API and Python — MIGRATED
 - **Stats**: $12.47 earned, 3,800 views, 28.9% read rate
-- **Location**: `sports/nba-stats-api-python/index.qmd`
+- **Location**: `posts/nba-stats-api-python/index.qmd`
 - **Affiliate opportunity**: Python courses, sports analytics tools
 
 ### 4. Using Google Trends API with Python
 - **Stats**: $7.58 earned, 4,300 views, 44.9% read rate
-- **Target bucket**: `code/`
+- **Target**: `posts/google-trends-api-python/index.qmd`
 - **New title**: Keep same or "How to Use the Google Trends API with Python"
 - **Affiliate opportunity**: Python courses, web scraping tools
 
 ### 5. Easy Live Sports Odds: A Guide to Google Sheets
 - **Stats**: $2.86 earned, 1,990 views, 27.4% read rate
-- **Target bucket**: `sports/`
+- **Target**: `posts/live-sports-odds-google-sheets/index.qmd`
 - **Note**: Lower-code piece, different audience than the Python tutorials
 
 ---
@@ -50,8 +50,8 @@ Based on your Medium stats (from STATS.md):
 ### Step 1: Create the post folder
 
 ```bash
-mkdir -p sports/post-slug/images
-cp _templates/post-template.qmd sports/post-slug/index.qmd
+mkdir -p posts/post-slug/images
+cp _templates/post-template.qmd posts/post-slug/index.qmd
 ```
 
 ### Step 2: Copy and convert content
@@ -97,7 +97,6 @@ execute:
 
 ### Step 4: Test Locally
 ```bash
-cd bendiagrams-site
 quarto preview
 ```
 
@@ -163,7 +162,7 @@ git push origin main
 
 ### Article 4: Using Google Trends API with Python — NOT STARTED
 - [ ] Copy content from Medium
-- [ ] Create `code/google-trends-api-python/index.qmd`
+- [ ] Create `posts/google-trends-api-python/index.qmd`
 - [ ] Convert to Quarto format
 - [ ] Download/recreate all images
 - [ ] Verify code still works (APIs change)
@@ -175,7 +174,7 @@ git push origin main
 
 ### Article 5: Easy Live Sports Odds: Google Sheets — NOT STARTED
 - [ ] Copy content from Medium
-- [ ] Create `sports/live-sports-odds-google-sheets/index.qmd`
+- [ ] Create `posts/live-sports-odds-google-sheets/index.qmd`
 - [ ] Convert to Quarto format
 - [ ] Download/recreate all images
 - [ ] Test locally

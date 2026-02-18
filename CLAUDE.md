@@ -22,14 +22,10 @@ Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) runs `quarto
 
 ## Key Docs
 
-| Doc | Location | Purpose |
-|-----|----------|---------|
-| STATS.md | repo root | Medium analytics — lifetime data, revenue by category, what works. Updated monthly. |
-| STRATEGY.md | repo root | Growth strategy — franchise model, publishing cadence, distribution |
-| SECURITY.md | repo root | Public repo security — .gitignore, code hiding, freeze strategy |
-| MIGRATION.md | repo root | Migrating top Medium articles to the Quarto site |
-| GETTING-STARTED.md | repo root | Quick reference for creating posts and using the site |
-| SETUP.md | repo root | Deployment setup, custom domain, Google Analytics |
+| Doc | Purpose |
+|-----|---------|
+| STATS.md | Medium analytics — lifetime data, revenue by category, what works. Updated monthly. |
+| MIGRATION.md | Active checklist for migrating remaining Medium articles to the site. Delete when done. |
 
 ## File Authority & Agent Scope
 
@@ -86,10 +82,22 @@ Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) runs `quarto
 
 ### Distribution (after each publish)
 
-1. Publish to BenDiagrams site (push to `main`)
+1. Push to `main` → live on BenDiagrams
 2. Wait 2-3 days for Google to index
-3. Cross-post to Medium with canonical URL pointing to site
-4. Syndicate to Dev.to + Hashnode (canonical URL)
-5. Share on Mastodon
+3. Cross-post to Medium — import from URL, set canonical to site
+4. Syndicate: [Dev.to/@ben_ballard_11](https://dev.to/ben_ballard_11) + [Hashnode/@BenBallard](https://hashnode.com/@BenBallard) (canonical URL)
+5. Share on [Mastodon/@benballrd11](https://mastodon.social/@benballrd11)
 
-See [STRATEGY.md](STRATEGY.md) for the full franchise model and distribution details.
+### Creating a Post
+
+```bash
+mkdir -p posts/my-post-slug
+cp _templates/post-template.qmd posts/my-post-slug/index.qmd
+```
+
+Key YAML fields: `title`, `description`, `date`, `categories: [sports]`, `image`, `draft: false`
+
+```bash
+quarto preview       # local dev server
+git push origin main # deploy
+```
