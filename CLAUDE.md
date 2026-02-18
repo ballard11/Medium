@@ -2,23 +2,32 @@
 
 ## Repo Overview
 
-The repo root is the Quarto project. Two clear zones:
+The repo root is the Quarto project. Three zones:
 
 1. **`posts/`** — Published blog posts (`.qmd` files, source of truth)
    - One folder per post: `posts/post-slug/index.qmd`
    - Uses `categories:` YAML front matter (e.g. `[sports]`, `[economics]`) — no category subfolders
 
-2. **`toolbox/`** — Reference pages (`.qmd`), separate from posts
+2. **`analysis/`** — Scratch exploration only. Not part of the site.
+   - `*.ipynb` notebooks here are gitignored (sandbox only)
 
-3. **`analysis/`** — Scratch exploration only. Not part of the site.
-   - `analysis/cfb-data-analysis/`, `analysis/google-trends/`, etc.
-   - `*.ipynb` files here are gitignored
+3. **Site config at root:** `_quarto.yml`, `index.qmd`, `about.qmd`, `_templates/`
 
-4. **Site config at root:** `_quarto.yml`, `index.qmd`, `about.qmd`, `_templates/`
+## How Rendering Works
+
+```
+posts/my-post/index.qmd   ← source (you write here)
+        ↓  quarto render
+_site/posts/my-post/index.html  ← built output (never edit directly)
+        ↓  GitHub Actions deploys _site/
+bendiagrams.com/posts/my-post/
+```
+
+`_site/` mirrors `posts/` exactly. It is generated output — never edit it.
 
 ## Deployment
 
-Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) runs `quarto render` at repo root → deploys `_site/` to `gh-pages` branch → live at `https://bendiagrams.com` in ~2-3 minutes.
+Push to `main` → GitHub Actions runs `quarto render` at repo root → deploys `_site/` to `gh-pages` → live at `https://bendiagrams.com` in ~2-3 minutes.
 
 ## Key Docs
 
@@ -52,9 +61,39 @@ Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) runs `quarto
 - **Never commit API keys.** Use placeholders: `API_KEY = 'YOUR_API_KEY'`
 - **`.env` at repo root** (gitignored) stores all secrets
 - **API keys in `.env`:** ODDS_API_KEY, MEDIUM_TOKEN, CFBD_API_KEY, CHART_STUDIO_USERNAME, CHART_STUDIO_API_KEY
-- Use `#| echo: false` in Quarto to hide proprietary code
-- Use `execute: freeze: true` for posts with sensitive analysis
-- See SECURITY.md for full details
+- Use `#| echo: false` to hide setup cells (API key loading, imports)
+- Use `execute: freeze: true` for any post that makes live API calls
+
+## Freeze Workflow (for API-dependent posts)
+
+Posts that make live API calls cannot execute in GitHub Actions (no API key).
+Use `freeze: true` so outputs are generated locally and committed — CI uses
+the frozen outputs instead of re-executing.
+
+**Post YAML:**
+```yaml
+execute:
+  freeze: true
+  echo: true
+```
+
+**Steps:**
+1. Write/update the post in `posts/my-post/index.qmd`
+2. Run locally: `quarto render posts/my-post/index.qmd`
+   - Your `.env` provides the API key — real charts and tables are generated
+   - Outputs saved to `_freeze/posts/my-post/`
+3. Commit and push:
+   ```bash
+   git add _freeze/
+   git push origin main
+   ```
+4. CI uses the frozen outputs — no API key needed in GitHub Actions
+
+**Important:** `_freeze/` is tracked in git (not gitignored). The `!_freeze/**`
+exception in `.gitignore` overrides the `*.json` rule so freeze files are committed.
+
+**When to re-freeze:** Any time you update the post's code and want fresh outputs,
+re-run `quarto render` locally and commit the updated `_freeze/` files.
 
 ## User Preferences
 
