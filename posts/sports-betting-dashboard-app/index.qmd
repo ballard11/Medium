@@ -5,7 +5,7 @@ date: "2026-02-18"
 categories: [Python, Sports Betting, Data Science, APIs]
 jupyter: python3
 execute:
-  eval: false
+  freeze: true
   echo: true
 ---
 
