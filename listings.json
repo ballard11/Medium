@@ -2,10 +2,14 @@
   {
     "listing": "/index.html",
     "items": [
-      "/sports/oklahoma-football-evolution/index.html",
-      "/sports/sports-betting-python/index.html",
-      "/sports/nba-stats-api-python/index.html",
-      "/sports/analyzing-nba-data/index.html"
+      "/posts/sports-betting-dashboard-app/index.html",
+      "/toolbox/cfbd-api.html",
+      "/toolbox/pandas.html",
+      "/toolbox/plotly.html",
+      "/posts/oklahoma-football-evolution/index.html",
+      "/posts/sports-betting-python/index.html",
+      "/posts/nba-stats-api-python/index.html",
+      "/posts/analyzing-nba-data/index.html"
     ]
   }
 ]

@@ -7,10 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ben Ballard">
-<meta name="dcterms.date" content="2023-02-19">
-<meta name="description" content="Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python">
+<meta name="dcterms.date" content="2026-02-18">
 
-<title>Analyzing NBA Data Using Python and APIs – BenDiagrams</title>
+<title>Analyzing Real-Time Sports Odds with Python – BenDiagrams</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,15 +122,12 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Analyzing NBA Data Using Python and APIs – BenDiagrams">
-<meta property="og:description" content="Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python">
-<meta property="og:image" content="https://bendiagrams.com/sports/analyzing-nba-data/images/top-500-scatter.png">
+<meta property="og:title" content="Analyzing Real-Time Sports Odds with Python – BenDiagrams">
+<meta property="og:description" content="A data science lab for sports analytics, economic trends, and code experiments">
 <meta property="og:site_name" content="BenDiagrams">
-<meta property="og:image:height" content="1650">
-<meta property="og:image:width" content="1632">
 </head>
 
-<body class="floating nav-fixed slimcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="floating nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -355,9 +351,12 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#nba-api" id="toc-nba-api" class="nav-link active" data-scroll-target="#nba-api">NBA API</a></li>
-  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
-  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next</a></li>
+  <li><a href="#fetching-live-odds" id="toc-fetching-live-odds" class="nav-link active" data-scroll-target="#fetching-live-odds">Fetching Live Odds</a></li>
+  <li><a href="#section-1-live-odds-table" id="toc-section-1-live-odds-table" class="nav-link" data-scroll-target="#section-1-live-odds-table">Section 1: Live Odds Table</a></li>
+  <li><a href="#section-2-best-line-finder" id="toc-section-2-best-line-finder" class="nav-link" data-scroll-target="#section-2-best-line-finder">Section 2: Best Line Finder</a></li>
+  <li><a href="#section-3-implied-probability-chart" id="toc-section-3-implied-probability-chart" class="nav-link" data-scroll-target="#section-3-implied-probability-chart">Section 3: Implied Probability Chart</a></li>
+  <li><a href="#section-4-player-props-explorer" id="toc-section-4-player-props-explorer" class="nav-link" data-scroll-target="#section-4-player-props-explorer">Section 4: Player Props Explorer</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next?</a></li>
   </ul>
 </nav>
 </nav>
@@ -366,25 +365,20 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Analyzing NBA Data Using Python and APIs</h1>
+<h1 class="title">Analyzing Real-Time Sports Odds with Python</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">sports</div>
-    <div class="quarto-category">nba</div>
-    <div class="quarto-category">python</div>
-    <div class="quarto-category">apis</div>
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Sports Betting</div>
+    <div class="quarto-category">Data Science</div>
+    <div class="quarto-category">APIs</div>
   </div>
   </div>
 
-<div>
-  <div class="description">
-    Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -399,7 +393,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2023</p>
+      <p class="date">February 18, 2026</p>
     </div>
   </div>
   
@@ -411,83 +405,199 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 </header>
 
 
-<p>If you’re a fan of basketball, you probably love watching NBA games and following your favorite players. But did you know that you can also analyze NBA data using Python and a powerful API? In this blog post, I’ll show you how to use the NBA_API to access NBA data, perform statistical analysis, and create visualizations.</p>
-<p>The NBA has become a staple in American culture and as technology has progressed, accessing NBA data has become increasingly easier. There are several NBA APIs available on the web, but for the purpose of this analysis, we will focus on the <code>nba_api</code> package. The <code>nba_api</code> is an API Client for <a href="https://www.nba.com">nba.com</a>. This package’s stated goal is to make the APIs of NBA.com easily accessible and provide accessible documentation. This package is open-source.</p>
-<section id="nba-api" class="level2">
-<h2 class="anchored" data-anchor-id="nba-api">NBA API</h2>
-<p>Using the <code>nba_api</code> package, it is simple to write a script or program that can request and parse NBA data. The <code>nba_api</code> provides many methods such as <code>get_players()</code>, <code>playercareerstats()</code>, etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.</p>
-<p>Let’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.</p>
-<div id="93c46287" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nba_api.stats.endpoints <span class="im">import</span> leagueleaders</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pull data for the top 500 scorers</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    top_500 <span class="op">=</span> leagueleaders.LeagueLeaders(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        season<span class="op">=</span><span class="st">'2023-24'</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        season_type_all_star<span class="op">=</span><span class="st">'Regular Season'</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        stat_category_abbreviation<span class="op">=</span><span class="st">'PTS'</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ).get_data_frames()[<span class="dv">0</span>][:<span class="dv">500</span>]</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Correct column names for grouping</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    avg_stats_columns <span class="op">=</span> [<span class="st">'MIN'</span>, <span class="st">'FGM'</span>, <span class="st">'FGA'</span>, <span class="st">'FTM'</span>, <span class="st">'FTA'</span>, <span class="st">'PTS'</span>, <span class="st">'FG3M'</span>, <span class="st">'FG3A'</span>]</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    top_500_avg <span class="op">=</span> top_500.groupby([<span class="st">'PLAYER'</span>, <span class="st">'PLAYER_ID'</span>])[avg_stats_columns].mean()</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Inspect the first few rows of the averaged stats</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(top_500_avg.head())</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"An error occurred: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>In <a href="https://medium.com/@ben.g.ballard/unlocking-sports-betting-with-python">Part 1: Unlocking Sports Betting with Python</a>, we pulled live odds from The Odds API and compared bookmaker lines in a Jupyter notebook.</p>
+<p>In this tutorial, we’re going deeper. We will:</p>
+<ul>
+<li>Build a <strong>Live Odds Board</strong> that highlights the best lines for every game.</li>
+<li>Calculate <strong>Implied Win Probabilities</strong> to see what the bookmakers really think.</li>
+<li>Analyze <strong>Player Props</strong> to find discrepancies between books (arbitrage/value opportunities).</li>
+</ul>
+<p>We’ll do all of this in a standard Jupyter notebook/Python script. Let’s dig in.</p>
+<p>I’ve pre-loaded the necessary libraries and the helper functions from Part 1. Now, let’s get to the good stuff: <strong>Fetching the Live Odds</strong>.</p>
+<section id="fetching-live-odds" class="level2">
+<h2 class="anchored" data-anchor-id="fetching-live-odds">Fetching Live Odds</h2>
+<p>Let’s pull today’s NBA odds. Same endpoint as Part 1 — we’re just requesting all three market types at once: moneyline (<code>h2h</code>), spreads, and totals.</p>
+<div id="e0d0ff10" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>SPORT <span class="op">=</span> <span class="st">'basketball_nba'</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f'https://api.the-odds-api.com/v4/sports/</span><span class="sc">{</span>SPORT<span class="sc">}</span><span class="ss">/odds/'</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'apiKey'</span>: API_KEY,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'regions'</span>: <span class="st">'us'</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'markets'</span>: <span class="st">'h2h,spreads,totals'</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'oddsFormat'</span>: <span class="st">'american'</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>resp <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>resp.raise_for_status()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>events <span class="op">=</span> resp.json()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Got </span><span class="sc">{</span><span class="bu">len</span>(events)<span class="sc">}</span><span class="ss"> upcoming games'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Quota used: </span><span class="sc">{</span>resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-used"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss"> | Remaining: </span><span class="sc">{</span>resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-remaining"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The <code>leagueleaders.LeagueLeaders()</code> method takes in parameters such as the season and stat category abbreviation to pull data for the top 500 players by points scored per game for the specified season. The <code>get_data_frames()</code> method returns a list of data frames, with the first item in the list containing the data we want. We then filter out the top 500 players and group them by name and player ID using the <code>groupby()</code> method. Finally, we calculate the average values for the desired columns.</p>
+<div id="010ab3cc" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> flatten_odds(events)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss"> rows across </span><span class="sc">{</span>df[<span class="st">"game"</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> games and </span><span class="sc">{</span>df[<span class="st">"bookmaker"</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> bookmakers'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="visualization" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
-<p>Once we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.</p>
-<div id="44816d8e" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset index to turn 'PLAYER' and 'PLAYER_ID' back into regular columns</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df_for_plotting <span class="op">=</span> top_500_avg.reset_index()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with colors based on 'PTS'</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    df_for_plotting,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'PTS'</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'FG3M'</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">'PLAYER'</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'PTS'</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    color_continuous_scale<span class="op">=</span>px.colors.sequential.Viridis</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="section-1-live-odds-table" class="level2">
+<h2 class="anchored" data-anchor-id="section-1-live-odds-table">Section 1: Live Odds Table</h2>
+<p>First, let’s look at the moneyline odds. We’ll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.</p>
+<div id="ca4eab61" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to moneyline odds only</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>h2h <span class="op">=</span> df[df[<span class="st">'market'</span>] <span class="op">==</span> <span class="st">'h2h'</span>].copy()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot: game + team as rows, bookmakers as columns</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> h2h.pivot_table(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">'game'</span>, <span class="st">'outcome'</span>],</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span><span class="st">'bookmaker'</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    values<span class="op">=</span><span class="st">'price'</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    aggfunc<span class="op">=</span><span class="st">'first'</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight valid odds and format to 1 decimal place</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>pivot.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.1f}</span><span class="st">"</span>, na_rep<span class="op">=</span><span class="st">"-"</span>).highlight_max(axis<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">'#2ecc71'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>This will display an interactive scatter plot of the average number of three-pointers made versus the total points scored for each player in the top 500.</p>
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="images/top-500-scatter.png" class="img-fluid figure-img"></p>
-<figcaption class="margin-caption">Top 500 NBA players by PTS — scatter plot of points vs three-pointers made</figcaption>
-</figure>
+<p>See how some bookmakers offer slightly better odds? Those differences matter. Let’s make it even easier to spot the best lines.</p>
+</section>
+<section id="section-2-best-line-finder" class="level2">
+<h2 class="anchored" data-anchor-id="section-2-best-line-finder">Section 2: Best Line Finder</h2>
+<p>This one’s my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an “edge” it has over the second-best option.</p>
+<div id="b7ad0961" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>best_lines <span class="op">=</span> []</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (game, outcome), row <span class="kw">in</span> pivot.iterrows():</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    best_book <span class="op">=</span> row.idxmax()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    best_price <span class="op">=</span> row.<span class="bu">max</span>()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    second_best <span class="op">=</span> row.nlargest(<span class="dv">2</span>).iloc[<span class="op">-</span><span class="dv">1</span>] <span class="cf">if</span> <span class="bu">len</span>(row.dropna()) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> best_price</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    best_lines.append({</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Game'</span>: game,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Team'</span>: outcome,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Best Book'</span>: best_book,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Best Odds'</span>: <span class="bu">int</span>(best_price) <span class="cf">if</span> pd.notna(best_price) <span class="cf">else</span> <span class="va">None</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'2nd Best'</span>: <span class="bu">int</span>(second_best) <span class="cf">if</span> pd.notna(second_best) <span class="cf">else</span> <span class="va">None</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Edge'</span>: <span class="bu">int</span>(best_price <span class="op">-</span> second_best) <span class="cf">if</span> pd.notna(best_price) <span class="kw">and</span> pd.notna(second_best) <span class="cf">else</span> <span class="dv">0</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>best_df <span class="op">=</span> pd.DataFrame(best_lines)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>best_df.sort_values(<span class="st">'Edge'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.</p>
-<div id="e14457b4" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming top_500_avg is your DataFrame with average stats</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>top_10 <span class="op">=</span> top_500_avg.sort_values(by<span class="op">=</span><span class="st">'PTS'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>top_10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The “Edge” column shows the difference in odds between the best and second-best bookmaker. Higher edge = more value shopping around. In the dashboard, this becomes a sortable table so you can instantly spot the biggest disagreements.</p>
+</section>
+<section id="section-3-implied-probability-chart" class="level2">
+<h2 class="anchored" data-anchor-id="section-3-implied-probability-chart">Section 3: Implied Probability Chart</h2>
+<p>American odds (like -150 or +130) are hard to read at a glance. Let’s convert everything to <strong>implied probabilities</strong> and visualize them. This tells us the “true” win probability the bookmaker is assigning to each team.</p>
+<div id="13c6dd74" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average odds across bookmakers for each team (consensus line)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>consensus <span class="op">=</span> h2h.groupby([<span class="st">'game'</span>, <span class="st">'outcome'</span>])[<span class="st">'price'</span>].mean().reset_index()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>consensus[<span class="st">'implied_prob'</span>] <span class="op">=</span> consensus[<span class="st">'price'</span>].<span class="bu">apply</span>(american_to_implied_prob)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>consensus[<span class="st">'prob_pct'</span>] <span class="op">=</span> (consensus[<span class="st">'implied_prob'</span>] <span class="op">*</span> <span class="dv">100</span>).<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>consensus[[<span class="st">'game'</span>, <span class="st">'outcome'</span>, <span class="st">'price'</span>, <span class="st">'prob_pct'</span>]].head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="images/top-10-scorers.png" class="img-fluid figure-img"></p>
-<figcaption class="margin-caption">2023-24 NBA Points Leaderboard — top 10 scorers</figcaption>
-</figure>
+<div id="fdacfb98" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the stacked bar chart</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>games <span class="op">=</span> consensus[<span class="st">'game'</span>].unique()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> game <span class="kw">in</span> games:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    game_data <span class="op">=</span> consensus[consensus[<span class="st">'game'</span>] <span class="op">==</span> game]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, row <span class="kw">in</span> game_data.iterrows():</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        prob <span class="op">=</span> row[<span class="st">'prob_pct'</span>]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        fig.add_trace(go.Bar(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span>[game],</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span>[prob],</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            name<span class="op">=</span>row[<span class="st">'outcome'</span>],</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            orientation<span class="op">=</span><span class="st">'h'</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            text<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>row[<span class="st">'outcome'</span>]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>prob<span class="sc">:.1f}</span><span class="ss">%"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            textposition<span class="op">=</span><span class="st">'inside'</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            showlegend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            marker_color<span class="op">=</span><span class="st">'#2ecc71'</span> <span class="cf">if</span> prob <span class="op">&gt;=</span> <span class="dv">50</span> <span class="cf">else</span> <span class="st">'#e74c3c'</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        ))</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>fig.update_layout(</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    barmode<span class="op">=</span><span class="st">'stack'</span>,</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    xaxis_title<span class="op">=</span><span class="st">'Implied Probability (%)'</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    yaxis_title<span class="op">=</span><span class="st">''</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="bu">max</span>(<span class="dv">400</span>, <span class="bu">len</span>(games) <span class="op">*</span> <span class="dv">60</span>),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">'Implied Win Probabilities (Consensus Odds)'</span>,</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Green = favorite, red = underdog. You can hover over each bar (if running locally) to see the exact probability.</p>
+</section>
+<section id="section-4-player-props-explorer" class="level2">
+<h2 class="anchored" data-anchor-id="section-4-player-props-explorer">Section 4: Player Props Explorer</h2>
+<p>This is where it gets really fun. We’ll pick a game, pull player props (points, rebounds, assists), and see where bookmakers disagree on the lines. Bigger disagreements = potential value bets.</p>
+<p>Let’s grab the first game and see what props are available.</p>
+<div id="98cb28ed" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick the first game</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>event_id <span class="op">=</span> events[<span class="dv">0</span>][<span class="st">'id'</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>game_name <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>events[<span class="dv">0</span>][<span class="st">'away_team'</span>]<span class="sc">}</span><span class="ss"> @ </span><span class="sc">{</span>events[<span class="dv">0</span>][<span class="st">'home_team'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Fetching props for: </span><span class="sc">{</span>game_name<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>props_url <span class="op">=</span> <span class="ss">f'https://api.the-odds-api.com/v4/sports/</span><span class="sc">{</span>SPORT<span class="sc">}</span><span class="ss">/events/</span><span class="sc">{</span>event_id<span class="sc">}</span><span class="ss">/odds/'</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>props_params <span class="op">=</span> {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'apiKey'</span>: API_KEY,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'regions'</span>: <span class="st">'us'</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'markets'</span>: <span class="st">'player_points,player_rebounds,player_assists'</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'oddsFormat'</span>: <span class="st">'american'</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>props_resp <span class="op">=</span> requests.get(props_url, params<span class="op">=</span>props_params)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>props_resp.raise_for_status()</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>props_data <span class="op">=</span> props_resp.json()</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Quota used: </span><span class="sc">{</span>props_resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-used"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss"> | Remaining: </span><span class="sc">{</span>props_resp<span class="sc">.</span>headers<span class="sc">.</span>get(<span class="st">"x-requests-remaining"</span>, <span class="st">"?"</span>)<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="46d98c74" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>props_df <span class="op">=</span> flatten_props(props_data)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span><span class="bu">len</span>(props_df)<span class="sc">}</span><span class="ss"> prop lines across </span><span class="sc">{</span>props_df[<span class="st">"player"</span>]<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss"> players'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>props_df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e3c428cd" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter plot: points props, Over side only</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> props_df[(props_df[<span class="st">'market'</span>] <span class="op">==</span> <span class="st">'player_points'</span>) <span class="op">&amp;</span> (props_df[<span class="st">'side'</span>] <span class="op">==</span> <span class="st">'Over'</span>)].copy()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> points.empty:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> px.scatter(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        points,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'line'</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'price'</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">'bookmaker'</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        hover_data<span class="op">=</span>[<span class="st">'player'</span>, <span class="st">'bookmaker'</span>, <span class="st">'line'</span>, <span class="st">'price'</span>],</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        text<span class="op">=</span><span class="st">'player'</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        title<span class="op">=</span><span class="ss">f'Points Props — </span><span class="sc">{</span>game_name<span class="sc">}</span><span class="ss">'</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    fig.update_traces(textposition<span class="op">=</span><span class="st">'top center'</span>, textfont_size<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    fig.update_layout(</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        xaxis_title<span class="op">=</span><span class="st">'Points Line'</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        yaxis_title<span class="op">=</span><span class="st">'Odds (American)'</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        height<span class="op">=</span><span class="dv">600</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    fig.show()</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No points props available for this game yet.'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>When you see the same player at the same line but with different odds across bookmakers — that’s where line shopping pays off. The scatter plot makes it visual: clusters of dots at the same x-position (line) with spread along the y-axis (odds) means bookmakers disagree.</p>
 </section>
 <section id="whats-next" class="level2">
-<h2 class="anchored" data-anchor-id="whats-next">What’s Next</h2>
-<p>The <code>nba_api</code> package is a great tool for accessing and analyzing NBA data. With its many methods, it’s a great way to grab fun data to conduct your analysis. With powerful tools such as pandas and plotly, it is easy to gain insights and produce visualizations. Whether you are a casual NBA fan or a seasoned analyst, the <code>nba_api</code> package is worth checking out.</p>
-<p>If you want to go deeper, I’ve created a more detailed post on the NBA API and manipulating the data in Python: <a href="../nba-stats-api-python/">Analyze NBA Stats with the NBA API and Python</a>.</p>
-<hr>
-<p><em>Originally published on <a href="https://medium.com/@ben.g.ballard">Medium</a> on February 19, 2023.</em></p>
+<h2 class="anchored" data-anchor-id="whats-next">What’s Next?</h2>
+<p>We’ve now built a script that:</p>
+<ul>
+<li>Pulls live odds</li>
+<li>Finds the best lines</li>
+<li>Calculates win probabilities</li>
+<li>Scans for player prop disparities</li>
+</ul>
+<p>But there’s one problem: Running a script manually every time you want to check odds is annoying. In the next article, we’re going to take this code and wrap it into a <strong>Streamlit Dashboard</strong>.</p>
+<p>We’ll build a live web app that: - Runs 24/7 - Auto-refreshes every 5 minutes - Visualizes this data in a clean, interactive UI - Can be deployed to the web (so you can check it from your phone)</p>
+<p>Stay tuned for the next post.</p>
 
 
 </section>

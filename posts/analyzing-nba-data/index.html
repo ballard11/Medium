@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ben Ballard">
-<meta name="dcterms.date" content="2023-12-11">
-<meta name="description" content="A deep dive into pulling NBA player career stats, processing game logs, and creating visualizations with Python">
+<meta name="dcterms.date" content="2023-02-19">
+<meta name="description" content="Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python">
 
-<title>Analyze NBA Stats with the NBA API and Python – BenDiagrams</title>
+<title>Analyzing NBA Data Using Python and APIs – BenDiagrams</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,11 +123,11 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Analyze NBA Stats with the NBA API and Python – BenDiagrams">
-<meta property="og:description" content="A deep dive into pulling NBA player career stats, processing game logs, and creating visualizations with Python">
-<meta property="og:image" content="https://bendiagrams.com/sports/nba-stats-api-python/images/cumulative-3fgm.png">
+<meta property="og:title" content="Analyzing NBA Data Using Python and APIs – BenDiagrams">
+<meta property="og:description" content="Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python">
+<meta property="og:image" content="https://bendiagrams.com/posts/analyzing-nba-data/images/top-500-scatter.png">
 <meta property="og:site_name" content="BenDiagrams">
-<meta property="og:image:height" content="1430">
+<meta property="og:image:height" content="1650">
 <meta property="og:image:width" content="1632">
 </head>
 
@@ -355,9 +355,8 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#gathering-the-data" id="toc-gathering-the-data" class="nav-link active" data-scroll-target="#gathering-the-data">Gathering the Data</a></li>
-  <li><a href="#data-processing" id="toc-data-processing" class="nav-link" data-scroll-target="#data-processing">Data Processing</a></li>
-  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization">Data Visualization</a></li>
+  <li><a href="#nba-api" id="toc-nba-api" class="nav-link active" data-scroll-target="#nba-api">NBA API</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a></li>
   <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next</a></li>
   </ul>
 </nav>
@@ -372,18 +371,18 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Analyze NBA Stats with the NBA API and Python</h1>
+<h1 class="title">Analyzing NBA Data Using Python and APIs</h1>
   <div class="quarto-categories">
     <div class="quarto-category">sports</div>
     <div class="quarto-category">nba</div>
     <div class="quarto-category">python</div>
-    <div class="quarto-category">data-analysis</div>
+    <div class="quarto-category">apis</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    A deep dive into pulling NBA player career stats, processing game logs, and creating visualizations with Python
+    Using the nba_api package to pull NBA stats, analyze top scorers, and create visualizations with Python
   </div>
 </div>
 
@@ -400,7 +399,7 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 11, 2023</p>
+      <p class="date">February 19, 2023</p>
     </div>
   </div>
   
@@ -412,132 +411,83 @@ gtag('config', 'G-7SD1391XRV', { 'anonymize_ip': true});
 </header>
 
 
-<p>This post is a walk-through on how I created a process using Python to pull NBA data through the NBA API and analyze player career stats like field goal percentages, points, rebounds and assists. In particular, I’ll focus on how I pulled from the NBA API, the pandas data processing, and the matplotlib visualizations.</p>
-<section id="gathering-the-data" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="gathering-the-data">Gathering the Data</h2>
-<p>The first step is identifying what player you’d like to analyze. Use the player ID to pull their career stats. Replace the current ID <code>'202681'</code> with whatever the new player ID is.</p>
-<p>The code utilizes the <code>nba_api.stats.endpoints</code> module, specifically tapping into <code>playercareerstats</code>. This function will fetch the comprehensive career statistics of your chosen player.</p>
-<div id="0e48c9ff" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nba_api.stats.endpoints <span class="im">import</span> playercareerstats</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetching career statistics for Player of Choice using his player ID</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>player_career <span class="op">=</span> playercareerstats.PlayerCareerStats(player_id<span class="op">=</span><span class="st">'202681'</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>player_career_df <span class="op">=</span> player_career.get_data_frames()[<span class="dv">0</span>]</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the seasons of player of choice</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>seasons_played <span class="op">=</span> player_career_df[<span class="st">'SEASON_ID'</span>].unique()</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seasons_played.tolist())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you’re a fan of basketball, you probably love watching NBA games and following your favorite players. But did you know that you can also analyze NBA data using Python and a powerful API? In this blog post, I’ll show you how to use the NBA_API to access NBA data, perform statistical analysis, and create visualizations.</p>
+<p>The NBA has become a staple in American culture and as technology has progressed, accessing NBA data has become increasingly easier. There are several NBA APIs available on the web, but for the purpose of this analysis, we will focus on the <code>nba_api</code> package. The <code>nba_api</code> is an API Client for <a href="https://www.nba.com">nba.com</a>. This package’s stated goal is to make the APIs of NBA.com easily accessible and provide accessible documentation. This package is open-source.</p>
+<section id="nba-api" class="level2">
+<h2 class="anchored" data-anchor-id="nba-api">NBA API</h2>
+<p>Using the <code>nba_api</code> package, it is simple to write a script or program that can request and parse NBA data. The <code>nba_api</code> provides many methods such as <code>get_players()</code>, <code>playercareerstats()</code>, etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.</p>
+<p>Let’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.</p>
+<div id="769c33ee" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nba_api.stats.endpoints <span class="im">import</span> leagueleaders</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Pull data for the top 500 scorers</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    top_500 <span class="op">=</span> leagueleaders.LeagueLeaders(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        season<span class="op">=</span><span class="st">'2023-24'</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        season_type_all_star<span class="op">=</span><span class="st">'Regular Season'</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        stat_category_abbreviation<span class="op">=</span><span class="st">'PTS'</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ).get_data_frames()[<span class="dv">0</span>][:<span class="dv">500</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Correct column names for grouping</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    avg_stats_columns <span class="op">=</span> [<span class="st">'MIN'</span>, <span class="st">'FGM'</span>, <span class="st">'FGA'</span>, <span class="st">'FTM'</span>, <span class="st">'FTA'</span>, <span class="st">'PTS'</span>, <span class="st">'FG3M'</span>, <span class="st">'FG3A'</span>]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    top_500_avg <span class="op">=</span> top_500.groupby([<span class="st">'PLAYER'</span>, <span class="st">'PLAYER_ID'</span>])[avg_stats_columns].mean()</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Inspect the first few rows of the averaged stats</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(top_500_avg.head())</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"An error occurred: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The above code will print out the number of seasons the NBA player you chose played in a list like this: <code>['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']</code>. Copy the years output and replace the list of seasons below.</p>
-<div id="d9d63933" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nba_api.stats.endpoints <span class="im">import</span> playergamelog</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty DataFrame to store all game logs</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># List of seasons to loop through (update this list as needed)</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>seasons <span class="op">=</span> [<span class="st">'2019-20'</span>, <span class="st">'2020-21'</span>, <span class="st">'2021-22'</span>, <span class="st">'2022-23'</span>, <span class="st">'2023-24'</span>]</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch game logs for each season and add a 'SEASON' column</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> season <span class="kw">in</span> seasons:</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    player_logs <span class="op">=</span> playergamelog.PlayerGameLog(player_id<span class="op">=</span><span class="st">'202681'</span>, season<span class="op">=</span>season)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    season_logs_df <span class="op">=</span> player_logs.get_data_frames()[<span class="dv">0</span>]</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    season_logs_df[<span class="st">'SEASON'</span>] <span class="op">=</span> season</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    all_seasons_logs_df <span class="op">=</span> pd.concat([all_seasons_logs_df, season_logs_df], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>After running the above, the <code>all_seasons_logs_df</code> dataframe will include all game data for the player of interest. The table includes many more stats, but here’s a small example of what is contained in the data.</p>
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="images/season-logs-table.png" class="img-fluid figure-img"></p>
-<figcaption class="margin-caption">Sample of the Season Logs for Player from NBA API</figcaption>
-</figure>
-</div>
+<p>The <code>leagueleaders.LeagueLeaders()</code> method takes in parameters such as the season and stat category abbreviation to pull data for the top 500 players by points scored per game for the specified season. The <code>get_data_frames()</code> method returns a list of data frames, with the first item in the list containing the data we want. We then filter out the top 500 players and group them by name and player ID using the <code>groupby()</code> method. Finally, we calculate the average values for the desired columns.</p>
 </section>
-<section id="data-processing" class="level2">
-<h2 class="anchored" data-anchor-id="data-processing">Data Processing</h2>
-<p>After pulling the data, the next steps involve processing the data for analysis and visualization. While the data comes pretty clean after the API pull, there was some processing I did. First, ensure the GAME_DATE column is in a datetime format using the pandas <code>to_datetime</code> method.</p>
-<div id="8b711b94" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Game_Date to a datetime</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'GAME_DATE'</span>] <span class="op">=</span> pd.to_datetime(all_seasons_logs_df[<span class="st">'GAME_DATE'</span>])</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Month_Year to facilitate Month/Date Analysis</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'MONTH_YEAR'</span>] <span class="op">=</span> all_seasons_logs_df[<span class="st">'GAME_DATE'</span>].dt.to_period(<span class="st">'M'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="visualization" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
+<p>Once we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.</p>
+<div id="4dbc74d3" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset index to turn 'PLAYER' and 'PLAYER_ID' back into regular columns</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df_for_plotting <span class="op">=</span> top_500_avg.reset_index()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a scatter plot with colors based on 'PTS'</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> px.scatter(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    df_for_plotting,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'PTS'</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'FG3M'</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    hover_name<span class="op">=</span><span class="st">'PLAYER'</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'PTS'</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    color_continuous_scale<span class="op">=</span>px.colors.sequential.Viridis</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>fig.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Creating summary tables is important for understanding the data and building narratives for story-telling. I used the following code to create a yearly aggregation of the game level stats to tell the story of a player’s career.</p>
-<div id="b6e2bd72" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate game level data to yearly</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yearly_stats <span class="op">=</span> all_seasons_logs_df.groupby(<span class="st">'YEAR'</span>).agg({</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FGM'</span>: <span class="st">'sum'</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FGA'</span>: <span class="st">'sum'</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FG3M'</span>: <span class="st">'sum'</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FG3A'</span>: <span class="st">'sum'</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FTM'</span>: <span class="st">'sum'</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'FTA'</span>: <span class="st">'sum'</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>}).reset_index()</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate field goal percentages</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>yearly_stats[<span class="st">'FG_PCT'</span>] <span class="op">=</span> yearly_stats[<span class="st">'FGM'</span>] <span class="op">/</span> yearly_stats[<span class="st">'FGA'</span>]</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>yearly_stats[<span class="st">'FG3_PCT'</span>] <span class="op">=</span> yearly_stats[<span class="st">'FG3M'</span>] <span class="op">/</span> yearly_stats[<span class="st">'FG3A'</span>]</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>yearly_stats[<span class="st">'FT_PCT'</span>] <span class="op">=</span> yearly_stats[<span class="st">'FTM'</span>] <span class="op">/</span> yearly_stats[<span class="st">'FTA'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="data-visualization" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
-<p>The final part of this script is visualizing the data. There are many options to visualize the data from line charts, histograms, bar graphics. I used seaborn and matplotlib to create visualizations.</p>
+<p>This will display an interactive scatter plot of the average number of three-pointers made versus the total points scored for each player in the top 500.</p>
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="images/line-graphs-pts-ast-reb.png" class="img-fluid figure-img"></p>
-<figcaption class="margin-caption">Line graphs showing Points, Assists, and Rebounds over years</figcaption>
+<p><img src="images/top-500-scatter.png" class="img-fluid figure-img"></p>
+<figcaption class="margin-caption">Top 500 NBA players by PTS — scatter plot of points vs three-pointers made</figcaption>
 </figure>
+</div>
+<p>The scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.</p>
+<div id="593ac12b" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming top_500_avg is your DataFrame with average stats</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>top_10 <span class="op">=</span> top_500_avg.sort_values(by<span class="op">=</span><span class="st">'PTS'</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>top_10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="images/histograms-fg-pct.png" class="img-fluid figure-img"></p>
-<figcaption class="margin-caption">Histograms showing Field Goal Percentages by category</figcaption>
+<p><img src="images/top-10-scorers.png" class="img-fluid figure-img"></p>
+<figcaption class="margin-caption">2023-24 NBA Points Leaderboard — top 10 scorers</figcaption>
 </figure>
-</div>
-<p>Finally, I’ll present a visualization that I enjoyed creating. This graph tracks a specific stat — in this case, the number of three-pointers made per season — and compares it across different seasons. The visualization plots the cumulative count of three-pointers made each season, with the game number on the X-axis. To highlight a specific season, like 2009, I’ve used a red line. Interestingly, while 2009 was a career-high in three-point percentage, it featured one of the lowest totals for made threes. This type of visualization offers a nuanced view of a player’s performance over time.</p>
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="images/cumulative-3fgm.png" class="img-fluid figure-img"></p>
-<figcaption class="margin-caption">Cumulative 3-Point Field Goals Made by season</figcaption>
-</figure>
-</div>
-<p>In order to get that graphic to work, we must first create the cumulative sum of threes (FG3M) for each season.</p>
-<div id="9e4a81eb" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Cumulative Sum</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'FG3M_CUMSUM'</span>] <span class="op">=</span> all_seasons_logs_df.groupby(<span class="st">'YEAR'</span>)[<span class="st">'FG3M'</span>].cumsum()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>all_seasons_logs_df[<span class="st">'FGM_CUMSUM'</span>] <span class="op">=</span> all_seasons_logs_df.groupby(<span class="st">'YEAR'</span>)[<span class="st">'FGM'</span>].cumsum()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Finally, this code snippet is designed to plot a distinct line for each season, representing the cumulative field goals made by the player. I’ve chosen red for the 2023 season to make it stand out against the others which will be grey.</p>
-<div id="4c9e55bb" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting a line for each season</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> all_seasons_logs_df[<span class="st">'YEAR'</span>].unique():</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    season_data <span class="op">=</span> all_seasons_logs_df[all_seasons_logs_df[<span class="st">'YEAR'</span>] <span class="op">==</span> year]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot a Particular Year of Interest Red</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> <span class="st">'red'</span> <span class="cf">if</span> year <span class="op">==</span> <span class="dv">2023</span> <span class="cf">else</span> <span class="st">'silver'</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    label <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">'</span> <span class="cf">if</span> year <span class="op">==</span> <span class="dv">2023</span> <span class="cf">else</span> <span class="va">None</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    plt.plot(season_data[<span class="st">'Game_Number'</span>], season_data[<span class="st">'FGM_CUMSUM'</span>], label<span class="op">=</span>label, color<span class="op">=</span>color)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Cumulative Field Goals Made by Player Over Each Season'</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Game Number'</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Cumulative FG Made'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="whats-next" class="level2">
 <h2 class="anchored" data-anchor-id="whats-next">What’s Next</h2>
-<p>I plan to revisit this in a few days and work on a few areas. Specifically:</p>
-<ul>
-<li><strong>Dynamic Season List:</strong> Instead of hardcoding the seasons list, dynamically generate it based on the player’s career data. This would make the script more flexible and reduce the need for manual updates.</li>
-<li><strong>Modularization:</strong> Break down the notebook into functions for specific tasks (fetching data, processing data, and plotting). This will make the code more organized and reusable.</li>
-<li><strong>Documentation:</strong> Adding more comments and explanations throughout the script. Once I clean it up, I plan to post to my GitHub.</li>
-</ul>
-<p>Hope you found value in this. Please let me know. I’m always interested in other points of view and learning from others on how to improve my analysis process.</p>
+<p>The <code>nba_api</code> package is a great tool for accessing and analyzing NBA data. With its many methods, it’s a great way to grab fun data to conduct your analysis. With powerful tools such as pandas and plotly, it is easy to gain insights and produce visualizations. Whether you are a casual NBA fan or a seasoned analyst, the <code>nba_api</code> package is worth checking out.</p>
+<p>If you want to go deeper, I’ve created a more detailed post on the NBA API and manipulating the data in Python: <a href="../nba-stats-api-python/">Analyze NBA Stats with the NBA API and Python</a>.</p>
 <hr>
-<p><em>Originally published on <a href="https://medium.com/@ben.g.ballard">Medium</a> on December 11, 2023.</em></p>
+<p><em>Originally published on <a href="https://medium.com/@ben.g.ballard">Medium</a> on February 19, 2023.</em></p>
 
 
 </section>

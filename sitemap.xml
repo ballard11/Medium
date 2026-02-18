@@ -2,38 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bendiagrams.com/toolbox/plotly.html</loc>
-    <lastmod>2026-02-16T18:40:06.541Z</lastmod>
+    <lastmod>2026-02-18T20:48:53.825Z</lastmod>
   </url>
   <url>
     <loc>https://bendiagrams.com/toolbox/cfbd-api.html</loc>
-    <lastmod>2026-02-16T18:40:06.541Z</lastmod>
+    <lastmod>2026-02-18T20:48:53.825Z</lastmod>
   </url>
   <url>
-    <loc>https://bendiagrams.com/sports/oklahoma-football-evolution/index.html</loc>
-    <lastmod>2026-02-16T18:40:06.523Z</lastmod>
+    <loc>https://bendiagrams.com/posts/sports-betting-dashboard-app/index.html</loc>
+    <lastmod>2026-02-18T20:48:53.807Z</lastmod>
   </url>
   <url>
-    <loc>https://bendiagrams.com/sports/analyzing-nba-data/index.html</loc>
-    <lastmod>2026-02-16T18:40:06.518Z</lastmod>
-  </url>
-  <url>
-    <loc>https://bendiagrams.com/about.html</loc>
-    <lastmod>2026-02-16T18:40:06.442Z</lastmod>
+    <loc>https://bendiagrams.com/posts/nba-stats-api-python/index.html</loc>
+    <lastmod>2026-02-18T20:48:53.807Z</lastmod>
   </url>
   <url>
     <loc>https://bendiagrams.com/index.html</loc>
-    <lastmod>2026-02-16T18:40:06.515Z</lastmod>
+    <lastmod>2026-02-18T20:48:53.799Z</lastmod>
   </url>
   <url>
-    <loc>https://bendiagrams.com/sports/nba-stats-api-python/index.html</loc>
-    <lastmod>2026-02-16T18:40:06.523Z</lastmod>
+    <loc>https://bendiagrams.com/about.html</loc>
+    <lastmod>2026-02-18T20:48:53.673Z</lastmod>
   </url>
   <url>
-    <loc>https://bendiagrams.com/sports/sports-betting-python/index.html</loc>
-    <lastmod>2026-02-16T18:40:06.540Z</lastmod>
+    <loc>https://bendiagrams.com/posts/analyzing-nba-data/index.html</loc>
+    <lastmod>2026-02-18T20:48:53.802Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bendiagrams.com/posts/oklahoma-football-evolution/index.html</loc>
+    <lastmod>2026-02-18T20:48:53.807Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bendiagrams.com/posts/sports-betting-python/index.html</loc>
+    <lastmod>2026-02-18T20:48:53.824Z</lastmod>
   </url>
   <url>
     <loc>https://bendiagrams.com/toolbox/pandas.html</loc>
-    <lastmod>2026-02-16T18:40:06.541Z</lastmod>
+    <lastmod>2026-02-18T20:48:53.825Z</lastmod>
   </url>
 </urlset>
