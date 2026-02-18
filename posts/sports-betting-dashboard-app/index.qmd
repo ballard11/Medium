@@ -91,7 +91,6 @@ I've pre-loaded the necessary libraries and the helper functions from Part 1. No
 Let's pull today's NBA odds. Same endpoint as Part 1 — we're just requesting all three market types at once: moneyline (`h2h`), spreads, and totals.
 
 ```{python}
-#| eval: true
 SPORT = 'basketball_nba'
 
 url = f'https://api.the-odds-api.com/v4/sports/{SPORT}/odds/'
@@ -111,7 +110,6 @@ print(f'Quota used: {resp.headers.get("x-requests-used", "?")} | Remaining: {res
 ```
 
 ```{python}
-#| eval: true
 df = flatten_odds(events)
 print(f'{len(df)} rows across {df["game"].nunique()} games and {df["bookmaker"].nunique()} bookmakers')
 df.head()
@@ -122,7 +120,6 @@ df.head()
 First, let's look at the moneyline odds. We'll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.
 
 ```{python}
-#| eval: true
 # Filter to moneyline odds only
 h2h = df[df['market'] == 'h2h'].copy()
 
@@ -145,7 +142,6 @@ See how some bookmakers offer slightly better odds? Those differences matter. Le
 This one's my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an "edge" it has over the second-best option.
 
 ```{python}
-#| eval: true
 best_lines = []
 
 for (game, outcome), row in pivot.iterrows():
@@ -173,7 +169,6 @@ The "Edge" column shows the difference in odds between the best and second-best 
 American odds (like -150 or +130) are hard to read at a glance. Let's convert everything to **implied probabilities** and visualize them. This tells us the "true" win probability the bookmaker is assigning to each team.
 
 ```{python}
-#| eval: true
 # Average odds across bookmakers for each team (consensus line)
 consensus = h2h.groupby(['game', 'outcome'])['price'].mean().reset_index()
 consensus['implied_prob'] = consensus['price'].apply(american_to_implied_prob)
@@ -183,7 +178,6 @@ consensus[['game', 'outcome', 'price', 'prob_pct']].head()
 ```
 
 ```{python}
-#| eval: true
 # Build the stacked bar chart
 games = consensus['game'].unique()
 
@@ -224,7 +218,6 @@ This is where it gets really fun. We'll pick a game, pull player props (points, 
 Let's grab the first game and see what props are available.
 
 ```{python}
-#| eval: true
 # Pick the first game
 event_id = events[0]['id']
 game_name = f"{events[0]['away_team']} @ {events[0]['home_team']}"
@@ -246,14 +239,12 @@ print(f'Quota used: {props_resp.headers.get("x-requests-used", "?")} | Remaining
 ```
 
 ```{python}
-#| eval: true
 props_df = flatten_props(props_data)
 print(f'{len(props_df)} prop lines across {props_df["player"].nunique()} players')
 props_df.head()
 ```
 
 ```{python}
-#| eval: true
 # Scatter plot: points props, Over side only
 points = props_df[(props_df['market'] == 'player_points') & (props_df['side'] == 'Over')].copy()
 
