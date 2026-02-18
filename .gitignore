@@ -26,6 +26,7 @@ credentials.json
 _site/
 # _freeze/ is intentionally tracked — frozen outputs allow CI to deploy
 # posts with live API calls without re-executing them in GitHub Actions.
+!_freeze/**
 _publish.yml
 *.html
 
