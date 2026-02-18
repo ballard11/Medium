@@ -1,0 +1,301 @@
+---
+title: "Analyzing Real-Time Sports Odds with Python"
+author: "Ben Ballard"
+date: "2026-02-18"
+categories: [Python, Sports Betting, Data Science, APIs]
+jupyter: python3
+execute:
+  freeze: false
+---
+
+In [Part 1: Unlocking Sports Betting with Python](https://medium.com/@ben.g.ballard/unlocking-sports-betting-with-python), we pulled live odds from The Odds API and compared bookmaker lines in a Jupyter notebook.
+
+In this tutorial, we're going deeper. We will:
+
+-   Build a **Live Odds Board** that highlights the best lines for every game.
+-   Calculate **Implied Win Probabilities** to see what the bookmakers really think.
+-   Analyze **Player Props** to find discrepancies between books (arbitrage/value opportunities).
+
+We'll do all of this in a standard Jupyter notebook/Python script. Let's dig in.
+
+```{python}
+#| echo: false
+#| warning: false
+
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+API_KEY = os.getenv('ODDS_API_KEY')
+if not API_KEY:
+    print("WARNING: API_KEY is missing/None!") # Print to stdout to see it in logs
+
+def flatten_odds(events):
+    """Flatten the nested API response into a tidy DataFrame."""
+    rows = []
+    for event in events:
+        game = f"{event['away_team']} @ {event['home_team']}"
+        for bookmaker in event['bookmakers']:
+            for market in bookmaker['markets']:
+                for outcome in market['outcomes']:
+                    row = {
+                        'game': game,
+                        'home_team': event['home_team'],
+                        'away_team': event['away_team'],
+                        'commence_time': event['commence_time'],
+                        'bookmaker': bookmaker['title'],
+                        'market': market['key'],
+                        'outcome': outcome['name'],
+                        'price': outcome['price'],
+                    }
+                    if 'point' in outcome:
+                        row['point'] = outcome['point']
+                    rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def flatten_props(event_data):
+    """Flatten player props response into a DataFrame."""
+    rows = []
+    for bookmaker in event_data.get('bookmakers', []):
+        for market in bookmaker['markets']:
+            for outcome in market['outcomes']:
+                rows.append({
+                    'bookmaker': bookmaker['title'],
+                    'market': market['key'],
+                    'player': outcome.get('description', outcome['name']),
+                    'side': outcome['name'],
+                    'line': outcome.get('point', None),
+                    'price': outcome['price'],
+                })
+    return pd.DataFrame(rows)
+
+
+def american_to_implied_prob(odds):
+    """Convert American odds to implied probability."""
+    if odds > 0:
+        return 100 / (odds + 100)
+    else:
+        return abs(odds) / (abs(odds) + 100)
+```
+
+I've pre-loaded the necessary libraries and the helper functions from Part 1. Now, let's get to the good stuff: **Fetching the Live Odds**.
+
+## Fetching Live Odds
+
+Let's pull today's NBA odds. Same endpoint as Part 1 — we're just requesting all three market types at once: moneyline (`h2h`), spreads, and totals.
+
+```{python}
+#| eval: true
+SPORT = 'basketball_nba'
+
+url = f'https://api.the-odds-api.com/v4/sports/{SPORT}/odds/'
+params = {
+    'apiKey': API_KEY,
+    'regions': 'us',
+    'markets': 'h2h,spreads,totals',
+    'oddsFormat': 'american',
+}
+
+resp = requests.get(url, params=params)
+resp.raise_for_status()
+events = resp.json()
+
+print(f'Got {len(events)} upcoming games')
+print(f'Quota used: {resp.headers.get("x-requests-used", "?")} | Remaining: {resp.headers.get("x-requests-remaining", "?")}')
+```
+
+```{python}
+#| eval: true
+df = flatten_odds(events)
+print(f'{len(df)} rows across {df["game"].nunique()} games and {df["bookmaker"].nunique()} bookmakers')
+df.head()
+```
+
+## Section 1: Live Odds Table
+
+First, let's look at the moneyline odds. We'll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.
+
+```{python}
+#| eval: true
+# Filter to moneyline odds only
+h2h = df[df['market'] == 'h2h'].copy()
+
+# Pivot: game + team as rows, bookmakers as columns
+pivot = h2h.pivot_table(
+    index=['game', 'outcome'],
+    columns='bookmaker',
+    values='price',
+    aggfunc='first',
+)
+
+# Highlight valid odds and format to 1 decimal place
+pivot.style.format("{:.1f}", na_rep="-").highlight_max(axis=1, color='#2ecc71')
+```
+
+See how some bookmakers offer slightly better odds? Those differences matter. Let's make it even easier to spot the best lines.
+
+## Section 2: Best Line Finder
+
+This one's my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an "edge" it has over the second-best option.
+
+```{python}
+#| eval: true
+best_lines = []
+
+for (game, outcome), row in pivot.iterrows():
+    best_book = row.idxmax()
+    best_price = row.max()
+    second_best = row.nlargest(2).iloc[-1] if len(row.dropna()) > 1 else best_price
+    
+    best_lines.append({
+        'Game': game,
+        'Team': outcome,
+        'Best Book': best_book,
+        'Best Odds': int(best_price) if pd.notna(best_price) else None,
+        '2nd Best': int(second_best) if pd.notna(second_best) else None,
+        'Edge': int(best_price - second_best) if pd.notna(best_price) and pd.notna(second_best) else 0,
+    })
+
+best_df = pd.DataFrame(best_lines)
+best_df.sort_values('Edge', ascending=False)
+```
+
+The "Edge" column shows the difference in odds between the best and second-best bookmaker. Higher edge = more value shopping around. In the dashboard, this becomes a sortable table so you can instantly spot the biggest disagreements.
+
+## Section 3: Implied Probability Chart
+
+American odds (like -150 or +130) are hard to read at a glance. Let's convert everything to **implied probabilities** and visualize them. This tells us the "true" win probability the bookmaker is assigning to each team.
+
+```{python}
+#| eval: true
+# Average odds across bookmakers for each team (consensus line)
+consensus = h2h.groupby(['game', 'outcome'])['price'].mean().reset_index()
+consensus['implied_prob'] = consensus['price'].apply(american_to_implied_prob)
+consensus['prob_pct'] = (consensus['implied_prob'] * 100).round(1)
+
+consensus[['game', 'outcome', 'price', 'prob_pct']].head()
+```
+
+```{python}
+#| eval: true
+# Build the stacked bar chart
+games = consensus['game'].unique()
+
+fig = go.Figure()
+
+for game in games:
+    game_data = consensus[consensus['game'] == game]
+    for _, row in game_data.iterrows():
+        prob = row['prob_pct']
+        fig.add_trace(go.Bar(
+            y=[game],
+            x=[prob],
+            name=row['outcome'],
+            orientation='h',
+            text=f"{row['outcome']}: {prob:.1f}%",
+            textposition='inside',
+            showlegend=False,
+            marker_color='#2ecc71' if prob >= 50 else '#e74c3c',
+        ))
+
+fig.update_layout(
+    barmode='stack',
+    xaxis_title='Implied Probability (%)',
+    yaxis_title='',
+    height=max(400, len(games) * 60),
+    title='Implied Win Probabilities (Consensus Odds)',
+)
+
+fig.show()
+```
+
+Green = favorite, red = underdog. You can hover over each bar (if running locally) to see the exact probability.
+
+## Section 4: Player Props Explorer
+
+This is where it gets really fun. We'll pick a game, pull player props (points, rebounds, assists), and see where bookmakers disagree on the lines. Bigger disagreements = potential value bets.
+
+Let's grab the first game and see what props are available.
+
+```{python}
+#| eval: true
+# Pick the first game
+event_id = events[0]['id']
+game_name = f"{events[0]['away_team']} @ {events[0]['home_team']}"
+print(f'Fetching props for: {game_name}')
+
+props_url = f'https://api.the-odds-api.com/v4/sports/{SPORT}/events/{event_id}/odds/'
+props_params = {
+    'apiKey': API_KEY,
+    'regions': 'us',
+    'markets': 'player_points,player_rebounds,player_assists',
+    'oddsFormat': 'american',
+}
+
+props_resp = requests.get(props_url, params=props_params)
+props_resp.raise_for_status()
+props_data = props_resp.json()
+
+print(f'Quota used: {props_resp.headers.get("x-requests-used", "?")} | Remaining: {props_resp.headers.get("x-requests-remaining", "?")}')
+```
+
+```{python}
+#| eval: true
+props_df = flatten_props(props_data)
+print(f'{len(props_df)} prop lines across {props_df["player"].nunique()} players')
+props_df.head()
+```
+
+```{python}
+#| eval: true
+# Scatter plot: points props, Over side only
+points = props_df[(props_df['market'] == 'player_points') & (props_df['side'] == 'Over')].copy()
+
+if not points.empty:
+    fig = px.scatter(
+        points,
+        x='line',
+        y='price',
+        color='bookmaker',
+        hover_data=['player', 'bookmaker', 'line', 'price'],
+        text='player',
+        title=f'Points Props — {game_name}',
+    )
+
+    fig.update_traces(textposition='top center', textfont_size=9)
+    fig.update_layout(
+        xaxis_title='Points Line',
+        yaxis_title='Odds (American)',
+        height=600,
+    )
+    fig.show()
+else:
+    print('No points props available for this game yet.')
+```
+
+When you see the same player at the same line but with different odds across bookmakers — that's where line shopping pays off. The scatter plot makes it visual: clusters of dots at the same x-position (line) with spread along the y-axis (odds) means bookmakers disagree.
+
+
+## What's Next?
+
+We've now built a script that:
+
+*   Pulls live odds
+*   Finds the best lines
+*   Calculates win probabilities
+*   Scans for player prop disparities
+
+But there's one problem: Running a script manually every time you want to check odds is annoying. In the next article, we're going to take this code and wrap it into a **Streamlit Dashboard**.
+
+We'll build a live web app that:
+-   Runs 24/7
+-   Auto-refreshes every 5 minutes
+-   Visualizes this data in a clean, interactive UI
+-   Can be deployed to the web (so you can check it from your phone)
+
+Stay tuned for the next post.  

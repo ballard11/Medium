@@ -2,22 +2,23 @@
 
 ## Repo Overview
 
-This repo has two parts:
+The repo root is the Quarto project. Two clear zones:
 
-1. **Article project folders** (root level) — Jupyter notebooks + articles for Medium
-   - `cfb-data-analysis/`, `google-trends/`, `sports-betting-odds-api/`, etc.
-   - Each folder: notebook + `article.md` + `README.md` + optional `data/` and `images/`
+1. **`posts/`** — Published blog posts (`.qmd` files, source of truth)
+   - One folder per post: `posts/post-slug/index.qmd`
+   - Uses `categories:` YAML front matter (e.g. `[sports]`, `[economics]`) — no category subfolders
 
-2. **Quarto blog site** (`bendiagrams-site/`) — Static site deployed to GitHub Pages
-   - Live at: `https://bendiagrams.com`
-   - 4 content buckets: `sports/`, `economics/`, `code/`, `toolbox/`
-   - Post structure: `bucket/post-slug/index.qmd` (each post gets its own folder)
-   - Templates: `_templates/post-template.qmd`, `_templates/tool-template.qmd`
-   - Config: `_quarto.yml`
+2. **`toolbox/`** — Reference pages (`.qmd`), separate from posts
+
+3. **`analysis/`** — Scratch exploration only. Not part of the site.
+   - `analysis/cfb-data-analysis/`, `analysis/google-trends/`, etc.
+   - `*.ipynb` files here are gitignored
+
+4. **Site config at root:** `_quarto.yml`, `index.qmd`, `about.qmd`, `_templates/`
 
 ## Deployment
 
-Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) builds `bendiagrams-site/` → deploys to `gh-pages` branch → live in ~2-3 minutes.
+Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) runs `quarto render` at repo root → deploys `_site/` to `gh-pages` branch → live at `https://bendiagrams.com` in ~2-3 minutes.
 
 ## Key Docs
 
@@ -26,9 +27,16 @@ Push to `main` → GitHub Actions (`.github/workflows/publish.yml`) builds `bend
 | STATS.md | repo root | Medium analytics — lifetime data, revenue by category, what works. Updated monthly. |
 | STRATEGY.md | repo root | Growth strategy — franchise model, publishing cadence, distribution |
 | SECURITY.md | repo root | Public repo security — .gitignore, code hiding, freeze strategy |
-| MIGRATION.md | bendiagrams-site/ | Migrating top Medium articles to the Quarto site |
-| GETTING-STARTED.md | bendiagrams-site/ | Quick reference for creating posts and using the site |
-| SETUP.md | bendiagrams-site/ | Deployment setup, custom domain, Google Analytics |
+| MIGRATION.md | repo root | Migrating top Medium articles to the Quarto site |
+| GETTING-STARTED.md | repo root | Quick reference for creating posts and using the site |
+| SETUP.md | repo root | Deployment setup, custom domain, Google Analytics |
+
+## File Authority & Agent Scope
+
+- **Single source of truth:** All `.qmd` files are the authoritative source for blog content, narrative, and finalized code.
+- **Agent scope:** Only read, write, and modify `.qmd` files. Do not interact with, parse, or generate `.ipynb` files.
+- **Human sandbox:** The user uses `.ipynb` files as temporary scratchpads for interactive exploration. These are not tracked in version control.
+- **Concurrency rule:** Do not modify a `.qmd` file if the user says they are actively working in its `.ipynb` counterpart. Wait for the user to manually sync their code back to the `.qmd` before resuming edits.
 
 ## Writing Style
 

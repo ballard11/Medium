@@ -3,10 +3,8 @@ project:
   output-dir: _site
   render:
     - "*.qmd"
-    - "!GETTING-STARTED.md"
-    - "!MIGRATION.md"
-    - "!README.md"
-    - "!SETUP.md"
+    - "!analysis/**"
+    - "!archived/**"
 
 website:
   title: "BenDiagrams"

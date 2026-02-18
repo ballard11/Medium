@@ -1,11 +1,9 @@
 ---
-subtitle: "A data science lab for sports analytics, economic trends, and code experiments"
+subtitle: "My lab for Data Science, Machine Learning, Sports Analytics, Economics, Technical Musings and Code Experiments"
 listing:
   contents:
-    - "sports/*/index.qmd"
-    - "economics/*/index.qmd"
-    - "code/*/index.qmd"
-    - "toolbox/*/index.qmd"
+    - "posts/*/index.qmd"
+    - "toolbox/*.qmd"
   type: default
   sort: "date desc"
   categories: true

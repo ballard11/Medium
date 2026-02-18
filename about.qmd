@@ -3,14 +3,11 @@ title: "About"
 page-layout: article
 ---
 
-## The Lab Philosophy
-
-**The Modeled World** is where I apply the Feynman Technique to data science: learning by teaching, teaching by doing, doing by showing the code.
-
-This isn't a polished portfolio site. It's a lab notebook. You'll see experiments, failures, and thought processes.
+**BenDiagrams** is a place where I have fun, learn, and share what I've learned. I write about sports analytics, economic trends, and code experiments - all with a focus on real data, reuseable code, and insights.
 
 ## What I Write About
 
+- **Data Science**: Python tutorials, Machine Learning, visualization, tools and workflows
 - **Sports Analytics**: Betting models, player props, performance predictions
 - **Economic Trends**: Inflation tracking, CPI analysis, macro indicators
 - **Code Experiments**: API integrations, Python tutorials, MLOps workflows
@@ -24,9 +21,6 @@ Every post includes reproducible code, real data sources, and interactive visual
 - **Publishing**: GitHub Pages, automated via GitHub Actions
 - **Data Sources**: College Football Data API, NBA API, FRED, odds providers
 
-## Why This Exists
-
-I'm a Senior Data Scientist who learns by building in public. If these experiments help you learn Python, understand sports analytics, or track economic trends - that's the goal.
 
 ## Contact
 

@@ -37,6 +37,7 @@ __pycache__/
 venv/
 ENV/
 env/
+*.ipynb
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 .pytest_cache/
