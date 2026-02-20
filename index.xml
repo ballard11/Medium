@@ -33,7 +33,7 @@
 <section id="fetching-live-odds" class="level2">
 <h2 class="anchored" data-anchor-id="fetching-live-odds">Fetching Live Odds</h2>
 <p>Let’s pull today’s NBA odds. Same endpoint as Part 1 — we’re just requesting all three market types at once: moneyline (<code>h2h</code>), spreads, and totals.</p>
-<div id="4452e4e0" class="cell" data-execution_count="2">
+<div id="97a1208e" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">SPORT <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -131,11 +131,11 @@ font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Got 13 upcoming games
-Quota used: 197 | Remaining: 303</code></pre>
+<pre><code>Got 17 upcoming games
+Quota used: 203 | Remaining: 297</code></pre>
 </div>
 </div>
-<div id="a4a4ca46" class="cell" data-execution_count="3">
+<div id="6e8e685f" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">df <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> flatten_odds(events)</span>
@@ -174,7 +174,7 @@ background-color: null;
 font-style: inherit;"> bookmakers'</span>)</span>
 <span id="cb3-3">df.head()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>594 rows across 13 games and 9 bookmakers</code></pre>
+<pre><code>530 rows across 17 games and 9 bookmakers</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -198,63 +198,63 @@ font-style: inherit;"> bookmakers'</span>)</span>
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
-<td>Atlanta Hawks @ Philadelphia 76ers</td>
-<td>Philadelphia 76ers</td>
-<td>Atlanta Hawks</td>
-<td>2026-02-20T00:10:00Z</td>
+<td>Houston Rockets @ Charlotte Hornets</td>
+<td>Charlotte Hornets</td>
+<td>Houston Rockets</td>
+<td>2026-02-20T00:11:00Z</td>
 <td>FanDuel</td>
 <td>h2h</td>
-<td>Atlanta Hawks</td>
-<td>-104</td>
+<td>Charlotte Hornets</td>
+<td>154</td>
 <td>NaN</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
-<td>Atlanta Hawks @ Philadelphia 76ers</td>
-<td>Philadelphia 76ers</td>
-<td>Atlanta Hawks</td>
-<td>2026-02-20T00:10:00Z</td>
+<td>Houston Rockets @ Charlotte Hornets</td>
+<td>Charlotte Hornets</td>
+<td>Houston Rockets</td>
+<td>2026-02-20T00:11:00Z</td>
 <td>FanDuel</td>
 <td>h2h</td>
-<td>Philadelphia 76ers</td>
-<td>-112</td>
+<td>Houston Rockets</td>
+<td>-200</td>
 <td>NaN</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
-<td>Atlanta Hawks @ Philadelphia 76ers</td>
-<td>Philadelphia 76ers</td>
-<td>Atlanta Hawks</td>
-<td>2026-02-20T00:10:00Z</td>
+<td>Houston Rockets @ Charlotte Hornets</td>
+<td>Charlotte Hornets</td>
+<td>Houston Rockets</td>
+<td>2026-02-20T00:11:00Z</td>
 <td>FanDuel</td>
 <td>spreads</td>
-<td>Atlanta Hawks</td>
-<td>-114</td>
-<td>1.5</td>
+<td>Charlotte Hornets</td>
+<td>108</td>
+<td>2.5</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
-<td>Atlanta Hawks @ Philadelphia 76ers</td>
-<td>Philadelphia 76ers</td>
-<td>Atlanta Hawks</td>
-<td>2026-02-20T00:10:00Z</td>
+<td>Houston Rockets @ Charlotte Hornets</td>
+<td>Charlotte Hornets</td>
+<td>Houston Rockets</td>
+<td>2026-02-20T00:11:00Z</td>
 <td>FanDuel</td>
 <td>spreads</td>
-<td>Philadelphia 76ers</td>
-<td>-106</td>
-<td>-1.5</td>
+<td>Houston Rockets</td>
+<td>-144</td>
+<td>-2.5</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
-<td>Atlanta Hawks @ Philadelphia 76ers</td>
-<td>Philadelphia 76ers</td>
-<td>Atlanta Hawks</td>
-<td>2026-02-20T00:10:00Z</td>
+<td>Houston Rockets @ Charlotte Hornets</td>
+<td>Charlotte Hornets</td>
+<td>Houston Rockets</td>
+<td>2026-02-20T00:11:00Z</td>
 <td>FanDuel</td>
 <td>totals</td>
 <td>Over</td>
-<td>-108</td>
-<td>240.5</td>
+<td>-102</td>
+<td>219.5</td>
 </tr>
 </tbody>
 </table>
@@ -266,7 +266,7 @@ font-style: inherit;"> bookmakers'</span>)</span>
 <section id="section-1-live-odds-table" class="level2">
 <h2 class="anchored" data-anchor-id="section-1-live-odds-table">Section 1: Live Odds Table</h2>
 <p>First, let’s look at the moneyline odds. We’ll pivot the data so each bookmaker gets its own column, then highlight the best odds in green using Pandas styling.</p>
-<div id="23e88d10" class="cell" data-execution_count="4">
+<div id="b0dd7eda" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Filter to moneyline odds only</span></span>
@@ -528,9 +528,9 @@ font-style: inherit;">0</span>),</span>
 <span id="cb5-49">)</span>
 <span id="cb5-50">fig.show()</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
-<div>                            <div id="5ea0a99a-ed74-44f3-bb37-1d38f1d7ac5b" class="plotly-graph-div" style="height:990px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("5ea0a99a-ed74-44f3-bb37-1d38f1d7ac5b")) {                    Plotly.newPlot(                        "5ea0a99a-ed74-44f3-bb37-1d38f1d7ac5b",                        [{"cells":{"align":"left","fill":{"color":[["#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa"],["white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white"],["white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white"],["white","white","white","white","white","#2ecc71","#2ecc71","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","#2ecc71","white","white","white","white","white"],["white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white"],["#2ecc71","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","#2ecc71","white","white","white"],["white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","#2ecc71","white"],["white","#2ecc71","white","white","white","#2ecc71","white","#2ecc71","white","white","white","white","#2ecc71","white","#2ecc71","white","#2ecc71","white","white","white","white","white","white","white","white","#2ecc71"],["white","white","#2ecc71","white","#2ecc71","white","white","white","white","#2ecc71","white","#2ecc71","white","#2ecc71","white","#2ecc71","white","white","#2ecc71","white","white","white","white","#2ecc71","white","white"],["white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white"]]},"font":{"size":11},"values":[["Atlanta Hawks @ Philadelphia 76ers — Atlanta Hawks","Atlanta Hawks @ Philadelphia 76ers — Philadelphia 76ers","Boston Celtics @ Golden State Warriors — Boston Celtics","Boston Celtics @ Golden State Warriors — Golden State Warriors","Brooklyn Nets @ Cleveland Cavaliers — Brooklyn Nets","Brooklyn Nets @ Cleveland Cavaliers — Cleveland Cavaliers","Dallas Mavericks @ Minnesota Timberwolves — Dallas Mavericks","Dallas Mavericks @ Minnesota Timberwolves — Minnesota Timberwolves","Denver Nuggets @ Los Angeles Clippers — Denver Nuggets","Denver Nuggets @ Los Angeles Clippers — Los Angeles Clippers","Detroit Pistons @ New York Knicks — Detroit Pistons","Detroit Pistons @ New York Knicks — New York Knicks","Houston Rockets @ Charlotte Hornets — Charlotte Hornets","Houston Rockets @ Charlotte Hornets — Houston Rockets","Indiana Pacers @ Washington Wizards — Indiana Pacers","Indiana Pacers @ Washington Wizards — Washington Wizards","Milwaukee Bucks @ New Orleans Pelicans — Milwaukee Bucks","Milwaukee Bucks @ New Orleans Pelicans — New Orleans Pelicans","Orlando Magic @ Sacramento Kings — Orlando Magic","Orlando Magic @ Sacramento Kings — Sacramento Kings","Phoenix Suns @ San Antonio Spurs — Phoenix Suns","Phoenix Suns @ San Antonio Spurs — San Antonio Spurs","Toronto Raptors @ Chicago Bulls — Chicago Bulls","Toronto Raptors @ Chicago Bulls — Toronto Raptors","Utah Jazz @ Memphis Grizzlies — Memphis Grizzlies","Utah Jazz @ Memphis Grizzlies — Utah Jazz"],["-105","-115","-225","185","675","-1100","-","-","-190","155","135","-165","150","-185","-135","110","-","-","-375","300","225","-275","195","-235","-","-"],["-105","-115","-215","183","686","-1050","-","-","-185","161","135","-155","153","-175","-130","110","-","-","-350","280","234","-285","186","-220","-","-"],["-105","-120","-235","185","600","-1000","450","-670","-186","148","138","-175","155","-195","-139","112","132","-165","-375","275","250","-335","195","-250","-177","140"],["-105","-115","-225","190","680","-1050","-","-","-185","159","138","-160","155","-180","-130","110","-","-","-365","293","218","-260","195","-230","-","-"],["100","-120","-220","180","650","-1100","-","-","-180","155","140","-165","150","-175","-130","110","-","-","-360","280","240","-290","200","-240","-","-"],["-105","-115","-230","190","700","-1100","440","-600","-185","154","145","-175","154","-185","-130","110","136","-162","-360","285","230","-285","195","-238","-170","142"],["-104","-112","-225","188","660","-1000","440","-590","-184","154","138","-164","156","-186","-126","108","142","-168","-355","285","240","-300","188","-225","-172","144"],["-103","-113","-214","185","708","-1028","-","-","-185","162","136","-155","154","-175","-128","112","-","-","-345","285","237","-282","188","-219","-","-"],["-106","-115","-238","191","695","-1262","-","-","-192","155","130","-161","145","-179","-133","109","-","-","-385","288","240","-312","195","-244","-","-"]]},"header":{"align":"left","fill":{"color":"#34495e"},"font":{"color":"white","size":12},"values":["Game \u002f Team","BetMGM","BetOnline.ag","BetRivers","BetUS","Bovada","DraftKings","FanDuel","LowVig.ag","MyBookie.ag"]},"type":"table"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"margin":{"l":0,"r":0,"t":20,"b":0},"height":990},                        {"responsive": true}                    ).then(function(){
+<div>                            <div id="3c9c9f43-2c72-48ef-a5f8-d7eadd658b93" class="plotly-graph-div" style="height:1270px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("3c9c9f43-2c72-48ef-a5f8-d7eadd658b93")) {                    Plotly.newPlot(                        "3c9c9f43-2c72-48ef-a5f8-d7eadd658b93",                        [{"cells":{"align":"left","fill":{"color":[["#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa","#f8f9fa"],["white","white","white","white","#2ecc71","#2ecc71","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","#2ecc71","white","white","white"],["white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white"],["white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","#2ecc71","white","#2ecc71","white","white","white"],["white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white"],["white","#2ecc71","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white"],["white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71"],["white","white","white","#2ecc71","white","white","#2ecc71","#2ecc71","white","#2ecc71","white","white","#2ecc71","#2ecc71","white","white","#2ecc71","white","#2ecc71","white","#2ecc71","#2ecc71","#2ecc71","#2ecc71","white","#2ecc71","white","white","white","white","#2ecc71","white","#2ecc71","white"],["white","white","#2ecc71","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","white","#2ecc71","white","white"],["#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white","#2ecc71","white","white","white","#2ecc71","white","white","white","white","white","white","white","white","white","white","white","white","white","white"]]},"font":{"size":11},"values":[["Atlanta Hawks @ Philadelphia 76ers — Atlanta Hawks","Atlanta Hawks @ Philadelphia 76ers — Philadelphia 76ers","Boston Celtics @ Golden State Warriors — Boston Celtics","Boston Celtics @ Golden State Warriors — Golden State Warriors","Brooklyn Nets @ Cleveland Cavaliers — Brooklyn Nets","Brooklyn Nets @ Cleveland Cavaliers — Cleveland Cavaliers","Cleveland Cavaliers @ Charlotte Hornets — Charlotte Hornets","Cleveland Cavaliers @ Charlotte Hornets — Cleveland Cavaliers","Dallas Mavericks @ Minnesota Timberwolves — Dallas Mavericks","Dallas Mavericks @ Minnesota Timberwolves — Minnesota Timberwolves","Denver Nuggets @ Los Angeles Clippers — Denver Nuggets","Denver Nuggets @ Los Angeles Clippers — Los Angeles Clippers","Denver Nuggets @ Portland Trail Blazers — Denver Nuggets","Denver Nuggets @ Portland Trail Blazers — Portland Trail Blazers","Detroit Pistons @ New York Knicks — Detroit Pistons","Detroit Pistons @ New York Knicks — New York Knicks","Houston Rockets @ Charlotte Hornets — Charlotte Hornets","Houston Rockets @ Charlotte Hornets — Houston Rockets","Indiana Pacers @ Washington Wizards — Indiana Pacers","Indiana Pacers @ Washington Wizards — Washington Wizards","Los Angeles Clippers @ Los Angeles Lakers — Los Angeles Clippers","Los Angeles Clippers @ Los Angeles Lakers — Los Angeles Lakers","Miami Heat @ Atlanta Hawks — Atlanta Hawks","Miami Heat @ Atlanta Hawks — Miami Heat","Milwaukee Bucks @ New Orleans Pelicans — Milwaukee Bucks","Milwaukee Bucks @ New Orleans Pelicans — New Orleans Pelicans","Orlando Magic @ Sacramento Kings — Orlando Magic","Orlando Magic @ Sacramento Kings — Sacramento Kings","Phoenix Suns @ San Antonio Spurs — Phoenix Suns","Phoenix Suns @ San Antonio Spurs — San Antonio Spurs","Toronto Raptors @ Chicago Bulls — Chicago Bulls","Toronto Raptors @ Chicago Bulls — Toronto Raptors","Utah Jazz @ Memphis Grizzlies — Memphis Grizzlies","Utah Jazz @ Memphis Grizzlies — Utah Jazz"],["-200","155","-235","195","3300","-10000","-","-","-","-","-185","150","-","-","115","-150","145","-190","260","-350","-","-","-","-","-","-","-375","290","225","-285","220","-295","-","-"],["-","-","-220","186","-","-","-","-","-","-","-175","153","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-350","280","234","-285","183","-215","-","-"],["-200","150","-240","188","-","-","-","-","450","-670","-195","155","-","-","112","-148","150","-200","250","-345","-","-","-","-","132","-165","-360","270","250","-335","220","-305","-159","128"],["-","-","-230","195","-","-","-","-","-","-","-175","150","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-350","280","235","-280","185","-220","-","-"],["-250","185","-230","190","-","-","-","-","-","-","-180","155","-","-","105","-135","150","-200","280","-410","-","-","-","-","-","-","-360","280","240","-290","185","-225","-","-"],["-200","154","-230","190","-","-","-","-","525","-750","-180","150","-","-","114","-145","145","-188","270","-375","-","-","-","-","130","-155","-360","285","230","-285","210","-280","-162","136"],["-215","164","-245","200","-","-","158","-188","480","-650","-184","154","-154","130","110","-140","154","-200","280","-390","235","-290","130","-154","128","-152","-355","285","240","-295","220","-295","-154","130"],["-","-","-219","188","-","-","-","-","-","-","-175","154","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-345","285","237","-282","185","-214","-","-"],["-143","110","-238","191","-","-","154","-192","-","-","-185","149","-","-","100","-125","150","-200","265","-333","-","-","127","-156","-","-","-385","288","227","-293","187","-233","-","-"]]},"header":{"align":"left","fill":{"color":"#34495e"},"font":{"color":"white","size":12},"values":["Game \u002f Team","BetMGM","BetOnline.ag","BetRivers","BetUS","Bovada","DraftKings","FanDuel","LowVig.ag","MyBookie.ag"]},"type":"table"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"margin":{"l":0,"r":0,"t":20,"b":0},"height":1270},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('5ea0a99a-ed74-44f3-bb37-1d38f1d7ac5b');
+var gd = document.getElementById('3c9c9f43-2c72-48ef-a5f8-d7eadd658b93');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -560,7 +560,7 @@ if (outputEl) {{
 <section id="section-2-best-line-finder" class="level2">
 <h2 class="anchored" data-anchor-id="section-2-best-line-finder">Section 2: Best Line Finder</h2>
 <p>This one’s my favorite. For each team in each game, we find which bookmaker has the best moneyline and how much of an “edge” it has over the second-best option.</p>
-<div id="78b9eef2" class="cell" data-execution_count="5">
+<div id="a7662516" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">best_lines <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> []</span>
@@ -689,40 +689,49 @@ font-style: inherit;">False</span>)</span></code></pre></div></div>
 <th data-quarto-table-cell-role="th">0</th>
 <td>Atlanta Hawks @ Philadelphia 76ers</td>
 <td>Atlanta Hawks</td>
-<td>Bovada</td>
-<td>100</td>
-<td>-103</td>
-<td>203</td>
+<td>MyBookie.ag</td>
+<td>-143</td>
+<td>-200</td>
+<td>57</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">21</th>
-<td>Phoenix Suns @ San Antonio Spurs</td>
-<td>San Antonio Spurs</td>
-<td>BetUS</td>
-<td>-260</td>
-<td>-275</td>
-<td>15</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">6</th>
+<th data-quarto-table-cell-role="th">8</th>
 <td>Dallas Mavericks @ Minnesota Timberwolves</td>
 <td>Dallas Mavericks</td>
-<td>BetRivers</td>
-<td>450</td>
-<td>440</td>
-<td>10</td>
+<td>DraftKings</td>
+<td>525</td>
+<td>480</td>
+<td>45</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Atlanta Hawks @ Philadelphia 76ers</td>
+<td>Philadelphia 76ers</td>
+<td>Bovada</td>
+<td>185</td>
+<td>164</td>
+<td>21</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">7</th>
+<th data-quarto-table-cell-role="th">9</th>
 <td>Dallas Mavericks @ Minnesota Timberwolves</td>
 <td>Minnesota Timberwolves</td>
 <td>FanDuel</td>
-<td>-590</td>
-<td>-600</td>
-<td>10</td>
+<td>-650</td>
+<td>-670</td>
+<td>20</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">20</th>
+<th data-quarto-table-cell-role="th">19</th>
+<td>Indiana Pacers @ Washington Wizards</td>
+<td>Washington Wizards</td>
+<td>MyBookie.ag</td>
+<td>-333</td>
+<td>-345</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">28</th>
 <td>Phoenix Suns @ San Antonio Spurs</td>
 <td>Phoenix Suns</td>
 <td>BetRivers</td>
@@ -730,53 +739,35 @@ font-style: inherit;">False</span>)</span></code></pre></div></div>
 <td>240</td>
 <td>10</td>
 </tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">4</th>
-<td>Brooklyn Nets @ Cleveland Cavaliers</td>
-<td>Brooklyn Nets</td>
-<td>LowVig.ag</td>
-<td>708</td>
-<td>700</td>
-<td>8</td>
-</tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">19</th>
-<td>Orlando Magic @ Sacramento Kings</td>
-<td>Sacramento Kings</td>
-<td>BetMGM</td>
-<td>300</td>
-<td>293</td>
-<td>7</td>
+<th data-quarto-table-cell-role="th">15</th>
+<td>Detroit Pistons @ New York Knicks</td>
+<td>New York Knicks</td>
+<td>MyBookie.ag</td>
+<td>-125</td>
+<td>-135</td>
+<td>10</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">16</th>
-<td>Milwaukee Bucks @ New Orleans Pelicans</td>
-<td>Milwaukee Bucks</td>
-<td>FanDuel</td>
-<td>142</td>
+<th data-quarto-table-cell-role="th">33</th>
+<td>Utah Jazz @ Memphis Grizzlies</td>
+<td>Utah Jazz</td>
+<td>DraftKings</td>
 <td>136</td>
+<td>130</td>
 <td>6</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">22</th>
-<td>Toronto Raptors @ Chicago Bulls</td>
-<td>Chicago Bulls</td>
-<td>Bovada</td>
-<td>200</td>
-<td>195</td>
+<th data-quarto-table-cell-role="th">32</th>
+<td>Utah Jazz @ Memphis Grizzlies</td>
+<td>Memphis Grizzlies</td>
+<td>FanDuel</td>
+<td>-154</td>
+<td>-159</td>
 <td>5</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">10</th>
-<td>Detroit Pistons @ New York Knicks</td>
-<td>Detroit Pistons</td>
-<td>DraftKings</td>
-<td>145</td>
-<td>140</td>
-<td>5</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">18</th>
+<th data-quarto-table-cell-role="th">26</th>
 <td>Orlando Magic @ Sacramento Kings</td>
 <td>Orlando Magic</td>
 <td>LowVig.ag</td>
@@ -784,139 +775,220 @@ font-style: inherit;">False</span>)</span></code></pre></div></div>
 <td>-350</td>
 <td>5</td>
 </tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Boston Celtics @ Golden State Warriors</td>
+<td>Golden State Warriors</td>
+<td>FanDuel</td>
+<td>200</td>
+<td>195</td>
+<td>5</td>
+</tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">8</th>
-<td>Denver Nuggets @ Los Angeles Clippers</td>
-<td>Denver Nuggets</td>
-<td>Bovada</td>
-<td>-180</td>
-<td>-184</td>
+<th data-quarto-table-cell-role="th">7</th>
+<td>Cleveland Cavaliers @ Charlotte Hornets</td>
+<td>Cleveland Cavaliers</td>
+<td>FanDuel</td>
+<td>-188</td>
+<td>-192</td>
 <td>4</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">17</th>
-<td>Milwaukee Bucks @ New Orleans Pelicans</td>
-<td>New Orleans Pelicans</td>
-<td>DraftKings</td>
-<td>-162</td>
-<td>-165</td>
-<td>3</td>
+<th data-quarto-table-cell-role="th">6</th>
+<td>Cleveland Cavaliers @ Charlotte Hornets</td>
+<td>Charlotte Hornets</td>
+<td>FanDuel</td>
+<td>158</td>
+<td>154</td>
+<td>4</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">24</th>
-<td>Utah Jazz @ Memphis Grizzlies</td>
-<td>Memphis Grizzlies</td>
-<td>DraftKings</td>
-<td>-170</td>
-<td>-172</td>
-<td>2</td>
+<th data-quarto-table-cell-role="th">16</th>
+<td>Houston Rockets @ Charlotte Hornets</td>
+<td>Charlotte Hornets</td>
+<td>FanDuel</td>
+<td>154</td>
+<td>150</td>
+<td>4</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">25</th>
-<td>Utah Jazz @ Memphis Grizzlies</td>
-<td>Utah Jazz</td>
+<td>Milwaukee Bucks @ New Orleans Pelicans</td>
+<td>New Orleans Pelicans</td>
 <td>FanDuel</td>
-<td>144</td>
-<td>142</td>
+<td>-152</td>
+<td>-155</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">22</th>
+<td>Miami Heat @ Atlanta Hawks</td>
+<td>Atlanta Hawks</td>
+<td>FanDuel</td>
+<td>130</td>
+<td>127</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">29</th>
+<td>Phoenix Suns @ San Antonio Spurs</td>
+<td>San Antonio Spurs</td>
+<td>BetUS</td>
+<td>-280</td>
+<td>-282</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">27</th>
+<td>Orlando Magic @ Sacramento Kings</td>
+<td>Sacramento Kings</td>
+<td>BetMGM</td>
+<td>290</td>
+<td>288</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">24</th>
+<td>Milwaukee Bucks @ New Orleans Pelicans</td>
+<td>Milwaukee Bucks</td>
+<td>BetRivers</td>
+<td>132</td>
+<td>130</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">23</th>
+<td>Miami Heat @ Atlanta Hawks</td>
+<td>Miami Heat</td>
+<td>FanDuel</td>
+<td>-154</td>
+<td>-156</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">17</th>
+<td>Houston Rockets @ Charlotte Hornets</td>
+<td>Houston Rockets</td>
+<td>DraftKings</td>
+<td>-188</td>
+<td>-190</td>
 <td>2</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">14</th>
-<td>Indiana Pacers @ Washington Wizards</td>
-<td>Indiana Pacers</td>
-<td>FanDuel</td>
-<td>-126</td>
-<td>-128</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">1</th>
-<td>Atlanta Hawks @ Philadelphia 76ers</td>
-<td>Philadelphia 76ers</td>
-<td>FanDuel</td>
-<td>-112</td>
-<td>-113</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">12</th>
-<td>Houston Rockets @ Charlotte Hornets</td>
-<td>Charlotte Hornets</td>
-<td>FanDuel</td>
-<td>156</td>
-<td>155</td>
+<td>Detroit Pistons @ New York Knicks</td>
+<td>Detroit Pistons</td>
+<td>BetMGM</td>
+<td>115</td>
+<td>114</td>
 <td>1</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">9</th>
-<td>Denver Nuggets @ Los Angeles Clippers</td>
-<td>Los Angeles Clippers</td>
-<td>LowVig.ag</td>
-<td>162</td>
-<td>161</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
+<th data-quarto-table-cell-role="th">2</th>
 <td>Boston Celtics @ Golden State Warriors</td>
-<td>Golden State Warriors</td>
-<td>MyBookie.ag</td>
-<td>191</td>
-<td>190</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">23</th>
-<td>Toronto Raptors @ Chicago Bulls</td>
-<td>Toronto Raptors</td>
+<td>Boston Celtics</td>
 <td>LowVig.ag</td>
 <td>-219</td>
 <td>-220</td>
 <td>1</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">2</th>
-<td>Boston Celtics @ Golden State Warriors</td>
-<td>Boston Celtics</td>
+<th data-quarto-table-cell-role="th">31</th>
+<td>Toronto Raptors @ Chicago Bulls</td>
+<td>Toronto Raptors</td>
 <td>LowVig.ag</td>
 <td>-214</td>
 <td>-215</td>
 <td>1</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">15</th>
-<td>Indiana Pacers @ Washington Wizards</td>
-<td>Washington Wizards</td>
-<td>BetRivers</td>
-<td>112</td>
-<td>112</td>
+<th data-quarto-table-cell-role="th">20</th>
+<td>Los Angeles Clippers @ Los Angeles Lakers</td>
+<td>Los Angeles Clippers</td>
+<td>FanDuel</td>
+<td>235</td>
+<td>235</td>
 <td>0</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">11</th>
-<td>Detroit Pistons @ New York Knicks</td>
-<td>New York Knicks</td>
-<td>BetOnline.ag</td>
-<td>-155</td>
-<td>-155</td>
+<th data-quarto-table-cell-role="th">18</th>
+<td>Indiana Pacers @ Washington Wizards</td>
+<td>Indiana Pacers</td>
+<td>Bovada</td>
+<td>280</td>
+<td>280</td>
 <td>0</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">5</th>
+<th data-quarto-table-cell-role="th">4</th>
 <td>Brooklyn Nets @ Cleveland Cavaliers</td>
-<td>Cleveland Cavaliers</td>
-<td>BetRivers</td>
-<td>-1000</td>
-<td>-1000</td>
+<td>Brooklyn Nets</td>
+<td>BetMGM</td>
+<td>3300</td>
+<td>3300</td>
 <td>0</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>Brooklyn Nets @ Cleveland Cavaliers</td>
+<td>Cleveland Cavaliers</td>
+<td>BetMGM</td>
+<td>-10000</td>
+<td>-10000</td>
+<td>0</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">13</th>
-<td>Houston Rockets @ Charlotte Hornets</td>
-<td>Houston Rockets</td>
+<td>Denver Nuggets @ Portland Trail Blazers</td>
+<td>Portland Trail Blazers</td>
+<td>FanDuel</td>
+<td>130</td>
+<td>130</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">12</th>
+<td>Denver Nuggets @ Portland Trail Blazers</td>
+<td>Denver Nuggets</td>
+<td>FanDuel</td>
+<td>-154</td>
+<td>-154</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">11</th>
+<td>Denver Nuggets @ Los Angeles Clippers</td>
+<td>Los Angeles Clippers</td>
+<td>BetRivers</td>
+<td>155</td>
+<td>155</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">30</th>
+<td>Toronto Raptors @ Chicago Bulls</td>
+<td>Chicago Bulls</td>
+<td>BetMGM</td>
+<td>220</td>
+<td>220</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10</th>
+<td>Denver Nuggets @ Los Angeles Clippers</td>
+<td>Denver Nuggets</td>
 <td>BetOnline.ag</td>
 <td>-175</td>
 <td>-175</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">21</th>
+<td>Los Angeles Clippers @ Los Angeles Lakers</td>
+<td>Los Angeles Lakers</td>
+<td>FanDuel</td>
+<td>-290</td>
+<td>-290</td>
 <td>0</td>
 </tr>
 </tbody>
@@ -930,7 +1002,7 @@ font-style: inherit;">False</span>)</span></code></pre></div></div>
 <section id="section-3-implied-probability-chart" class="level2">
 <h2 class="anchored" data-anchor-id="section-3-implied-probability-chart">Section 3: Implied Probability Chart</h2>
 <p>American odds (like -150 or +130) are hard to read at a glance. Let’s convert everything to <strong>implied probabilities</strong> and visualize them. This tells us the “true” win probability the bookmaker is assigning to each team.</p>
-<div id="0f9051c4" class="cell" data-execution_count="6">
+<div id="ac0fac0a" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Average odds across bookmakers for each team (consensus line)</span></span>
@@ -996,36 +1068,36 @@ font-style: inherit;">'prob_pct'</span>]].head()</span></code></pre></div></div>
 <th data-quarto-table-cell-role="th">0</th>
 <td>Atlanta Hawks @ Philadelphia 76ers</td>
 <td>Atlanta Hawks</td>
-<td>-82.000000</td>
-<td>45.1</td>
+<td>-201.333333</td>
+<td>66.8</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
 <td>Atlanta Hawks @ Philadelphia 76ers</td>
 <td>Philadelphia 76ers</td>
-<td>-115.555556</td>
-<td>53.6</td>
+<td>153.000000</td>
+<td>39.5</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
 <td>Boston Celtics @ Golden State Warriors</td>
 <td>Boston Celtics</td>
-<td>-225.222222</td>
-<td>69.3</td>
+<td>-231.888889</td>
+<td>69.9</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
 <td>Boston Celtics @ Golden State Warriors</td>
 <td>Golden State Warriors</td>
-<td>186.333333</td>
-<td>34.9</td>
+<td>191.444444</td>
+<td>34.3</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
 <td>Brooklyn Nets @ Cleveland Cavaliers</td>
 <td>Brooklyn Nets</td>
-<td>672.666667</td>
-<td>12.9</td>
+<td>3300.000000</td>
+<td>2.9</td>
 </tr>
 </tbody>
 </table>
@@ -1033,7 +1105,7 @@ font-style: inherit;">'prob_pct'</span>]].head()</span></code></pre></div></div>
 </div>
 </div>
 </div>
-<div id="2f85b63d" class="cell" data-execution_count="7">
+<div id="8269359e" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Build the stacked bar chart</span></span>
@@ -1176,9 +1248,9 @@ font-style: inherit;">'Implied Win Probabilities (Consensus Odds)'</span>,</span
 <span id="cb8-28"></span>
 <span id="cb8-29">fig.show()</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
-<div>                            <div id="928a93fa-9d16-441f-9958-ea8db2ab4f4a" class="plotly-graph-div" style="height:780px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("928a93fa-9d16-441f-9958-ea8db2ab4f4a")) {                    Plotly.newPlot(                        "928a93fa-9d16-441f-9958-ea8db2ab4f4a",                        [{"marker":{"color":"#e74c3c"},"name":"Atlanta Hawks","orientation":"h","showlegend":false,"text":"Atlanta Hawks: 45.1%","textposition":"inside","x":[45.1],"y":["Atlanta Hawks @ Philadelphia 76ers"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Philadelphia 76ers","orientation":"h","showlegend":false,"text":"Philadelphia 76ers: 53.6%","textposition":"inside","x":[53.6],"y":["Atlanta Hawks @ Philadelphia 76ers"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Boston Celtics","orientation":"h","showlegend":false,"text":"Boston Celtics: 69.3%","textposition":"inside","x":[69.3],"y":["Boston Celtics @ Golden State Warriors"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Golden State Warriors","orientation":"h","showlegend":false,"text":"Golden State Warriors: 34.9%","textposition":"inside","x":[34.9],"y":["Boston Celtics @ Golden State Warriors"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Brooklyn Nets","orientation":"h","showlegend":false,"text":"Brooklyn Nets: 12.9%","textposition":"inside","x":[12.9],"y":["Brooklyn Nets @ Cleveland Cavaliers"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Cleveland Cavaliers","orientation":"h","showlegend":false,"text":"Cleveland Cavaliers: 91.5%","textposition":"inside","x":[91.5],"y":["Brooklyn Nets @ Cleveland Cavaliers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Dallas Mavericks","orientation":"h","showlegend":false,"text":"Dallas Mavericks: 18.4%","textposition":"inside","x":[18.4],"y":["Dallas Mavericks @ Minnesota Timberwolves"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Minnesota Timberwolves","orientation":"h","showlegend":false,"text":"Minnesota Timberwolves: 86.1%","textposition":"inside","x":[86.1],"y":["Dallas Mavericks @ Minnesota Timberwolves"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Denver Nuggets","orientation":"h","showlegend":false,"text":"Denver Nuggets: 65.0%","textposition":"inside","x":[65.0],"y":["Denver Nuggets @ Los Angeles Clippers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Los Angeles Clippers","orientation":"h","showlegend":false,"text":"Los Angeles Clippers: 39.1%","textposition":"inside","x":[39.1],"y":["Denver Nuggets @ Los Angeles Clippers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Detroit Pistons","orientation":"h","showlegend":false,"text":"Detroit Pistons: 42.2%","textposition":"inside","x":[42.2],"y":["Detroit Pistons @ New York Knicks"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"New York Knicks","orientation":"h","showlegend":false,"text":"New York Knicks: 62.1%","textposition":"inside","x":[62.1],"y":["Detroit Pistons @ New York Knicks"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Charlotte Hornets","orientation":"h","showlegend":false,"text":"Charlotte Hornets: 39.6%","textposition":"inside","x":[39.6],"y":["Houston Rockets @ Charlotte Hornets"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Houston Rockets","orientation":"h","showlegend":false,"text":"Houston Rockets: 64.5%","textposition":"inside","x":[64.5],"y":["Houston Rockets @ Charlotte Hornets"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Indiana Pacers","orientation":"h","showlegend":false,"text":"Indiana Pacers: 56.8%","textposition":"inside","x":[56.8],"y":["Indiana Pacers @ Washington Wizards"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Washington Wizards","orientation":"h","showlegend":false,"text":"Washington Wizards: 47.6%","textposition":"inside","x":[47.6],"y":["Indiana Pacers @ Washington Wizards"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Milwaukee Bucks","orientation":"h","showlegend":false,"text":"Milwaukee Bucks: 42.3%","textposition":"inside","x":[42.3],"y":["Milwaukee Bucks @ New Orleans Pelicans"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"New Orleans Pelicans","orientation":"h","showlegend":false,"text":"New Orleans Pelicans: 62.3%","textposition":"inside","x":[62.3],"y":["Milwaukee Bucks @ New Orleans Pelicans"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Orlando Magic","orientation":"h","showlegend":false,"text":"Orlando Magic: 78.4%","textposition":"inside","x":[78.4],"y":["Orlando Magic @ Sacramento Kings"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Sacramento Kings","orientation":"h","showlegend":false,"text":"Sacramento Kings: 25.9%","textposition":"inside","x":[25.9],"y":["Orlando Magic @ Sacramento Kings"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Phoenix Suns","orientation":"h","showlegend":false,"text":"Phoenix Suns: 29.9%","textposition":"inside","x":[29.9],"y":["Phoenix Suns @ San Antonio Spurs"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"San Antonio Spurs","orientation":"h","showlegend":false,"text":"San Antonio Spurs: 74.5%","textposition":"inside","x":[74.5],"y":["Phoenix Suns @ San Antonio Spurs"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Chicago Bulls","orientation":"h","showlegend":false,"text":"Chicago Bulls: 34.1%","textposition":"inside","x":[34.1],"y":["Toronto Raptors @ Chicago Bulls"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Toronto Raptors","orientation":"h","showlegend":false,"text":"Toronto Raptors: 70.0%","textposition":"inside","x":[70.0],"y":["Toronto Raptors @ Chicago Bulls"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Memphis Grizzlies","orientation":"h","showlegend":false,"text":"Memphis Grizzlies: 63.4%","textposition":"inside","x":[63.4],"y":["Utah Jazz @ Memphis Grizzlies"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Utah Jazz","orientation":"h","showlegend":false,"text":"Utah Jazz: 41.3%","textposition":"inside","x":[41.3],"y":["Utah Jazz @ Memphis Grizzlies"],"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"barmode":"stack","xaxis":{"title":{"text":"Implied Probability (%)"}},"yaxis":{"title":{"text":""}},"height":780,"title":{"text":"Implied Win Probabilities (Consensus Odds)"}},                        {"responsive": true}                    ).then(function(){
+<div>                            <div id="2dcd42e7-6110-4123-9ba6-3949462349a7" class="plotly-graph-div" style="height:1020px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("2dcd42e7-6110-4123-9ba6-3949462349a7")) {                    Plotly.newPlot(                        "2dcd42e7-6110-4123-9ba6-3949462349a7",                        [{"marker":{"color":"#2ecc71"},"name":"Atlanta Hawks","orientation":"h","showlegend":false,"text":"Atlanta Hawks: 66.8%","textposition":"inside","x":[66.8],"y":["Atlanta Hawks @ Philadelphia 76ers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Philadelphia 76ers","orientation":"h","showlegend":false,"text":"Philadelphia 76ers: 39.5%","textposition":"inside","x":[39.5],"y":["Atlanta Hawks @ Philadelphia 76ers"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Boston Celtics","orientation":"h","showlegend":false,"text":"Boston Celtics: 69.9%","textposition":"inside","x":[69.9],"y":["Boston Celtics @ Golden State Warriors"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Golden State Warriors","orientation":"h","showlegend":false,"text":"Golden State Warriors: 34.3%","textposition":"inside","x":[34.3],"y":["Boston Celtics @ Golden State Warriors"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Brooklyn Nets","orientation":"h","showlegend":false,"text":"Brooklyn Nets: 2.9%","textposition":"inside","x":[2.9],"y":["Brooklyn Nets @ Cleveland Cavaliers"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Cleveland Cavaliers","orientation":"h","showlegend":false,"text":"Cleveland Cavaliers: 99.0%","textposition":"inside","x":[99.0],"y":["Brooklyn Nets @ Cleveland Cavaliers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Charlotte Hornets","orientation":"h","showlegend":false,"text":"Charlotte Hornets: 39.1%","textposition":"inside","x":[39.1],"y":["Cleveland Cavaliers @ Charlotte Hornets"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Cleveland Cavaliers","orientation":"h","showlegend":false,"text":"Cleveland Cavaliers: 65.5%","textposition":"inside","x":[65.5],"y":["Cleveland Cavaliers @ Charlotte Hornets"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Dallas Mavericks","orientation":"h","showlegend":false,"text":"Dallas Mavericks: 17.1%","textposition":"inside","x":[17.1],"y":["Dallas Mavericks @ Minnesota Timberwolves"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Minnesota Timberwolves","orientation":"h","showlegend":false,"text":"Minnesota Timberwolves: 87.3%","textposition":"inside","x":[87.3],"y":["Dallas Mavericks @ Minnesota Timberwolves"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Denver Nuggets","orientation":"h","showlegend":false,"text":"Denver Nuggets: 64.5%","textposition":"inside","x":[64.5],"y":["Denver Nuggets @ Los Angeles Clippers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Los Angeles Clippers","orientation":"h","showlegend":false,"text":"Los Angeles Clippers: 39.6%","textposition":"inside","x":[39.6],"y":["Denver Nuggets @ Los Angeles Clippers"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Denver Nuggets","orientation":"h","showlegend":false,"text":"Denver Nuggets: 60.6%","textposition":"inside","x":[60.6],"y":["Denver Nuggets @ Portland Trail Blazers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Portland Trail Blazers","orientation":"h","showlegend":false,"text":"Portland Trail Blazers: 43.5%","textposition":"inside","x":[43.5],"y":["Denver Nuggets @ Portland Trail Blazers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Detroit Pistons","orientation":"h","showlegend":false,"text":"Detroit Pistons: 47.8%","textposition":"inside","x":[47.8],"y":["Detroit Pistons @ New York Knicks"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"New York Knicks","orientation":"h","showlegend":false,"text":"New York Knicks: 58.4%","textposition":"inside","x":[58.4],"y":["Detroit Pistons @ New York Knicks"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Charlotte Hornets","orientation":"h","showlegend":false,"text":"Charlotte Hornets: 40.2%","textposition":"inside","x":[40.2],"y":["Houston Rockets @ Charlotte Hornets"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Houston Rockets","orientation":"h","showlegend":false,"text":"Houston Rockets: 66.3%","textposition":"inside","x":[66.3],"y":["Houston Rockets @ Charlotte Hornets"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Indiana Pacers","orientation":"h","showlegend":false,"text":"Indiana Pacers: 27.2%","textposition":"inside","x":[27.2],"y":["Indiana Pacers @ Washington Wizards"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Washington Wizards","orientation":"h","showlegend":false,"text":"Washington Wizards: 78.6%","textposition":"inside","x":[78.6],"y":["Indiana Pacers @ Washington Wizards"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Los Angeles Clippers","orientation":"h","showlegend":false,"text":"Los Angeles Clippers: 29.9%","textposition":"inside","x":[29.9],"y":["Los Angeles Clippers @ Los Angeles Lakers"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Los Angeles Lakers","orientation":"h","showlegend":false,"text":"Los Angeles Lakers: 74.4%","textposition":"inside","x":[74.4],"y":["Los Angeles Clippers @ Los Angeles Lakers"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Atlanta Hawks","orientation":"h","showlegend":false,"text":"Atlanta Hawks: 43.8%","textposition":"inside","x":[43.8],"y":["Miami Heat @ Atlanta Hawks"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Miami Heat","orientation":"h","showlegend":false,"text":"Miami Heat: 60.8%","textposition":"inside","x":[60.8],"y":["Miami Heat @ Atlanta Hawks"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Milwaukee Bucks","orientation":"h","showlegend":false,"text":"Milwaukee Bucks: 43.5%","textposition":"inside","x":[43.5],"y":["Milwaukee Bucks @ New Orleans Pelicans"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"New Orleans Pelicans","orientation":"h","showlegend":false,"text":"New Orleans Pelicans: 61.1%","textposition":"inside","x":[61.1],"y":["Milwaukee Bucks @ New Orleans Pelicans"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Orlando Magic","orientation":"h","showlegend":false,"text":"Orlando Magic: 78.3%","textposition":"inside","x":[78.3],"y":["Orlando Magic @ Sacramento Kings"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Sacramento Kings","orientation":"h","showlegend":false,"text":"Sacramento Kings: 26.1%","textposition":"inside","x":[26.1],"y":["Orlando Magic @ Sacramento Kings"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Phoenix Suns","orientation":"h","showlegend":false,"text":"Phoenix Suns: 29.8%","textposition":"inside","x":[29.8],"y":["Phoenix Suns @ San Antonio Spurs"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"San Antonio Spurs","orientation":"h","showlegend":false,"text":"San Antonio Spurs: 74.5%","textposition":"inside","x":[74.5],"y":["Phoenix Suns @ San Antonio Spurs"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Chicago Bulls","orientation":"h","showlegend":false,"text":"Chicago Bulls: 33.4%","textposition":"inside","x":[33.4],"y":["Toronto Raptors @ Chicago Bulls"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Toronto Raptors","orientation":"h","showlegend":false,"text":"Toronto Raptors: 71.7%","textposition":"inside","x":[71.7],"y":["Toronto Raptors @ Chicago Bulls"],"type":"bar"},{"marker":{"color":"#2ecc71"},"name":"Memphis Grizzlies","orientation":"h","showlegend":false,"text":"Memphis Grizzlies: 61.3%","textposition":"inside","x":[61.3],"y":["Utah Jazz @ Memphis Grizzlies"],"type":"bar"},{"marker":{"color":"#e74c3c"},"name":"Utah Jazz","orientation":"h","showlegend":false,"text":"Utah Jazz: 43.2%","textposition":"inside","x":[43.2],"y":["Utah Jazz @ Memphis Grizzlies"],"type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"barmode":"stack","xaxis":{"title":{"text":"Implied Probability (%)"}},"yaxis":{"title":{"text":""}},"height":1020,"title":{"text":"Implied Win Probabilities (Consensus Odds)"}},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('928a93fa-9d16-441f-9958-ea8db2ab4f4a');
+var gd = document.getElementById('2dcd42e7-6110-4123-9ba6-3949462349a7');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1209,7 +1281,7 @@ if (outputEl) {{
 <h2 class="anchored" data-anchor-id="section-4-player-props-explorer">Section 4: Player Props Explorer</h2>
 <p>This is where it gets really fun. We’ll pick a game, pull player props (points, rebounds, assists), and see where bookmakers disagree on the lines. Bigger disagreements = potential value bets.</p>
 <p>Let’s grab the first game and see what props are available.</p>
-<div id="5ede69fd" class="cell" data-execution_count="8">
+<div id="b50deb55" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Pick the first game</span></span>
@@ -1341,11 +1413,11 @@ font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Fetching props for: Atlanta Hawks @ Philadelphia 76ers
-Quota used: 200 | Remaining: 300</code></pre>
+<pre><code>Fetching props for: Houston Rockets @ Charlotte Hornets
+Quota used: 206 | Remaining: 294</code></pre>
 </div>
 </div>
-<div id="d8f7e11c" class="cell" data-execution_count="9">
+<div id="0e7ae4a1" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">props_df <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> flatten_props(props_data)</span>
@@ -1374,7 +1446,7 @@ background-color: null;
 font-style: inherit;"> players'</span>)</span>
 <span id="cb11-3">props_df.head()</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>732 prop lines across 17 players</code></pre>
+<pre><code>416 prop lines across 15 players</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -1397,46 +1469,46 @@ font-style: inherit;"> players'</span>)</span>
 <th data-quarto-table-cell-role="th">0</th>
 <td>FanDuel</td>
 <td>player_assists</td>
-<td>Jalen Johnson</td>
+<td>Kevin Durant</td>
 <td>Over</td>
-<td>8.5</td>
-<td>-102</td>
+<td>5.5</td>
+<td>136</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
 <td>FanDuel</td>
 <td>player_assists</td>
-<td>Jalen Johnson</td>
+<td>Kevin Durant</td>
 <td>Under</td>
-<td>8.5</td>
-<td>-125</td>
+<td>5.5</td>
+<td>-182</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">2</th>
 <td>FanDuel</td>
 <td>player_assists</td>
-<td>Trendon Watford</td>
+<td>Brandon Miller</td>
 <td>Over</td>
-<td>3.5</td>
-<td>144</td>
+<td>4.5</td>
+<td>-132</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">3</th>
 <td>FanDuel</td>
 <td>player_assists</td>
-<td>Trendon Watford</td>
+<td>Brandon Miller</td>
 <td>Under</td>
-<td>3.5</td>
-<td>-186</td>
+<td>4.5</td>
+<td>100</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">4</th>
 <td>FanDuel</td>
 <td>player_assists</td>
-<td>Onyeka Okongwu</td>
+<td>Amen Thompson</td>
 <td>Over</td>
-<td>2.5</td>
-<td>-120</td>
+<td>3.5</td>
+<td>-110</td>
 </tr>
 </tbody>
 </table>
@@ -1444,7 +1516,7 @@ font-style: inherit;"> players'</span>)</span>
 </div>
 </div>
 </div>
-<div id="6e310ba6" class="cell" data-execution_count="10">
+<div id="0751a3e7" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Scatter plot: points props, Over side only</span></span>
@@ -1558,9 +1630,9 @@ font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'No points props available for this game yet.'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
-<div>                            <div id="5ba1a102-4e55-4c08-8479-ab7c9812141e" class="plotly-graph-div" style="height:600px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("5ba1a102-4e55-4c08-8479-ab7c9812141e")) {                    Plotly.newPlot(                        "5ba1a102-4e55-4c08-8479-ab7c9812141e",                        [{"customdata":[["Onyeka Okongwu","FanDuel"],["Nickeil Alexander-Walker","FanDuel"],["Trendon Watford","FanDuel"],["Tyrese Maxey","FanDuel"],["Dominick Barlow","FanDuel"],["C.J. McCollum","FanDuel"],["Zaccharie Risacher","FanDuel"],["Dyson Daniels","FanDuel"],["Quentin Grimes","FanDuel"],["Adem Bona","FanDuel"],["VJ Edgecombe","FanDuel"],["Kelly Oubre Jr","FanDuel"],["Jock Landale","FanDuel"],["Jalen Johnson","FanDuel"],["Corey Kispert","FanDuel"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"FanDuel","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers+text","name":"FanDuel","orientation":"v","showlegend":true,"text":["Onyeka Okongwu","Nickeil Alexander-Walker","Trendon Watford","Tyrese Maxey","Dominick Barlow","C.J. McCollum","Zaccharie Risacher","Dyson Daniels","Quentin Grimes","Adem Bona","VJ Edgecombe","Kelly Oubre Jr","Jock Landale","Jalen Johnson","Corey Kispert"],"x":[14.5,18.5,8.5,30.5,9.5,16.5,8.5,10.5,11.5,6.5,16.5,16.5,7.5,22.5,8.5],"xaxis":"x","y":[-128,-130,-111,-118,-104,-115,-120,-104,-118,-130,-108,-115,-128,-111,-128],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"},{"customdata":[["Tyrese Maxey","BetRivers"],["Adem Bona","BetRivers"],["Jalen Johnson","BetRivers"],["Nickeil Alexander-Walker","BetRivers"],["Zaccharie Risacher","BetRivers"],["Zaccharie Risacher","BetRivers"],["Kelly Oubre Jr","BetRivers"],["Onyeka Okongwu","BetRivers"],["C.J. McCollum","BetRivers"],["Onyeka Okongwu","BetRivers"],["Onyeka Okongwu","BetRivers"],["Dyson Daniels","BetRivers"],["C.J. McCollum","BetRivers"],["Jock Landale","BetRivers"],["Nickeil Alexander-Walker","BetRivers"],["Jalen Johnson","BetRivers"],["VJ Edgecombe","BetRivers"],["VJ Edgecombe","BetRivers"],["Adem Bona","BetRivers"],["Dyson Daniels","BetRivers"],["Tyrese Maxey","BetRivers"],["Quentin Grimes","BetRivers"],["C.J. McCollum","BetRivers"],["Nickeil Alexander-Walker","BetRivers"],["Quentin Grimes","BetRivers"],["Kelly Oubre Jr","BetRivers"],["Dominick Barlow","BetRivers"],["VJ Edgecombe","BetRivers"],["Kelly Oubre Jr","BetRivers"],["Jalen Johnson","BetRivers"],["Dominick Barlow","BetRivers"],["Tyrese Maxey","BetRivers"],["Tyrese Maxey","BetRivers"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"BetRivers","marker":{"color":"#EF553B","symbol":"circle"},"mode":"markers+text","name":"BetRivers","orientation":"v","showlegend":true,"text":["Tyrese Maxey","Adem Bona","Jalen Johnson","Nickeil Alexander-Walker","Zaccharie Risacher","Zaccharie Risacher","Kelly Oubre Jr","Onyeka Okongwu","C.J. McCollum","Onyeka Okongwu","Onyeka Okongwu","Dyson Daniels","C.J. McCollum","Jock Landale","Nickeil Alexander-Walker","Jalen Johnson","VJ Edgecombe","VJ Edgecombe","Adem Bona","Dyson Daniels","Tyrese Maxey","Quentin Grimes","C.J. McCollum","Nickeil Alexander-Walker","Quentin Grimes","Kelly Oubre Jr","Dominick Barlow","VJ Edgecombe","Kelly Oubre Jr","Jalen Johnson","Dominick Barlow","Tyrese Maxey","Tyrese Maxey"],"x":[30.5,7.5,22.5,18.5,8.5,9.5,16.5,15.5,16.5,14.5,16.5,10.5,17.5,7.5,19.5,23.5,16.5,17.5,6.5,11.5,31.5,11.5,15.5,17.5,12.5,17.5,8.5,15.5,15.5,21.5,9.5,29.5,32.5],"xaxis":"x","y":[-124,-110,-110,-127,-129,108,-125,-112,-124,-143,118,-121,104,-115,100,115,-110,118,-165,114,-103,-127,-162,-165,108,104,-157,-143,-167,-137,-112,-150,118],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"},{"customdata":[["Tyrese Maxey","DraftKings"],["Jalen Johnson","DraftKings"],["Nickeil Alexander-Walker","DraftKings"],["Kelly Oubre Jr","DraftKings"],["C.J. McCollum","DraftKings"],["VJ Edgecombe","DraftKings"],["Onyeka Okongwu","DraftKings"],["Quentin Grimes","DraftKings"],["Dyson Daniels","DraftKings"],["Corey Kispert","DraftKings"],["Dominick Barlow","DraftKings"],["Zaccharie Risacher","DraftKings"],["Trendon Watford","DraftKings"],["Jock Landale","DraftKings"],["Adem Bona","DraftKings"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"DraftKings","marker":{"color":"#00cc96","symbol":"circle"},"mode":"markers+text","name":"DraftKings","orientation":"v","showlegend":true,"text":["Tyrese Maxey","Jalen Johnson","Nickeil Alexander-Walker","Kelly Oubre Jr","C.J. McCollum","VJ Edgecombe","Onyeka Okongwu","Quentin Grimes","Dyson Daniels","Corey Kispert","Dominick Barlow","Zaccharie Risacher","Trendon Watford","Jock Landale","Adem Bona"],"x":[30.5,22.5,18.5,16.5,16.5,16.5,14.5,12.5,10.5,9.5,9.5,8.5,8.5,7.5,7.5],"xaxis":"x","y":[-117,-120,-123,-117,-115,-115,-127,-101,-106,-109,-102,-120,-111,-116,-104],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"},{"customdata":[["Jalen Johnson","BetMGM"],["Dyson Daniels","BetMGM"],["Zaccharie Risacher","BetMGM"],["Nickeil Alexander-Walker","BetMGM"],["Onyeka Okongwu","BetMGM"],["Corey Kispert","BetMGM"],["C.J. McCollum","BetMGM"],["Quentin Grimes","BetMGM"],["Dominick Barlow","BetMGM"],["Kelly Oubre Jr","BetMGM"],["Tyrese Maxey","BetMGM"],["VJ Edgecombe","BetMGM"],["Jock Landale","BetMGM"],["Trendon Watford","BetMGM"],["Justin Edwards","BetMGM"],["Andre Drummond","BetMGM"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"BetMGM","marker":{"color":"#ab63fa","symbol":"circle"},"mode":"markers+text","name":"BetMGM","orientation":"v","showlegend":true,"text":["Jalen Johnson","Dyson Daniels","Zaccharie Risacher","Nickeil Alexander-Walker","Onyeka Okongwu","Corey Kispert","C.J. McCollum","Quentin Grimes","Dominick Barlow","Kelly Oubre Jr","Tyrese Maxey","VJ Edgecombe","Jock Landale","Trendon Watford","Justin Edwards","Andre Drummond"],"x":[22.5,10.5,8.5,19.5,15.5,9.5,17.5,11.5,9.5,16.5,30.5,16.5,7.5,8.5,5.5,6.5],"xaxis":"x","y":[-130,100,-135,105,-110,-105,-110,-118,-118,-130,-118,-120,-110,-130,100,100],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"},{"customdata":[["Jalen Johnson","BetOnline.ag"],["Nickeil Alexander-Walker","BetOnline.ag"],["Dyson Daniels","BetOnline.ag"],["Onyeka Okongwu","BetOnline.ag"],["C.J. McCollum","BetOnline.ag"],["Corey Kispert","BetOnline.ag"],["Zaccharie Risacher","BetOnline.ag"],["Dominick Barlow","BetOnline.ag"],["Tyrese Maxey","BetOnline.ag"],["Kelly Oubre Jr","BetOnline.ag"],["Quentin Grimes","BetOnline.ag"],["VJ Edgecombe","BetOnline.ag"],["Jock Landale","BetOnline.ag"],["Trendon Watford","BetOnline.ag"],["Adem Bona","BetOnline.ag"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"BetOnline.ag","marker":{"color":"#FFA15A","symbol":"circle"},"mode":"markers+text","name":"BetOnline.ag","orientation":"v","showlegend":true,"text":["Jalen Johnson","Nickeil Alexander-Walker","Dyson Daniels","Onyeka Okongwu","C.J. McCollum","Corey Kispert","Zaccharie Risacher","Dominick Barlow","Tyrese Maxey","Kelly Oubre Jr","Quentin Grimes","VJ Edgecombe","Jock Landale","Trendon Watford","Adem Bona"],"x":[22.5,19.5,10.5,15.5,16.5,9.5,8.5,9.5,30.5,16.5,11.5,16.5,7.5,8.5,7.5],"xaxis":"x","y":[-118,100,-103,-106,-118,-106,-123,-109,-118,-120,-118,-116,-119,-105,-108],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"},{"customdata":[["Adem Bona","Bovada"],["Adem Bona","Bovada"],["Adem Bona","Bovada"],["Adem Bona","Bovada"],["Adem Bona","Bovada"],["C.J. McCollum","Bovada"],["C.J. McCollum","Bovada"],["C.J. McCollum","Bovada"],["C.J. McCollum","Bovada"],["C.J. McCollum","Bovada"],["C.J. McCollum","Bovada"],["C.J. McCollum","Bovada"],["Corey Kispert","Bovada"],["Corey Kispert","Bovada"],["Corey Kispert","Bovada"],["Corey Kispert","Bovada"],["Corey Kispert","Bovada"],["Dominick Barlow","Bovada"],["Dominick Barlow","Bovada"],["Dominick Barlow","Bovada"],["Dominick Barlow","Bovada"],["Dominick Barlow","Bovada"],["Dominick Barlow","Bovada"],["Dyson Daniels","Bovada"],["Dyson Daniels","Bovada"],["Dyson Daniels","Bovada"],["Dyson Daniels","Bovada"],["Dyson Daniels","Bovada"],["Dyson Daniels","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jalen Johnson","Bovada"],["Jock Landale","Bovada"],["Jock Landale","Bovada"],["Jock Landale","Bovada"],["Jock Landale","Bovada"],["Jock Landale","Bovada"],["Kelly Oubre Jr","Bovada"],["Kelly Oubre Jr","Bovada"],["Kelly Oubre Jr","Bovada"],["Kelly Oubre Jr","Bovada"],["Kelly Oubre Jr","Bovada"],["Kelly Oubre Jr","Bovada"],["Kelly Oubre Jr","Bovada"],["Kelly Oubre Jr","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Nickeil Alexander-Walker","Bovada"],["Onyeka Okongwu","Bovada"],["Onyeka Okongwu","Bovada"],["Onyeka Okongwu","Bovada"],["Onyeka Okongwu","Bovada"],["Onyeka Okongwu","Bovada"],["Onyeka Okongwu","Bovada"],["Onyeka Okongwu","Bovada"],["Onyeka Okongwu","Bovada"],["Quentin Grimes","Bovada"],["Quentin Grimes","Bovada"],["Quentin Grimes","Bovada"],["Quentin Grimes","Bovada"],["Quentin Grimes","Bovada"],["Quentin Grimes","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["Tyrese Maxey","Bovada"],["VJ Edgecombe","Bovada"],["VJ Edgecombe","Bovada"],["VJ Edgecombe","Bovada"],["VJ Edgecombe","Bovada"],["VJ Edgecombe","Bovada"],["VJ Edgecombe","Bovada"],["VJ Edgecombe","Bovada"],["Zaccharie Risacher","Bovada"],["Zaccharie Risacher","Bovada"],["Zaccharie Risacher","Bovada"],["Zaccharie Risacher","Bovada"],["Zaccharie Risacher","Bovada"],["Zaccharie Risacher","Bovada"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Bovada","marker":{"color":"#19d3f3","symbol":"circle"},"mode":"markers+text","name":"Bovada","orientation":"v","showlegend":true,"text":["Adem Bona","Adem Bona","Adem Bona","Adem Bona","Adem Bona","C.J. McCollum","C.J. McCollum","C.J. McCollum","C.J. McCollum","C.J. McCollum","C.J. McCollum","C.J. McCollum","Corey Kispert","Corey Kispert","Corey Kispert","Corey Kispert","Corey Kispert","Dominick Barlow","Dominick Barlow","Dominick Barlow","Dominick Barlow","Dominick Barlow","Dominick Barlow","Dyson Daniels","Dyson Daniels","Dyson Daniels","Dyson Daniels","Dyson Daniels","Dyson Daniels","Jalen Johnson","Jalen Johnson","Jalen Johnson","Jalen Johnson","Jalen Johnson","Jalen Johnson","Jalen Johnson","Jalen Johnson","Jalen Johnson","Jock Landale","Jock Landale","Jock Landale","Jock Landale","Jock Landale","Kelly Oubre Jr","Kelly Oubre Jr","Kelly Oubre Jr","Kelly Oubre Jr","Kelly Oubre Jr","Kelly Oubre Jr","Kelly Oubre Jr","Kelly Oubre Jr","Nickeil Alexander-Walker","Nickeil Alexander-Walker","Nickeil Alexander-Walker","Nickeil Alexander-Walker","Nickeil Alexander-Walker","Nickeil Alexander-Walker","Nickeil Alexander-Walker","Nickeil Alexander-Walker","Onyeka Okongwu","Onyeka Okongwu","Onyeka Okongwu","Onyeka Okongwu","Onyeka Okongwu","Onyeka Okongwu","Onyeka Okongwu","Onyeka Okongwu","Quentin Grimes","Quentin Grimes","Quentin Grimes","Quentin Grimes","Quentin Grimes","Quentin Grimes","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","Tyrese Maxey","VJ Edgecombe","VJ Edgecombe","VJ Edgecombe","VJ Edgecombe","VJ Edgecombe","VJ Edgecombe","VJ Edgecombe","Zaccharie Risacher","Zaccharie Risacher","Zaccharie Risacher","Zaccharie Risacher","Zaccharie Risacher","Zaccharie Risacher"],"x":[5.5,6.5,7.5,8.5,9.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,7.5,8.5,9.5,10.5,11.5,7.5,8.5,9.5,10.5,11.5,12.5,7.5,8.5,9.5,10.5,11.5,12.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5,5.5,6.5,7.5,8.5,9.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,20.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,9.5,10.5,11.5,12.5,13.5,14.5,25.5,26.5,27.5,28.5,29.5,30.5,31.5,32.5,33.5,34.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,6.5,7.5,8.5,9.5,10.5,11.5],"xaxis":"x","y":[-230,-150,-105,135,180,-220,-170,-130,-105,120,150,190,-210,-145,-105,130,170,-230,-160,-115,120,155,205,-300,-200,-145,-105,125,165,-275,-210,-165,-135,-110,110,135,165,200,-260,-170,-120,115,160,-290,-215,-165,-125,100,125,155,190,-280,-215,-165,-130,-105,120,145,180,-275,-210,-160,-120,105,135,170,210,-220,-165,-120,110,145,185,-280,-230,-185,-150,-125,-105,115,135,160,190,-245,-185,-145,-110,115,145,180,-280,-185,-130,105,145,190],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Points Line"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Odds (American)"}},"legend":{"title":{"text":"bookmaker"},"tracegroupgap":0},"title":{"text":"Points Props — Atlanta Hawks @ Philadelphia 76ers"},"height":600},                        {"responsive": true}                    ).then(function(){
+<div>                            <div id="6728200e-7f63-48de-b97c-48c18175d9c4" class="plotly-graph-div" style="height:600px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("6728200e-7f63-48de-b97c-48c18175d9c4")) {                    Plotly.newPlot(                        "6728200e-7f63-48de-b97c-48c18175d9c4",                        [{"customdata":[["Tari Eason","FanDuel"],["Reed Sheppard","FanDuel"],["Alperen Sengun","FanDuel"],["LaMelo Ball","FanDuel"],["Amen Thompson","FanDuel"],["Brandon Miller","FanDuel"],["Kevin Durant","FanDuel"],["Jabari Smith Jr","FanDuel"],["Kon Knueppel","FanDuel"],["Grant Williams","FanDuel"],["Ryan Kalkbrenner","FanDuel"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"FanDuel","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers+text","name":"FanDuel","orientation":"v","showlegend":true,"text":["Tari Eason","Reed Sheppard","Alperen Sengun","LaMelo Ball","Amen Thompson","Brandon Miller","Kevin Durant","Jabari Smith Jr","Kon Knueppel","Grant Williams","Ryan Kalkbrenner"],"x":[11.5,10.5,14.5,17.5,12.5,17.5,30.5,15.5,17.5,12.5,9.5],"xaxis":"x","y":[-102,100,-132,-122,-118,-128,-102,100,-125,-106,-144],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"},{"customdata":[["Kevin Durant","DraftKings"],["Kon Knueppel","DraftKings"],["LaMelo Ball","DraftKings"],["Brandon Miller","DraftKings"],["Alperen Sengun","DraftKings"],["Jabari Smith Jr","DraftKings"],["Amen Thompson","DraftKings"],["Grant Williams","DraftKings"],["Tari Eason","DraftKings"],["Ryan Kalkbrenner","DraftKings"],["Reed Sheppard","DraftKings"],["Sion James","DraftKings"],["Tidjane Salaun","DraftKings"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"DraftKings","marker":{"color":"#EF553B","symbol":"circle"},"mode":"markers+text","name":"DraftKings","orientation":"v","showlegend":true,"text":["Kevin Durant","Kon Knueppel","LaMelo Ball","Brandon Miller","Alperen Sengun","Jabari Smith Jr","Amen Thompson","Grant Williams","Tari Eason","Ryan Kalkbrenner","Reed Sheppard","Sion James","Tidjane Salaun"],"x":[30.5,18.5,18.5,17.5,15.5,15.5,12.5,12.5,12.5,10.5,9.5,8.5,7.5],"xaxis":"x","y":[-115,-105,-105,-125,-110,100,-130,-125,100,105,-125,114,105],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"},{"customdata":[["Alperen Sengun","Bovada"],["Alperen Sengun","Bovada"],["Alperen Sengun","Bovada"],["Alperen Sengun","Bovada"],["Alperen Sengun","Bovada"],["Alperen Sengun","Bovada"],["Alperen Sengun","Bovada"],["Alperen Sengun","Bovada"],["Amen Thompson","Bovada"],["Amen Thompson","Bovada"],["Amen Thompson","Bovada"],["Amen Thompson","Bovada"],["Amen Thompson","Bovada"],["Amen Thompson","Bovada"],["Amen Thompson","Bovada"],["Amen Thompson","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Brandon Miller","Bovada"],["Grant Williams","Bovada"],["Grant Williams","Bovada"],["Grant Williams","Bovada"],["Grant Williams","Bovada"],["Grant Williams","Bovada"],["Jabari Smith Jr","Bovada"],["Jabari Smith Jr","Bovada"],["Jabari Smith Jr","Bovada"],["Jabari Smith Jr","Bovada"],["Jabari Smith Jr","Bovada"],["Jabari Smith Jr","Bovada"],["Jabari Smith Jr","Bovada"],["Josh Green","Bovada"],["Josh Green","Bovada"],["Josh Green","Bovada"],["Josh Green","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kevin Durant","Bovada"],["Kon Knueppel","Bovada"],["Kon Knueppel","Bovada"],["Kon Knueppel","Bovada"],["Kon Knueppel","Bovada"],["Kon Knueppel","Bovada"],["Kon Knueppel","Bovada"],["Kon Knueppel","Bovada"],["Kon Knueppel","Bovada"],["LaMelo Ball","Bovada"],["LaMelo Ball","Bovada"],["LaMelo Ball","Bovada"],["LaMelo Ball","Bovada"],["LaMelo Ball","Bovada"],["LaMelo Ball","Bovada"],["LaMelo Ball","Bovada"],["LaMelo Ball","Bovada"],["Reed Sheppard","Bovada"],["Reed Sheppard","Bovada"],["Reed Sheppard","Bovada"],["Reed Sheppard","Bovada"],["Reed Sheppard","Bovada"],["Reed Sheppard","Bovada"],["Ryan Kalkbrenner","Bovada"],["Ryan Kalkbrenner","Bovada"],["Ryan Kalkbrenner","Bovada"],["Ryan Kalkbrenner","Bovada"],["Ryan Kalkbrenner","Bovada"],["Ryan Kalkbrenner","Bovada"],["Sion James","Bovada"],["Sion James","Bovada"],["Sion James","Bovada"],["Sion James","Bovada"],["Tari Eason","Bovada"],["Tari Eason","Bovada"],["Tari Eason","Bovada"],["Tari Eason","Bovada"],["Tari Eason","Bovada"],["Tari Eason","Bovada"],["Tari Eason","Bovada"],["Tidjane Salaun","Bovada"],["Tidjane Salaun","Bovada"],["Tidjane Salaun","Bovada"],["Tidjane Salaun","Bovada"]],"hovertemplate":"bookmaker=%{customdata[1]}\u003cbr\u003eline=%{x}\u003cbr\u003eprice=%{y}\u003cbr\u003eplayer=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Bovada","marker":{"color":"#00cc96","symbol":"circle"},"mode":"markers+text","name":"Bovada","orientation":"v","showlegend":true,"text":["Alperen Sengun","Alperen Sengun","Alperen Sengun","Alperen Sengun","Alperen Sengun","Alperen Sengun","Alperen Sengun","Alperen Sengun","Amen Thompson","Amen Thompson","Amen Thompson","Amen Thompson","Amen Thompson","Amen Thompson","Amen Thompson","Amen Thompson","Brandon Miller","Brandon Miller","Brandon Miller","Brandon Miller","Brandon Miller","Brandon Miller","Brandon Miller","Brandon Miller","Brandon Miller","Grant Williams","Grant Williams","Grant Williams","Grant Williams","Grant Williams","Jabari Smith Jr","Jabari Smith Jr","Jabari Smith Jr","Jabari Smith Jr","Jabari Smith Jr","Jabari Smith Jr","Jabari Smith Jr","Josh Green","Josh Green","Josh Green","Josh Green","Kevin Durant","Kevin Durant","Kevin Durant","Kevin Durant","Kevin Durant","Kevin Durant","Kevin Durant","Kevin Durant","Kevin Durant","Kon Knueppel","Kon Knueppel","Kon Knueppel","Kon Knueppel","Kon Knueppel","Kon Knueppel","Kon Knueppel","Kon Knueppel","LaMelo Ball","LaMelo Ball","LaMelo Ball","LaMelo Ball","LaMelo Ball","LaMelo Ball","LaMelo Ball","LaMelo Ball","Reed Sheppard","Reed Sheppard","Reed Sheppard","Reed Sheppard","Reed Sheppard","Reed Sheppard","Ryan Kalkbrenner","Ryan Kalkbrenner","Ryan Kalkbrenner","Ryan Kalkbrenner","Ryan Kalkbrenner","Ryan Kalkbrenner","Sion James","Sion James","Sion James","Sion James","Tari Eason","Tari Eason","Tari Eason","Tari Eason","Tari Eason","Tari Eason","Tari Eason","Tidjane Salaun","Tidjane Salaun","Tidjane Salaun","Tidjane Salaun"],"x":[15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,12.5,13.5,14.5,15.5,16.5,17.5,18.5,19.5,18.5,19.5,20.5,21.5,22.5,23.5,24.5,25.5,26.5,7.5,8.5,9.5,10.5,11.5,11.5,12.5,13.5,14.5,15.5,16.5,17.5,3.5,4.5,5.5,6.5,21.5,22.5,23.5,24.5,25.5,26.5,27.5,28.5,29.5,15.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,16.5,17.5,18.5,19.5,20.5,21.5,22.5,23.5,8.5,9.5,10.5,11.5,12.5,13.5,5.5,6.5,7.5,8.5,9.5,10.5,3.5,4.5,5.5,6.5,10.5,11.5,12.5,13.5,14.5,15.5,16.5,3.5,4.5,5.5,6.5],"xaxis":"x","y":[-275,-200,-160,-125,100,125,155,190,-290,-215,-165,-125,105,130,165,205,-275,-215,-170,-135,-110,110,135,165,200,-220,-150,-110,125,165,-260,-190,-145,-110,115,150,185,-190,-120,125,185,-245,-200,-160,-130,-105,115,140,170,200,-280,-215,-165,-130,-105,120,145,180,-260,-200,-160,-125,100,125,150,185,-260,-180,-130,105,135,175,-280,-180,-125,110,150,205,-210,-125,120,175,-245,-180,-130,100,130,165,210,-280,-170,-110,135],"yaxis":"y","type":"scatter","textfont":{"size":9},"textposition":"top center"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Points Line"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Odds (American)"}},"legend":{"title":{"text":"bookmaker"},"tracegroupgap":0},"title":{"text":"Points Props — Houston Rockets @ Charlotte Hornets"},"height":600},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('5ba1a102-4e55-4c08-8479-ab7c9812141e');
+var gd = document.getElementById('6728200e-7f63-48de-b97c-48c18175d9c4');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1635,7 +1707,7 @@ if (outputEl) {{
 background-color: null;
 font-style: inherit;">pip</span> install cfbd</span></code></pre></div></div>
 <p>Now let’s import what we need and set up the API:</p>
-<div id="6889cc3f" class="cell" data-execution_count="1">
+<div id="1d1e0678" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> cfbd</span>
@@ -1685,7 +1757,7 @@ font-style: inherit;">=</span> cfbd.GamesApi(cfbd.ApiClient(configuration))</spa
 <section id="pulling-game-data" class="level2">
 <h2 class="anchored" data-anchor-id="pulling-game-data">Pulling Game Data</h2>
 <p>Let’s start by grabbing all 2025 games to see what we’re working with:</p>
-<div id="efc81582" class="cell" data-execution_count="2">
+<div id="5db09348" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Get 2025 season games</span></span>
@@ -1722,7 +1794,7 @@ font-style: inherit;">"</span>)</span>
 <span id="cb3-6">df_2025.head()</span></code></pre></div></div>
 </div>
 <p>This pulls every single college football game from 2025 - we’re talking thousands of games. But we only care about Oklahoma, so let’s filter:</p>
-<div id="a342fdbb" class="cell" data-execution_count="3">
+<div id="e624d275" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Filter for just Oklahoma games (both home and away)</span></span>
@@ -1778,7 +1850,7 @@ font-style: inherit;">10</span>)</span></code></pre></div></div>
 <section id="calculating-points-scored-vs-points-allowed" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-points-scored-vs-points-allowed">Calculating Points Scored vs Points Allowed</h2>
 <p>Here’s where it gets interesting. For each game, we need to figure out if Oklahoma was the home team or away team, then track their points scored and points allowed.</p>
-<div id="ba28610b" class="cell" data-execution_count="4">
+<div id="5718f123" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Figure out if Oklahoma was home or away</span></span>
@@ -1874,7 +1946,7 @@ font-style: inherit;">10</span>)</span></code></pre></div></div>
 <section id="expanding-to-multiple-seasons" class="level2">
 <h2 class="anchored" data-anchor-id="expanding-to-multiple-seasons">Expanding to Multiple Seasons</h2>
 <p>One season is interesting, but trends over time? That’s where the magic happens. Let’s grab 6 seasons (2020-2025) and process them all:</p>
-<div id="df5b5282" class="cell" data-execution_count="5">
+<div id="ab3c8702" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Get data for 2020-2025 seasons</span></span>
@@ -2101,7 +2173,7 @@ font-style: inherit;"> total points scored"</span>)</span></code></pre></div></d
 <section id="visualizing-the-trends" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-trends">Visualizing the Trends</h2>
 <p>Let’s create two charts - one for offense (cumulative points scored) and one for defense (cumulative points allowed):</p>
-<div id="44e1711c" class="cell" data-execution_count="6">
+<div id="7c4d7f35" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Visualize offensive and defensive trends</span></span>
@@ -2305,7 +2377,7 @@ font-style: inherit;">0.3</span>)</span>
 <section id="breaking-down-points-per-game" class="level2">
 <h2 class="anchored" data-anchor-id="breaking-down-points-per-game">Breaking Down Points Per Game</h2>
 <p>Cumulative stats are cool, but let’s normalize this by looking at points per game:</p>
-<div id="426ffeb8" class="cell" data-execution_count="7">
+<div id="7abc2412" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Calculate average points per game for each season</span></span>
@@ -2385,7 +2457,7 @@ font-style: inherit;"> point differential"</span>)</span></code></pre></div></di
 <section id="final-visualization-side-by-side-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="final-visualization-side-by-side-comparison">Final Visualization: Side-by-Side Comparison</h2>
 <p>Let’s make one more chart using Oklahoma’s crimson and cream colors to show the year-over-year comparison:</p>
-<div id="c23377d8" class="cell" data-execution_count="8">
+<div id="3b737c6c" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Create bar chart comparing PPG across seasons</span></span>
@@ -2586,7 +2658,7 @@ font-style: inherit;">0.3</span>)</span>
 <li>Key parameters include <code>SPORT</code>, <code>REGIONS</code>, <code>MARKETS</code>, <code>ODDS_FORMAT</code>, and <code>DATE_FORMAT</code>.</li>
 </ul>
 <p>The below will work. Money Back Guarantee. Just get your own API key.</p>
-<div id="fbaf7498" class="cell" data-execution_count="1">
+<div id="4d7e4c42" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> requests</span>
@@ -2815,7 +2887,7 @@ font-style: inherit;">"</span>)</span></code></pre></div></div>
 <section id="flattening-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="flattening-the-data">Flattening the Data</h2>
 <p>The above code pulls data for upcoming games. And then if you want the data to be nice and clean, instead of a JSON, the below should work for ya.</p>
-<div id="f40b0361" class="cell" data-execution_count="2">
+<div id="79156f28" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
@@ -3122,7 +3194,7 @@ font-style: inherit;">print</span>(df)</span></code></pre></div></div>
 <h2 class="anchored" data-anchor-id="gathering-the-data">Gathering the Data</h2>
 <p>The first step is identifying what player you’d like to analyze. Use the player ID to pull their career stats. Replace the current ID <code>'202681'</code> with whatever the new player ID is.</p>
 <p>The code utilizes the <code>nba_api.stats.endpoints</code> module, specifically tapping into <code>playercareerstats</code>. This function will fetch the comprehensive career statistics of your chosen player.</p>
-<div id="bea22083" class="cell" data-execution_count="1">
+<div id="bf94d79c" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> nba_api.stats.endpoints <span class="im" style="color: #00769E;
@@ -3158,7 +3230,7 @@ background-color: null;
 font-style: inherit;">print</span>(seasons_played.tolist())</span></code></pre></div></div>
 </div>
 <p>The above code will print out the number of seasons the NBA player you chose played in a list like this: <code>['2019-20', '2020-21', '2021-22', '2022-23', '2023-24']</code>. Copy the years output and replace the list of seasons below.</p>
-<div id="780ae0dc" class="cell" data-execution_count="2">
+<div id="d5716a53" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
@@ -3247,7 +3319,7 @@ font-style: inherit;">True</span>)</span></code></pre></div></div>
 <section id="data-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-processing">Data Processing</h2>
 <p>After pulling the data, the next steps involve processing the data for analysis and visualization. While the data comes pretty clean after the API pull, there was some processing I did. First, ensure the GAME_DATE column is in a datetime format using the pandas <code>to_datetime</code> method.</p>
-<div id="67cf0d98" class="cell" data-execution_count="3">
+<div id="355653b2" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Convert Game_Date to a datetime</span></span>
@@ -3273,7 +3345,7 @@ background-color: null;
 font-style: inherit;">'M'</span>)</span></code></pre></div></div>
 </div>
 <p>Creating summary tables is important for understanding the data and building narratives for story-telling. I used the following code to create a yearly aggregation of the game level stats to tell the story of a player’s career.</p>
-<div id="7c18c754" class="cell" data-execution_count="4">
+<div id="6f4118e8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Aggregate game level data to yearly</span></span>
@@ -3375,7 +3447,7 @@ font-style: inherit;">'FTA'</span>]</span></code></pre></div></div>
 </figure>
 </div>
 <p>In order to get that graphic to work, we must first create the cumulative sum of threes (FG3M) for each season.</p>
-<div id="1b766585" class="cell" data-execution_count="5">
+<div id="6fdac037" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Calculate Cumulative Sum</span></span>
@@ -3399,7 +3471,7 @@ background-color: null;
 font-style: inherit;">'FGM'</span>].cumsum()</span></code></pre></div></div>
 </div>
 <p>Finally, this code snippet is designed to plot a distinct line for each season, representing the cumulative field goals made by the player. I’ve chosen red for the 2023 season to make it stand out against the others which will be grey.</p>
-<div id="28fdaf2e" class="cell" data-execution_count="6">
+<div id="8970e524" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Plotting a line for each season</span></span>
@@ -3524,7 +3596,7 @@ font-style: inherit;">'Cumulative FG Made'</span>)</span></code></pre></div></di
 <h2 class="anchored" data-anchor-id="nba-api">NBA API</h2>
 <p>Using the <code>nba_api</code> package, it is simple to write a script or program that can request and parse NBA data. The <code>nba_api</code> provides many methods such as <code>get_players()</code>, <code>playercareerstats()</code>, etc. These methods can be used to pull data from the NBA API and transform it into a pandas dataframe.</p>
 <p>Let’s look at an example. The following script pulls data for the top 500 scorers by PTS column, groups them by player name and Player ID columns, and calculates their averages for MIN, FGM, FGA, FTM, FTA, PTS, FG3M, FG3A, and GP columns.</p>
-<div id="5901fe7f" class="cell" data-execution_count="1">
+<div id="3ed1e523" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> nba_api.stats.endpoints <span class="im" style="color: #00769E;
@@ -3629,7 +3701,7 @@ font-style: inherit;">"</span>)</span></code></pre></div></div>
 <section id="visualization" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
 <p>Once we have our data in a pandas dataframe, we can perform additional analysis on it. For example, we can plot the total points scored versus the number of three-pointers made using plotly.</p>
-<div id="3db7ab75" class="cell" data-execution_count="2">
+<div id="1859bbfb" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> plotly.express <span class="im" style="color: #00769E;
@@ -3685,7 +3757,7 @@ font-style: inherit;">=</span>px.colors.sequential.Viridis</span>
 </figure>
 </div>
 <p>The scatter plot shows Total PTS at this point in the season (2/19/2023) and total threes made. To get a better sense of the top players in scoring, I’ve included a table below.</p>
-<div id="e1fedfad" class="cell" data-execution_count="3">
+<div id="862690c3" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Assuming top_500_avg is your DataFrame with average stats</span></span>
