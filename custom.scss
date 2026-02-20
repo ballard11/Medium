@@ -20,7 +20,7 @@ $headings-font-weight: 600;
 $headings-line-height: 1.3;
 
 // Code
-$code-bg: #f8f9fa;
+$code-bg: #ffffff;
 $code-color: #e83e8c;
 
 /*-- scss:rules --*/
@@ -43,7 +43,9 @@ $code-color: #e83e8c;
 }
 
 // Custom heading styles
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin-top: 1.5em;
   margin-bottom: 0.75em;
 }
